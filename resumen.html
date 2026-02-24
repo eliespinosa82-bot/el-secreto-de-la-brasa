@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Reserva tu mesa en El Secreto de la Brasa — Mercado Virgen del Rosario, Cádiz." />
+    <title>Reservar Mesa · El Secreto de la Brasa</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>" />
+</head>
+
+<body class="page-enter">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <button class="back-btn" onclick="history.back()">‹</button>
+        <span class="top-bar-title">📅 Reservar Mesa</span>
+    </div>
+
+    <!-- INFO CARD -->
+    <div style="padding:16px 20px 0;">
+        <div class="card card-accent">
+            <div style="font-size:0.82rem;font-weight:700;margin-bottom:4px;">📍 Mercado Virgen del Rosario · Cádiz
+            </div>
+            <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.5;">
+                Capacidad hasta 20 personas · Mesa libre en tiempo real
+            </div>
+        </div>
+    </div>
+
+    <!-- DATE PICKER -->
+    <div class="section-label">📆 Selecciona la fecha</div>
+    <div class="form-section">
+        <div class="date-strip" id="dateStrip"></div>
+    </div>
+
+    <!-- TIME SLOTS -->
+    <div class="section-label">⏰ Elige tu horario</div>
+    <div class="form-section">
+        <div class="time-grid">
+            <div class="time-slot" data-time="12:00" onclick="selectTime(this)">12:00</div>
+            <div class="time-slot" data-time="12:30" onclick="selectTime(this)">12:30</div>
+            <div class="time-slot full" data-time="13:00">Completo</div>
+            <div class="time-slot" data-time="13:30" onclick="selectTime(this)">13:30</div>
+            <div class="time-slot active" data-time="14:00" onclick="selectTime(this)">14:00</div>
+            <div class="time-slot" data-time="14:30" onclick="selectTime(this)">14:30</div>
+            <div class="time-slot" data-time="20:00" onclick="selectTime(this)">20:00</div>
+            <div class="time-slot" data-time="20:30" onclick="selectTime(this)">20:30</div>
+            <div class="time-slot" data-time="21:00" onclick="selectTime(this)">21:00</div>
+        </div>
+    </div>
+
+    <!-- PARTY SIZE -->
+    <div class="section-label">👥 ¿Cuántas personas?</div>
+    <div class="form-section">
+        <div class="card" style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:0.82rem;color:var(--text-muted);">Número de comensales</div>
+            <div class="stepper">
+                <button class="stepper-btn" onclick="changeParty(-1)">−</button>
+                <span class="stepper-value" id="partyCount">2</span>
+                <button class="stepper-btn" onclick="changeParty(1)">+</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT FORM -->
+    <div class="section-label">📝 Tus datos</div>
+    <div class="form-section" style="display:flex;flex-direction:column;gap:12px;">
+        <div>
+            <label class="field-label" for="nombre">Tu nombre</label>
+            <input class="text-input" id="nombre" type="text" placeholder="Ej: María García" autocomplete="name" />
+        </div>
+        <div>
+            <label class="field-label" for="telefono">Teléfono (WhatsApp)</label>
+            <input class="text-input" id="telefono" type="tel" placeholder="+34 6XX XXX XXX" autocomplete="tel" />
+        </div>
+    </div>
+
+    <!-- WAITLIST CARD -->
+    <div style="padding:12px 20px 0;">
+        <div class="waitlist-card">
+            📲 Si no hay disponibilidad, te añadimos a la <strong style="color:var(--text);">Lista de Espera</strong> y
+            te avisamos por WhatsApp cuando tu mesa esté lista.
+        </div>
+    </div>
+
+    <!-- CTA BUTTON -->
+    <div style="padding:20px;">
+        <button class="btn btn-primary btn-full btn-lg" onclick="confirmarReserva()">
+            🔥 Confirmar Reserva
+        </button>
+        <p style="text-align:center;font-size:0.73rem;color:var(--text-muted);margin-top:8px;">
+            Recibirás confirmación por WhatsApp
+        </p>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+        <a class="nav-item" href="index.html">
+            <span class="nav-icon">🏠</span><span>Inicio</span>
+        </a>
+        <button class="nav-item" onclick="window.location='index.html#carta'">
+            <span class="nav-icon">🍔</span><span>Carta</span>
+        </button>
+        <a class="nav-item active" href="resumen.html">
+            <span class="nav-icon">📅</span><span>Reservas</span>
+        </a>
+        <button class="nav-item" onclick="alert('Próximamente 📦')">
+            <span class="nav-icon">🧾</span><span>Pedidos</span>
+        </button>
+        <button class="nav-item" onclick="alert('Próximamente 👤')">
+            <span class="nav-icon">👤</span><span>Perfil</span>
+        </button>
+    </nav>
+
+    <script>
+        // ── STATE ──
+        let selectedDate = null;
+        let selectedTime = '14:00';
+        let partyCount = 2;
+
+        // ── BUILD DATE STRIP ──
+        function buildDateStrip() {
+            const strip = document.getElementById('dateStrip');
+            const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+            const today = new Date();
+
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(today);
+                d.setDate(today.getDate() + i);
+                const el = document.createElement('div');
+                el.className = 'date-day' + (i === 0 ? ' active' : '');
+                el.dataset.dateStr = d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                el.innerHTML = `<span class="day-name">${days[d.getDay()]}</span><span class="day-num">${d.getDate()}</span>`;
+                el.addEventListener('click', () => {
+                    document.querySelectorAll('.date-day').forEach(x => x.classList.remove('active'));
+                    el.classList.add('active');
+                    selectedDate = el.dataset.dateStr;
+                });
+                if (i === 0) selectedDate = el.dataset.dateStr;
+                strip.appendChild(el);
+            }
+        }
+        buildDateStrip();
+
+        // ── SELECT TIME ──
+        function selectTime(el) {
+            document.querySelectorAll('.time-slot:not(.full)').forEach(x => x.classList.remove('active'));
+            el.classList.add('active');
+            selectedTime = el.dataset.time;
+        }
+
+        // ── PARTY STEPPER ──
+        function changeParty(delta) {
+            partyCount = Math.max(1, Math.min(20, partyCount + delta));
+            document.getElementById('partyCount').textContent = partyCount;
+        }
+
+        // ── CONFIRM ──
+        function confirmarReserva() {
+            const nombre = document.getElementById('nombre').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+
+            if (!nombre) {
+                alert('Por favor introduce tu nombre 😊');
+                document.getElementById('nombre').focus();
+                return;
+            }
+            if (!telefono) {
+                alert('Por favor introduce tu teléfono de WhatsApp 📱');
+                document.getElementById('telefono').focus();
+                return;
+            }
+
+            // Guard: valid date/time
+            if (!selectedDate) selectedDate = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            if (!selectedTime) selectedTime = '14:00';
+
+            // Save to sessionStorage
+            sessionStorage.setItem('reserva', JSON.stringify({
+                nombre,
+                telefono,
+                fecha: selectedDate,
+                hora: selectedTime,
+                personas: partyCount
+            }));
+
+            window.location.href = 'confirmacion.html';
+        }
+    </script>
+</body>
+
+</html>

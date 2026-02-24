@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="El Secreto de la Brasa — El arte del fuego, el alma de la carne. Mercado Virgen del Rosario, Cádiz."/>
+  <title>El Secreto de la Brasa</title>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>"/>
+</head>
+<body class="page-enter">
+
+  <!-- ═══ HERO ═══ -->
+  <div class="hero">
+    <div class="hero-logo-wrap">
+      <div class="logo-badge" style="margin:0 auto;">
+        <span class="logo-name">El Secreto<br/>DE LA</span>
+        <span class="logo-flame">🔥</span>
+        <span class="logo-name">Brasa</span>
+      </div>
+    </div>
+    <p class="hero-tagline">El arte del fuego, el alma de la carne.</p>
+    <p class="hero-sub">Mercado Virgen del Rosario · Cádiz</p>
+  </div>
+
+  <!-- STATUS -->
+  <div class="status-card card" style="margin:16px 20px 0;">
+    <span class="status-dot"></span>
+    <div>
+      <div class="status-text">Abierto Ahora</div>
+      <div class="status-meta">Lun – Dom · 12:00 – 22:00</div>
+    </div>
+  </div>
+
+  <!-- CTA BUTTONS -->
+  <div class="cta-row">
+    <a href="resumen.html" class="btn btn-primary btn-lg">🔥 Reservar Mesa</a>
+    <button class="btn btn-outline btn-lg" onclick="scrollToCarta()">📋 Ver Carta</button>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="divider mt-md"></div>
+
+  <!-- PLATOS DESTACADOS -->
+  <div class="section-label">🌟 Platos Destacados</div>
+  <div class="dishes-scroll">
+    <div class="dish-card">
+      <span class="dish-emoji">🍔</span>
+      <span class="dish-name">La Pistachera</span>
+      <span class="dish-price">15,90€</span>
+    </div>
+    <div class="dish-card">
+      <span class="dish-emoji">🌯</span>
+      <span class="dish-name">El Furioso</span>
+      <span class="dish-price">11,90€</span>
+    </div>
+    <div class="dish-card">
+      <span class="dish-emoji">🥣</span>
+      <span class="dish-name">Nachos Santa Brasa</span>
+      <span class="dish-price">11,90€</span>
+    </div>
+    <div class="dish-card">
+      <span class="dish-emoji">🍔</span>
+      <span class="dish-name">La Secreta</span>
+      <span class="dish-price">13,90€</span>
+    </div>
+    <div class="dish-card">
+      <span class="dish-emoji">🍗</span>
+      <span class="dish-name">Alitas BBQ Koreanas</span>
+      <span class="dish-price">5,90€</span>
+    </div>
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="divider mt-md"></div>
+
+  <!-- CARTA RÁPIDA -->
+  <div id="carta" class="section-label">🍔 La Carta</div>
+  <div style="padding:0 20px;">
+
+    <div class="card mb-md">
+      <div style="font-weight:700;color:var(--accent);margin-bottom:10px;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;">🍔 Hamburguesas</div>
+      <div class="menu-list">
+        <div class="menu-row">
+          <div>
+            <div style="font-weight:700;font-size:0.88rem;">La Secreta</div>
+            <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Angus irlandesa · cebolla crispy · mermelada bacon · salsa secreta</div>
+          </div>
+          <div style="color:var(--accent);font-weight:800;white-space:nowrap;">13,90€</div>
+        </div>
+        <div class="menu-row">
+          <div>
+            <div style="font-weight:700;font-size:0.88rem;">La Pistachera</div>
+            <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Panceta ibérica · huevo frito · salsa pistacho casera</div>
+          </div>
+          <div style="color:var(--accent);font-weight:800;white-space:nowrap;">15,90€</div>
+        </div>
+        <div class="menu-row">
+          <div>
+            <div style="font-weight:700;font-size:0.88rem;">La Campera</div>
+            <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Panceta ibérica · salsa jabugitos · huevo frito</div>
+          </div>
+          <div style="color:var(--accent);font-weight:800;white-space:nowrap;">12,90€</div>
+        </div>
+        <div class="menu-row" style="border-bottom:none;">
+          <div>
+            <div style="font-weight:700;font-size:0.88rem;">La Simple con Queso</div>
+            <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Cheddar americano · edam</div>
+          </div>
+          <div style="color:var(--accent);font-weight:800;white-space:nowrap;">9,00€</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-md">
+      <div style="font-weight:700;color:var(--accent);margin-bottom:10px;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;">🌯 Rolls Dog</div>
+      <div class="menu-row">
+        <div>
+          <div style="font-weight:700;font-size:0.88rem;">El Furioso</div>
+          <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Pulled pork · kimchi · guacamole · jalapeños</div>
+        </div>
+        <div style="color:var(--accent);font-weight:800;white-space:nowrap;">11,90€</div>
+      </div>
+      <div class="menu-row" style="border-bottom:none;">
+        <div>
+          <div style="font-weight:700;font-size:0.88rem;">El Simplón</div>
+          <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Pollo crujiente especiado · mayo de trufa · cheddar</div>
+        </div>
+        <div style="color:var(--accent);font-weight:800;white-space:nowrap;">9,90€</div>
+      </div>
+    </div>
+
+    <div class="card mb-md">
+      <div style="font-weight:700;color:var(--accent);margin-bottom:10px;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;">🥗 Entrantes</div>
+      <div class="menu-row">
+        <div>
+          <div style="font-weight:700;font-size:0.88rem;">Nachos Santa Brasa</div>
+          <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Guacamole · carne salteada · pico de gallo · jalapeños</div>
+        </div>
+        <div style="color:var(--accent);font-weight:800;white-space:nowrap;">11,90€</div>
+      </div>
+      <div class="menu-row" style="border-bottom:none;">
+        <div>
+          <div style="font-weight:700;font-size:0.88rem;">Alitas BBQ Koreanas</div>
+          <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Salsa barbacoa coreana · cebollino</div>
+        </div>
+        <div style="color:var(--accent);font-weight:800;white-space:nowrap;">5,90€</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- LOYALTY TEASER -->
+  <div class="loyalty-teaser">
+    <div class="loyalty-title">🏅 Tarjeta de la Brasa — 9 pedidos, el 10º gratis</div>
+    <div class="loyalty-dots">
+      <div class="stamp filled">🔥</div>
+      <div class="stamp filled">🔥</div>
+      <div class="stamp filled">🔥</div>
+      <div class="stamp filled">🔥</div>
+      <div class="stamp filled">🔥</div>
+      <div class="stamp filled">🔥</div>
+      <div class="stamp filled">🔥</div>
+      <div class="stamp empty">8</div>
+      <div class="stamp empty">9</div>
+      <div class="stamp empty">🎁</div>
+    </div>
+    <div style="margin-top:10px;font-size:0.78rem;color:var(--text-muted);">7 de 10 pedidos · ¡Te faltan 3!</div>
+  </div>
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <a class="nav-item active" href="index.html">
+      <span class="nav-icon">🏠</span><span>Inicio</span>
+    </a>
+    <button class="nav-item" onclick="scrollToCarta()">
+      <span class="nav-icon">🍔</span><span>Carta</span>
+    </button>
+    <a class="nav-item" href="resumen.html">
+      <span class="nav-icon">📅</span><span>Reservas</span>
+    </a>
+    <button class="nav-item" onclick="alert('Próximamente 📦')">
+      <span class="nav-icon">🧾</span><span>Pedidos</span>
+    </button>
+    <button class="nav-item" onclick="alert('Próximamente 👤')">
+      <span class="nav-icon">👤</span><span>Perfil</span>
+    </button>
+  </nav>
+
+  <style>
+    .menu-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+  </style>
+  <script>
+    function scrollToCarta() {
+      document.getElementById('carta').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>

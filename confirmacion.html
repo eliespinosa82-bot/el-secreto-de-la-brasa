@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reserva Confirmada · El Secreto de la Brasa</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>" />
+</head>
+
+<body class="page-enter">
+
+    <!-- TOP BAR -->
+    <div class="top-bar" style="border-bottom:1px solid var(--border);">
+        <span class="top-bar-title">✅ Reserva Confirmada</span>
+    </div>
+
+    <!-- CONFIRM HERO -->
+    <div class="confirm-hero">
+        <div class="confirm-icon">✅</div>
+        <h1 class="confirm-title">¡Mesa Reservada!</h1>
+        <p class="confirm-sub">Gracias, <strong id="confirmNombre" style="color:var(--accent);">—</strong></p>
+        <p class="confirm-sub" style="margin-top:4px;">Tu reserva en El Secreto de la Brasa está confirmada.</p>
+    </div>
+
+    <!-- SUMMARY GRID -->
+    <div class="section-label">📋 Detalles de la Reserva</div>
+    <div class="summary-grid">
+        <div class="summary-item">
+            <span class="summary-label">📅 Fecha</span>
+            <span class="summary-value" id="confirmFecha">—</span>
+        </div>
+        <div class="summary-item">
+            <span class="summary-label">⏰ Hora</span>
+            <span class="summary-value" id="confirmHora">—</span>
+        </div>
+        <div class="summary-item">
+            <span class="summary-label">👥 Personas</span>
+            <span class="summary-value" id="confirmPersonas">—</span>
+        </div>
+        <div class="summary-item">
+            <span class="summary-label">📍 Lugar</span>
+            <span class="summary-value" style="font-size:0.8rem;">Mercado Virgen del Rosario</span>
+        </div>
+    </div>
+
+    <!-- WHATSAPP CARD -->
+    <div class="whatsapp-card">
+        <span class="whatsapp-icon">💬</span>
+        <div class="whatsapp-text">
+            <strong>Confirmación por WhatsApp</strong><br />
+            Recibirás un mensaje en el número <span id="confirmTelefono" style="color:var(--accent);">—</span> con los
+            detalles de tu reserva. Si necesitas hacer algún cambio, escríbenos por WhatsApp.
+        </div>
+    </div>
+
+    <!-- HORARIO CARD -->
+    <div style="padding:0 20px;">
+        <div class="card card-accent" style="display:flex;align-items:center;gap:12px;">
+            <div style="font-size:1.4rem;">🕐</div>
+            <div>
+                <div style="font-size:0.82rem;font-weight:700;">Horario del establecimiento</div>
+                <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">Lunes a Domingo · 12:00 – 22:00 h
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div style="padding:20px;display:flex;flex-direction:column;gap:10px;">
+        <a href="index.html" class="btn btn-primary btn-full btn-lg">
+            🏠 Volver al Inicio
+        </a>
+        <a href="index.html#carta" class="btn btn-outline btn-full btn-lg">
+            📋 Ver la Carta
+        </a>
+    </div>
+
+    <!-- NEW RESERVATION NOTE -->
+    <div style="padding:0 20px 24px;text-align:center;">
+        <p style="font-size:0.75rem;color:var(--text-muted);line-height:1.6;">
+            ¿Quieres cambiar o cancelar tu reserva?<br />
+            Escríbenos directamente por WhatsApp 📲
+        </p>
+    </div>
+
+    <!-- LOYALTY MINI -->
+    <div style="margin:0 20px 12px;">
+        <div class="card" style="display:flex;align-items:center;gap:12px;">
+            <span style="font-size:1.5rem;">🏅</span>
+            <div>
+                <div style="font-size:0.82rem;font-weight:700;">¡Consigue tu Tarjeta de la Brasa!</div>
+                <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">9 pedidos y el 10º es <span
+                        style="color:var(--accent);font-weight:700;">GRATIS 🎁</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAV -->
+    <nav class="bottom-nav">
+        <a class="nav-item" href="index.html">
+            <span class="nav-icon">🏠</span><span>Inicio</span>
+        </a>
+        <button class="nav-item" onclick="window.location='index.html#carta'">
+            <span class="nav-icon">🍔</span><span>Carta</span>
+        </button>
+        <a class="nav-item active" href="resumen.html">
+            <span class="nav-icon">📅</span><span>Reservas</span>
+        </a>
+        <button class="nav-item" onclick="alert('Próximamente 📦')">
+            <span class="nav-icon">🧾</span><span>Pedidos</span>
+        </button>
+        <button class="nav-item" onclick="alert('Próximamente 👤')">
+            <span class="nav-icon">👤</span><span>Perfil</span>
+        </button>
+    </nav>
+
+    <script>
+        // Load reservation data from sessionStorage
+        const reserva = JSON.parse(sessionStorage.getItem('reserva') || '{}');
+
+        document.getElementById('confirmNombre').textContent = reserva.nombre || 'Cliente';
+        document.getElementById('confirmFecha').textContent = reserva.fecha || '—';
+        document.getElementById('confirmHora').textContent = reserva.hora || '—';
+        document.getElementById('confirmPersonas').textContent = reserva.personas
+            ? reserva.personas + ' persona' + (reserva.personas > 1 ? 's' : '')
+            : '—';
+        document.getElementById('confirmTelefono').textContent = reserva.telefono || '—';
+    </script>
+</body>
+
+</html>
