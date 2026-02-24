@@ -1,133 +1,188 @@
 <!DOCTYPE html>
-<html lang="es">
+<html class="dark" lang="es">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Reserva Confirmada · El Secreto de la Brasa</title>
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#eca218",
+                        "background-light": "#f8f7f6",
+                        "background-dark": "#1a160f",
+                        "iron": "#242424",
+                        "burnt-amber": "#d98a0d",
+                    },
+                    fontFamily: { "display": ["Epilogue", "sans-serif"] },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <title>Confirmación · El Secreto de la Brasa</title>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+            font-family: 'Epilogue', sans-serif;
+        }
+
+        .font-variation-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .pop-in {
+            animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+    </style>
 </head>
 
-<body class="page-enter">
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+    <div
+        class="relative mx-auto min-h-screen max-w-md flex flex-col pb-24 shadow-2xl border-x border-slate-200 dark:border-slate-800">
 
-    <!-- TOP BAR -->
-    <div class="top-bar" style="border-bottom:1px solid var(--border);">
-        <span class="top-bar-title">✅ Reserva Confirmada</span>
-    </div>
+        <!-- Header -->
+        <header
+            class="sticky top-0 z-50 flex items-center justify-between bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4">
+            <a href="resumen.html"
+                class="flex items-center justify-center size-10 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
+            </a>
+            <h1 class="text-lg font-bold text-primary tracking-tight">Reserva Confirmada ✅</h1>
+            <div class="size-10"></div>
+        </header>
 
-    <!-- CONFIRM HERO -->
-    <div class="confirm-hero">
-        <div class="confirm-icon">✅</div>
-        <h1 class="confirm-title">¡Mesa Reservada!</h1>
-        <p class="confirm-sub">Gracias, <strong id="confirmNombre" style="color:var(--accent);">—</strong></p>
-        <p class="confirm-sub" style="margin-top:4px;">Tu reserva en El Secreto de la Brasa está confirmada.</p>
-    </div>
+        <main class="flex-1 px-4 py-6 space-y-6">
 
-    <!-- SUMMARY GRID -->
-    <div class="section-label">📋 Detalles de la Reserva</div>
-    <div class="summary-grid">
-        <div class="summary-item">
-            <span class="summary-label">📅 Fecha</span>
-            <span class="summary-value" id="confirmFecha">—</span>
-        </div>
-        <div class="summary-item">
-            <span class="summary-label">⏰ Hora</span>
-            <span class="summary-value" id="confirmHora">—</span>
-        </div>
-        <div class="summary-item">
-            <span class="summary-label">👥 Personas</span>
-            <span class="summary-value" id="confirmPersonas">—</span>
-        </div>
-        <div class="summary-item">
-            <span class="summary-label">📍 Lugar</span>
-            <span class="summary-value" style="font-size:0.8rem;">Mercado Virgen del Rosario</span>
-        </div>
-    </div>
-
-    <!-- WHATSAPP CARD -->
-    <div class="whatsapp-card">
-        <span class="whatsapp-icon">💬</span>
-        <div class="whatsapp-text">
-            <strong>Confirmación por WhatsApp</strong><br />
-            Recibirás un mensaje en el número <span id="confirmTelefono" style="color:var(--accent);">—</span> con los
-            detalles de tu reserva. Si necesitas hacer algún cambio, escríbenos por WhatsApp.
-        </div>
-    </div>
-
-    <!-- HORARIO CARD -->
-    <div style="padding:0 20px;">
-        <div class="card card-accent" style="display:flex;align-items:center;gap:12px;">
-            <div style="font-size:1.4rem;">🕐</div>
-            <div>
-                <div style="font-size:0.82rem;font-weight:700;">Horario del establecimiento</div>
-                <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">Lunes a Domingo · 12:00 – 22:00 h
+            <!-- Success Hero -->
+            <section class="flex flex-col items-center text-center py-6">
+                <div
+                    class="pop-in size-20 rounded-full bg-emerald-500/10 border-2 border-emerald-500 flex items-center justify-center mb-4 shadow-lg shadow-emerald-500/20">
+                    <span class="material-symbols-outlined text-emerald-500 text-4xl"
+                        style="font-variation-settings:'FILL' 1">check_circle</span>
                 </div>
-            </div>
-        </div>
-    </div>
+                <h2 class="text-2xl font-extrabold text-white mb-2">¡Mesa Reservada!</h2>
+                <p class="text-slate-400 text-sm">Gracias, <span class="text-primary font-bold"
+                        id="confirmNombre">—</span></p>
+                <p class="text-slate-500 text-xs mt-1">Tu reserva en El Secreto de la Brasa está confirmada.</p>
+            </section>
 
-    <!-- ACTIONS -->
-    <div style="padding:20px;display:flex;flex-direction:column;gap:10px;">
-        <a href="index.html" class="btn btn-primary btn-full btn-lg">
-            🏠 Volver al Inicio
-        </a>
-        <a href="index.html#carta" class="btn btn-outline btn-full btn-lg">
-            📋 Ver la Carta
-        </a>
-    </div>
+            <!-- Reservation Summary -->
+            <section class="bg-iron rounded-xl p-5 border border-slate-800 shadow-lg space-y-4">
+                <h3 class="font-bold text-sm text-slate-400 uppercase tracking-widest">Detalles de la reserva</h3>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-background-dark rounded-xl p-3 border border-slate-800">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">📅 Fecha</div>
+                        <div class="text-sm font-bold" id="confirmFecha">—</div>
+                    </div>
+                    <div class="bg-background-dark rounded-xl p-3 border border-slate-800">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">⏰ Hora</div>
+                        <div class="text-sm font-bold" id="confirmHora">—</div>
+                    </div>
+                    <div class="bg-background-dark rounded-xl p-3 border border-slate-800">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">👥 Personas</div>
+                        <div class="text-sm font-bold" id="confirmPersonas">—</div>
+                    </div>
+                    <div class="bg-background-dark rounded-xl p-3 border border-slate-800">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">📍 Lugar</div>
+                        <div class="text-sm font-bold leading-tight">Mercado Virgen del Rosario</div>
+                    </div>
+                </div>
+            </section>
 
-    <!-- NEW RESERVATION NOTE -->
-    <div style="padding:0 20px 24px;text-align:center;">
-        <p style="font-size:0.75rem;color:var(--text-muted);line-height:1.6;">
-            ¿Quieres cambiar o cancelar tu reserva?<br />
-            Escríbenos directamente por WhatsApp 📲
-        </p>
-    </div>
+            <!-- WhatsApp Confirmation -->
+            <section class="bg-emerald-950/30 border border-emerald-900/50 rounded-xl p-4 flex gap-3 items-start">
+                <span class="text-2xl flex-shrink-0">💬</span>
+                <div>
+                    <h4 class="font-bold text-sm text-emerald-400 mb-1">Confirmación por WhatsApp</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Recibirás un mensaje en <span class="text-primary font-bold" id="confirmTelefono">—</span> con
+                        todos los detalles. Si necesitas hacer algún cambio, escríbenos directamente.
+                    </p>
+                </div>
+            </section>
 
-    <!-- LOYALTY MINI -->
-    <div style="margin:0 20px 12px;">
-        <div class="card" style="display:flex;align-items:center;gap:12px;">
-            <span style="font-size:1.5rem;">🏅</span>
-            <div>
-                <div style="font-size:0.82rem;font-weight:700;">¡Consigue tu Tarjeta de la Brasa!</div>
-                <div style="font-size:0.75rem;color:var(--text-muted);margin-top:2px;">9 pedidos y el 10º es <span
-                        style="color:var(--accent);font-weight:700;">GRATIS 🎁</span></div>
-            </div>
-        </div>
-    </div>
+            <!-- Hours Card -->
+            <section class="bg-iron border border-slate-800 rounded-xl p-4 flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary">schedule</span>
+                <div>
+                    <div class="text-sm font-bold">Horario del establecimiento</div>
+                    <div class="text-xs text-slate-400 mt-0.5">Lunes a Domingo · 12:00 – 22:00 h</div>
+                </div>
+            </section>
 
-    <!-- BOTTOM NAV -->
-    <nav class="bottom-nav">
-        <a class="nav-item" href="index.html">
-            <span class="nav-icon">🏠</span><span>Inicio</span>
-        </a>
-        <button class="nav-item" onclick="window.location='index.html#carta'">
-            <span class="nav-icon">🍔</span><span>Carta</span>
-        </button>
-        <a class="nav-item active" href="resumen.html">
-            <span class="nav-icon">📅</span><span>Reservas</span>
-        </a>
-        <button class="nav-item" onclick="alert('Próximamente 📦')">
-            <span class="nav-icon">🧾</span><span>Pedidos</span>
-        </button>
-        <button class="nav-item" onclick="alert('Próximamente 👤')">
-            <span class="nav-icon">👤</span><span>Perfil</span>
-        </button>
-    </nav>
+            <!-- Loyalty Teaser -->
+            <section class="bg-iron border border-slate-800 rounded-xl p-4 flex items-center gap-3">
+                <span class="text-2xl">🏅</span>
+                <div>
+                    <div class="text-sm font-bold">¡Consigue tu Tarjeta de la Brasa!</div>
+                    <div class="text-xs text-slate-400 mt-0.5">9 pedidos y el 10º es <span
+                            class="text-primary font-bold">GRATIS 🎁</span></div>
+                </div>
+            </section>
+
+            <!-- Action Buttons -->
+            <section class="space-y-3 pt-2">
+                <a href="index.html"
+                    class="block w-full py-4 rounded-xl bg-gradient-to-r from-primary to-burnt-amber text-background-dark font-black text-lg text-center shadow-xl shadow-primary/30 active:scale-[0.98] transition-transform">
+                    🏠 Volver al Inicio
+                </a>
+                <a href="index.html#carta"
+                    class="block w-full py-3 rounded-xl border border-primary text-primary font-bold text-center text-sm active:scale-[0.98] transition-transform">
+                    📋 Ver la Carta
+                </a>
+            </section>
+
+        </main>
+
+        <!-- Bottom Nav -->
+        <nav
+            class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-iron/95 backdrop-blur-md border-t border-slate-800 flex justify-around items-center px-4 py-3 z-[60]">
+            <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html">
+                <span class="material-symbols-outlined">home</span>
+                <span class="text-[10px] font-medium">Inicio</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html">
+                <span class="material-symbols-outlined">menu_book</span>
+                <span class="text-[10px] font-medium">Carta</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-slate-500" href="resumen.html">
+                <span class="material-symbols-outlined">calendar_month</span>
+                <span class="text-[10px] font-medium">Reservas</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-primary" href="confirmacion.html">
+                <span class="material-symbols-outlined font-variation-fill">person</span>
+                <span class="text-[10px] font-bold">Perfil</span>
+            </a>
+        </nav>
+    </div>
 
     <script>
-        // Load reservation data from sessionStorage
-        const reserva = JSON.parse(sessionStorage.getItem('reserva') || '{}');
-
-        document.getElementById('confirmNombre').textContent = reserva.nombre || 'Cliente';
-        document.getElementById('confirmFecha').textContent = reserva.fecha || '—';
-        document.getElementById('confirmHora').textContent = reserva.hora || '—';
-        document.getElementById('confirmPersonas').textContent = reserva.personas
-            ? reserva.personas + ' persona' + (reserva.personas > 1 ? 's' : '')
-            : '—';
-        document.getElementById('confirmTelefono').textContent = reserva.telefono || '—';
+        const r = JSON.parse(sessionStorage.getItem('reserva') || '{}');
+        document.getElementById('confirmNombre').textContent = r.nombre || 'Cliente';
+        document.getElementById('confirmFecha').textContent = r.fecha || '—';
+        document.getElementById('confirmHora').textContent = r.hora || '—';
+        document.getElementById('confirmPersonas').textContent = r.personas ? r.personas + ' persona' + (r.personas > 1 ? 's' : '') : '—';
+        document.getElementById('confirmTelefono').textContent = r.telefono || '—';
     </script>
 </body>
 

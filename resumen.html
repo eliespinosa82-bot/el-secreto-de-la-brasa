@@ -1,160 +1,245 @@
 <!DOCTYPE html>
-<html lang="es">
+<html class="dark" lang="es">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Reserva tu mesa en El Secreto de la Brasa — Mercado Virgen del Rosario, Cádiz." />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#eca218",
+                        "background-light": "#f8f7f6",
+                        "background-dark": "#1a160f",
+                        "iron": "#242424",
+                        "burnt-amber": "#d98a0d",
+                    },
+                    fontFamily: { "display": ["Epilogue", "sans-serif"] },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
     <title>Reservar Mesa · El Secreto de la Brasa</title>
-    <link rel="stylesheet" href="css/styles.css" />
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>" />
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .font-variation-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
 </head>
 
-<body class="page-enter">
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
+    <div
+        class="relative mx-auto min-h-screen max-w-md flex flex-col pb-24 shadow-2xl border-x border-slate-200 dark:border-slate-800">
 
-    <!-- TOP BAR -->
-    <div class="top-bar">
-        <button class="back-btn" onclick="history.back()">‹</button>
-        <span class="top-bar-title">📅 Reservar Mesa</span>
+        <!-- Header -->
+        <header
+            class="sticky top-0 z-50 flex items-center justify-between bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4">
+            <a href="index.html"
+                class="flex items-center justify-center size-10 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
+                <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
+            </a>
+            <h1 class="text-lg font-bold text-primary tracking-tight">Reservar Mesa 📅</h1>
+            <div class="size-10"></div>
+        </header>
+
+        <main class="flex-1 overflow-y-auto px-4 py-2 space-y-6">
+
+            <!-- Info Banner -->
+            <section class="bg-iron rounded-xl overflow-hidden shadow-lg border border-slate-800">
+                <div class="h-32 w-full bg-cover bg-center"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCVto92vVTHw6hnVGFZTD-HWDUvgDezQYlBT9Sjh-4uKdLhY88ggA5nhbVHICCdWGkV8t6lbhJG1bCqXLRoznY3YLCUc1DEyD-78PFb_qvzfQo1PdXR24WjVG7qzmyMF2j8IQL1srHXtOZiFlUnM67ZClsPbY4cJpjI5olKToF7fMB_AVl_uTUFYQK8LJffjVpLAQLkoZBHHHoUccus8_e7Bmew37x9U55Tqwsl3jddDeR9n2CxtTcj8brW0YkHqm4xzBTHPJf8EMA')">
+                </div>
+                <div class="p-4 space-y-2">
+                    <h2 class="text-xl font-bold text-white">El Secreto de la Brasa</h2>
+                    <div class="flex items-center gap-2 text-slate-400 text-sm">
+                        <span class="material-symbols-outlined text-primary text-sm">location_on</span>
+                        <span>Mercado Virgen del Rosario, Cádiz</span>
+                    </div>
+                    <div class="flex items-center justify-between text-xs pt-2">
+                        <span class="text-slate-400">Capacidad: 45 pax</span>
+                        <span class="flex items-center gap-1 text-emerald-500 font-medium">
+                            <span class="size-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                            Disponibilidad en tiempo real
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Date Picker -->
+            <section>
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="font-bold text-base">Seleccionar Fecha</h3>
+                    <span class="text-xs text-primary font-medium" id="mesActual"></span>
+                </div>
+                <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar" id="dateStrip"></div>
+            </section>
+
+            <!-- Time Slots -->
+            <section>
+                <h3 class="font-bold text-base mb-3">Horarios</h3>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="selectTime(this,'12:00')"
+                        class="time-btn py-3 px-1 rounded-full border border-slate-700 text-sm font-medium">12:00</button>
+                    <button onclick="selectTime(this,'12:30')"
+                        class="time-btn py-3 px-1 rounded-full border border-slate-700 text-sm font-medium">12:30</button>
+                    <button
+                        class="py-3 px-1 rounded-full border border-red-900/50 bg-red-950/20 text-red-500 text-xs flex flex-col items-center justify-center"
+                        disabled>
+                        <span class="font-medium">13:00</span>
+                        <span class="text-[9px] uppercase font-bold">Completo</span>
+                    </button>
+                    <button onclick="selectTime(this,'13:30')"
+                        class="time-btn py-3 px-1 rounded-full border border-slate-700 text-sm font-medium">13:30</button>
+                    <button onclick="selectTime(this,'14:00')"
+                        class="time-btn active-time py-3 px-1 rounded-full bg-primary text-background-dark font-bold text-sm shadow-lg shadow-primary/20">14:00</button>
+                    <button onclick="selectTime(this,'14:30')"
+                        class="time-btn py-3 px-1 rounded-full border border-slate-700 text-sm font-medium">14:30</button>
+                    <button onclick="selectTime(this,'20:00')"
+                        class="time-btn py-3 px-1 rounded-full border border-slate-700 text-sm font-medium">20:00</button>
+                    <button onclick="selectTime(this,'20:30')"
+                        class="time-btn py-3 px-1 rounded-full border border-slate-700 text-sm font-medium">20:30</button>
+                    <button onclick="selectTime(this,'21:00')"
+                        class="time-btn py-3 px-1 rounded-full border border-slate-700 text-sm font-medium">21:00</button>
+                </div>
+            </section>
+
+            <!-- Party Size -->
+            <section class="flex items-center justify-between bg-iron p-4 rounded-xl border border-slate-800">
+                <span class="font-bold">Comensales</span>
+                <div class="flex items-center gap-6">
+                    <button onclick="changeParty(-1)"
+                        class="size-8 rounded-full border border-primary flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined text-base">remove</span>
+                    </button>
+                    <span class="text-2xl font-bold text-primary" id="partyCount">2</span>
+                    <button onclick="changeParty(1)"
+                        class="size-8 rounded-full bg-primary flex items-center justify-center text-background-dark">
+                        <span class="material-symbols-outlined text-base">add</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Contact Form -->
+            <section class="space-y-4 pt-4">
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-slate-500 uppercase px-1">Tu nombre</label>
+                    <input id="nombre"
+                        class="w-full bg-iron border-slate-800 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-3 text-slate-100 placeholder:text-slate-600"
+                        placeholder="Ej: Manuel García" type="text" />
+                </div>
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-slate-500 uppercase px-1">Teléfono (WhatsApp)</label>
+                    <input id="telefono"
+                        class="w-full bg-iron border-slate-800 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-3 text-slate-100 placeholder:text-slate-600"
+                        placeholder="+34 600 000 000" type="tel" />
+                </div>
+            </section>
+
+            <!-- Waitlist -->
+            <section class="border-l-4 border-primary bg-iron p-4 rounded-r-xl shadow-md">
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="material-symbols-outlined text-primary text-sm">notifications_active</span>
+                    <h4 class="font-bold text-sm">Lista de espera inteligente</h4>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed">Si el horario deseado se libera, te avisaremos
+                    inmediatamente por WhatsApp.</p>
+            </section>
+
+            <!-- CTA -->
+            <section class="pt-4 pb-8">
+                <button onclick="confirmarReserva()"
+                    class="w-full py-4 rounded-xl bg-gradient-to-r from-primary to-burnt-amber text-background-dark font-black text-lg shadow-xl shadow-primary/30 flex items-center justify-center gap-2 mb-2 active:scale-[0.98] transition-transform">
+                    🔥 Confirmar Reserva
+                </button>
+                <p class="text-center text-[10px] text-slate-500 italic">Recibirás una confirmación instantánea por
+                    WhatsApp</p>
+            </section>
+
+        </main>
+
+        <!-- Bottom Nav -->
+        <nav
+            class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-iron/95 backdrop-blur-md border-t border-slate-800 flex justify-around items-center px-4 py-3 z-[60]">
+            <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html">
+                <span class="material-symbols-outlined">home</span>
+                <span class="text-[10px] font-medium">Inicio</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html#carta">
+                <span class="material-symbols-outlined">menu_book</span>
+                <span class="text-[10px] font-medium">Carta</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-primary" href="resumen.html">
+                <span class="material-symbols-outlined font-variation-fill">calendar_month</span>
+                <span class="text-[10px] font-bold">Reservas</span>
+            </a>
+            <a class="flex flex-col items-center gap-1 text-slate-500" href="confirmacion.html">
+                <span class="material-symbols-outlined">person</span>
+                <span class="text-[10px] font-medium">Perfil</span>
+            </a>
+        </nav>
     </div>
-
-    <!-- INFO CARD -->
-    <div style="padding:16px 20px 0;">
-        <div class="card card-accent">
-            <div style="font-size:0.82rem;font-weight:700;margin-bottom:4px;">📍 Mercado Virgen del Rosario · Cádiz
-            </div>
-            <div style="font-size:0.75rem;color:var(--text-muted);line-height:1.5;">
-                Capacidad hasta 20 personas · Mesa libre en tiempo real
-            </div>
-        </div>
-    </div>
-
-    <!-- DATE PICKER -->
-    <div class="section-label">📆 Selecciona la fecha</div>
-    <div class="form-section">
-        <div class="date-strip" id="dateStrip"></div>
-    </div>
-
-    <!-- TIME SLOTS -->
-    <div class="section-label">⏰ Elige tu horario</div>
-    <div class="form-section">
-        <div class="time-grid">
-            <div class="time-slot" data-time="12:00" onclick="selectTime(this)">12:00</div>
-            <div class="time-slot" data-time="12:30" onclick="selectTime(this)">12:30</div>
-            <div class="time-slot full" data-time="13:00">Completo</div>
-            <div class="time-slot" data-time="13:30" onclick="selectTime(this)">13:30</div>
-            <div class="time-slot active" data-time="14:00" onclick="selectTime(this)">14:00</div>
-            <div class="time-slot" data-time="14:30" onclick="selectTime(this)">14:30</div>
-            <div class="time-slot" data-time="20:00" onclick="selectTime(this)">20:00</div>
-            <div class="time-slot" data-time="20:30" onclick="selectTime(this)">20:30</div>
-            <div class="time-slot" data-time="21:00" onclick="selectTime(this)">21:00</div>
-        </div>
-    </div>
-
-    <!-- PARTY SIZE -->
-    <div class="section-label">👥 ¿Cuántas personas?</div>
-    <div class="form-section">
-        <div class="card" style="display:flex;align-items:center;justify-content:space-between;">
-            <div style="font-size:0.82rem;color:var(--text-muted);">Número de comensales</div>
-            <div class="stepper">
-                <button class="stepper-btn" onclick="changeParty(-1)">−</button>
-                <span class="stepper-value" id="partyCount">2</span>
-                <button class="stepper-btn" onclick="changeParty(1)">+</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- CONTACT FORM -->
-    <div class="section-label">📝 Tus datos</div>
-    <div class="form-section" style="display:flex;flex-direction:column;gap:12px;">
-        <div>
-            <label class="field-label" for="nombre">Tu nombre</label>
-            <input class="text-input" id="nombre" type="text" placeholder="Ej: María García" autocomplete="name" />
-        </div>
-        <div>
-            <label class="field-label" for="telefono">Teléfono (WhatsApp)</label>
-            <input class="text-input" id="telefono" type="tel" placeholder="+34 6XX XXX XXX" autocomplete="tel" />
-        </div>
-    </div>
-
-    <!-- WAITLIST CARD -->
-    <div style="padding:12px 20px 0;">
-        <div class="waitlist-card">
-            📲 Si no hay disponibilidad, te añadimos a la <strong style="color:var(--text);">Lista de Espera</strong> y
-            te avisamos por WhatsApp cuando tu mesa esté lista.
-        </div>
-    </div>
-
-    <!-- CTA BUTTON -->
-    <div style="padding:20px;">
-        <button class="btn btn-primary btn-full btn-lg" onclick="confirmarReserva()">
-            🔥 Confirmar Reserva
-        </button>
-        <p style="text-align:center;font-size:0.73rem;color:var(--text-muted);margin-top:8px;">
-            Recibirás confirmación por WhatsApp
-        </p>
-    </div>
-
-    <!-- BOTTOM NAV -->
-    <nav class="bottom-nav">
-        <a class="nav-item" href="index.html">
-            <span class="nav-icon">🏠</span><span>Inicio</span>
-        </a>
-        <button class="nav-item" onclick="window.location='index.html#carta'">
-            <span class="nav-icon">🍔</span><span>Carta</span>
-        </button>
-        <a class="nav-item active" href="resumen.html">
-            <span class="nav-icon">📅</span><span>Reservas</span>
-        </a>
-        <button class="nav-item" onclick="alert('Próximamente 📦')">
-            <span class="nav-icon">🧾</span><span>Pedidos</span>
-        </button>
-        <button class="nav-item" onclick="alert('Próximamente 👤')">
-            <span class="nav-icon">👤</span><span>Perfil</span>
-        </button>
-    </nav>
 
     <script>
         // ── STATE ──
-        let selectedDate = null;
-        let selectedTime = '14:00';
-        let partyCount = 2;
+        let selectedDate = '', selectedTime = '14:00', partyCount = 2;
 
-        // ── BUILD DATE STRIP ──
-        function buildDateStrip() {
-            const strip = document.getElementById('dateStrip');
-            const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-            const today = new Date();
-
-            for (let i = 0; i < 7; i++) {
-                const d = new Date(today);
-                d.setDate(today.getDate() + i);
-                const el = document.createElement('div');
-                el.className = 'date-day' + (i === 0 ? ' active' : '');
-                el.dataset.dateStr = d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-                el.innerHTML = `<span class="day-name">${days[d.getDay()]}</span><span class="day-num">${d.getDate()}</span>`;
-                el.addEventListener('click', () => {
-                    document.querySelectorAll('.date-day').forEach(x => x.classList.remove('active'));
-                    el.classList.add('active');
-                    selectedDate = el.dataset.dateStr;
-                });
-                if (i === 0) selectedDate = el.dataset.dateStr;
-                strip.appendChild(el);
-            }
-        }
-        buildDateStrip();
-
-        // ── SELECT TIME ──
-        function selectTime(el) {
-            document.querySelectorAll('.time-slot:not(.full)').forEach(x => x.classList.remove('active'));
-            el.classList.add('active');
-            selectedTime = el.dataset.time;
+        // ── DATE STRIP ──
+        const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+        const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        const today = new Date();
+        const strip = document.getElementById('dateStrip');
+        document.getElementById('mesActual').textContent = months[today.getMonth()] + ' ' + today.getFullYear();
+        for (let i = 0; i < 7; i++) {
+            const d = new Date(today); d.setDate(today.getDate() + i);
+            const btn = document.createElement('button');
+            btn.className = 'flex flex-col items-center justify-center min-w-[56px] h-20 rounded-xl ' +
+                (i === 0 ? 'bg-primary text-background-dark shadow-lg shadow-primary/20' : 'bg-slate-200 dark:bg-slate-800/50');
+            btn.innerHTML = `<span class="text-[10px] uppercase font-bold ${i === 0 ? 'opacity-70' : 'text-slate-500'}">${days[d.getDay()]}</span><span class="text-lg font-bold">${d.getDate()}</span>`;
+            btn.dataset.dateStr = d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+            btn.addEventListener('click', () => {
+                [...strip.children].forEach(b => b.className = b.className.replace('bg-primary text-background-dark shadow-lg shadow-primary/20', 'bg-slate-200 dark:bg-slate-800/50').replace('opacity-70', 'text-slate-500'));
+                btn.className = 'flex flex-col items-center justify-center min-w-[56px] h-20 rounded-xl bg-primary text-background-dark shadow-lg shadow-primary/20';
+                btn.querySelector('span').className = 'text-[10px] uppercase font-bold opacity-70';
+                selectedDate = btn.dataset.dateStr;
+            });
+            if (i === 0) selectedDate = btn.dataset.dateStr;
+            strip.appendChild(btn);
         }
 
-        // ── PARTY STEPPER ──
-        function changeParty(delta) {
-            partyCount = Math.max(1, Math.min(20, partyCount + delta));
+        // ── TIME ──
+        function selectTime(el, t) {
+            document.querySelectorAll('.time-btn').forEach(b => {
+                b.className = b.className.replace('bg-primary text-background-dark font-bold shadow-lg shadow-primary/20', '').trim();
+                if (!b.className.includes('border')) b.className += ' border border-slate-700 text-sm font-medium';
+            });
+            el.className = 'time-btn py-3 px-1 rounded-full bg-primary text-background-dark font-bold text-sm shadow-lg shadow-primary/20';
+            selectedTime = t;
+        }
+
+        // ── STEPPER ──
+        function changeParty(d) {
+            partyCount = Math.max(1, Math.min(20, partyCount + d));
             document.getElementById('partyCount').textContent = partyCount;
         }
 
@@ -162,31 +247,9 @@
         function confirmarReserva() {
             const nombre = document.getElementById('nombre').value.trim();
             const telefono = document.getElementById('telefono').value.trim();
-
-            if (!nombre) {
-                alert('Por favor introduce tu nombre 😊');
-                document.getElementById('nombre').focus();
-                return;
-            }
-            if (!telefono) {
-                alert('Por favor introduce tu teléfono de WhatsApp 📱');
-                document.getElementById('telefono').focus();
-                return;
-            }
-
-            // Guard: valid date/time
-            if (!selectedDate) selectedDate = new Date().toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-            if (!selectedTime) selectedTime = '14:00';
-
-            // Save to sessionStorage
-            sessionStorage.setItem('reserva', JSON.stringify({
-                nombre,
-                telefono,
-                fecha: selectedDate,
-                hora: selectedTime,
-                personas: partyCount
-            }));
-
+            if (!nombre) { alert('Por favor introduce tu nombre 😊'); document.getElementById('nombre').focus(); return; }
+            if (!telefono) { alert('Por favor introduce tu teléfono de WhatsApp 📱'); document.getElementById('telefono').focus(); return; }
+            sessionStorage.setItem('reserva', JSON.stringify({ nombre, telefono, fecha: selectedDate, hora: selectedTime, personas: partyCount }));
             window.location.href = 'confirmacion.html';
         }
     </script>

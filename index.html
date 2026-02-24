@@ -1,206 +1,221 @@
 <!DOCTYPE html>
-<html lang="es">
+<html class="dark" lang="es">
+
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="El Secreto de la Brasa — El arte del fuego, el alma de la carne. Mercado Virgen del Rosario, Cádiz."/>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
   <title>El Secreto de la Brasa</title>
-  <link rel="stylesheet" href="css/styles.css"/>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>"/>
-</head>
-<body class="page-enter">
-
-  <!-- ═══ HERO ═══ -->
-  <div class="hero">
-    <div class="hero-logo-wrap">
-      <div class="logo-badge" style="margin:0 auto;">
-        <span class="logo-name">El Secreto<br/>DE LA</span>
-        <span class="logo-flame">🔥</span>
-        <span class="logo-name">Brasa</span>
-      </div>
-    </div>
-    <p class="hero-tagline">El arte del fuego, el alma de la carne.</p>
-    <p class="hero-sub">Mercado Virgen del Rosario · Cádiz</p>
-  </div>
-
-  <!-- STATUS -->
-  <div class="status-card card" style="margin:16px 20px 0;">
-    <span class="status-dot"></span>
-    <div>
-      <div class="status-text">Abierto Ahora</div>
-      <div class="status-meta">Lun – Dom · 12:00 – 22:00</div>
-    </div>
-  </div>
-
-  <!-- CTA BUTTONS -->
-  <div class="cta-row">
-    <a href="resumen.html" class="btn btn-primary btn-lg">🔥 Reservar Mesa</a>
-    <button class="btn btn-outline btn-lg" onclick="scrollToCarta()">📋 Ver Carta</button>
-  </div>
-
-  <!-- DIVIDER -->
-  <div class="divider mt-md"></div>
-
-  <!-- PLATOS DESTACADOS -->
-  <div class="section-label">🌟 Platos Destacados</div>
-  <div class="dishes-scroll">
-    <div class="dish-card">
-      <span class="dish-emoji">🍔</span>
-      <span class="dish-name">La Pistachera</span>
-      <span class="dish-price">15,90€</span>
-    </div>
-    <div class="dish-card">
-      <span class="dish-emoji">🌯</span>
-      <span class="dish-name">El Furioso</span>
-      <span class="dish-price">11,90€</span>
-    </div>
-    <div class="dish-card">
-      <span class="dish-emoji">🥣</span>
-      <span class="dish-name">Nachos Santa Brasa</span>
-      <span class="dish-price">11,90€</span>
-    </div>
-    <div class="dish-card">
-      <span class="dish-emoji">🍔</span>
-      <span class="dish-name">La Secreta</span>
-      <span class="dish-price">13,90€</span>
-    </div>
-    <div class="dish-card">
-      <span class="dish-emoji">🍗</span>
-      <span class="dish-name">Alitas BBQ Koreanas</span>
-      <span class="dish-price">5,90€</span>
-    </div>
-  </div>
-
-  <!-- DIVIDER -->
-  <div class="divider mt-md"></div>
-
-  <!-- CARTA RÁPIDA -->
-  <div id="carta" class="section-label">🍔 La Carta</div>
-  <div style="padding:0 20px;">
-
-    <div class="card mb-md">
-      <div style="font-weight:700;color:var(--accent);margin-bottom:10px;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;">🍔 Hamburguesas</div>
-      <div class="menu-list">
-        <div class="menu-row">
-          <div>
-            <div style="font-weight:700;font-size:0.88rem;">La Secreta</div>
-            <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Angus irlandesa · cebolla crispy · mermelada bacon · salsa secreta</div>
-          </div>
-          <div style="color:var(--accent);font-weight:800;white-space:nowrap;">13,90€</div>
-        </div>
-        <div class="menu-row">
-          <div>
-            <div style="font-weight:700;font-size:0.88rem;">La Pistachera</div>
-            <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Panceta ibérica · huevo frito · salsa pistacho casera</div>
-          </div>
-          <div style="color:var(--accent);font-weight:800;white-space:nowrap;">15,90€</div>
-        </div>
-        <div class="menu-row">
-          <div>
-            <div style="font-weight:700;font-size:0.88rem;">La Campera</div>
-            <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Panceta ibérica · salsa jabugitos · huevo frito</div>
-          </div>
-          <div style="color:var(--accent);font-weight:800;white-space:nowrap;">12,90€</div>
-        </div>
-        <div class="menu-row" style="border-bottom:none;">
-          <div>
-            <div style="font-weight:700;font-size:0.88rem;">La Simple con Queso</div>
-            <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Cheddar americano · edam</div>
-          </div>
-          <div style="color:var(--accent);font-weight:800;white-space:nowrap;">9,00€</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mb-md">
-      <div style="font-weight:700;color:var(--accent);margin-bottom:10px;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;">🌯 Rolls Dog</div>
-      <div class="menu-row">
-        <div>
-          <div style="font-weight:700;font-size:0.88rem;">El Furioso</div>
-          <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Pulled pork · kimchi · guacamole · jalapeños</div>
-        </div>
-        <div style="color:var(--accent);font-weight:800;white-space:nowrap;">11,90€</div>
-      </div>
-      <div class="menu-row" style="border-bottom:none;">
-        <div>
-          <div style="font-weight:700;font-size:0.88rem;">El Simplón</div>
-          <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Pollo crujiente especiado · mayo de trufa · cheddar</div>
-        </div>
-        <div style="color:var(--accent);font-weight:800;white-space:nowrap;">9,90€</div>
-      </div>
-    </div>
-
-    <div class="card mb-md">
-      <div style="font-weight:700;color:var(--accent);margin-bottom:10px;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.08em;">🥗 Entrantes</div>
-      <div class="menu-row">
-        <div>
-          <div style="font-weight:700;font-size:0.88rem;">Nachos Santa Brasa</div>
-          <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Guacamole · carne salteada · pico de gallo · jalapeños</div>
-        </div>
-        <div style="color:var(--accent);font-weight:800;white-space:nowrap;">11,90€</div>
-      </div>
-      <div class="menu-row" style="border-bottom:none;">
-        <div>
-          <div style="font-weight:700;font-size:0.88rem;">Alitas BBQ Koreanas</div>
-          <div style="color:var(--text-muted);font-size:0.75rem;margin-top:2px;">Salsa barbacoa coreana · cebollino</div>
-        </div>
-        <div style="color:var(--accent);font-weight:800;white-space:nowrap;">5,90€</div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- LOYALTY TEASER -->
-  <div class="loyalty-teaser">
-    <div class="loyalty-title">🏅 Tarjeta de la Brasa — 9 pedidos, el 10º gratis</div>
-    <div class="loyalty-dots">
-      <div class="stamp filled">🔥</div>
-      <div class="stamp filled">🔥</div>
-      <div class="stamp filled">🔥</div>
-      <div class="stamp filled">🔥</div>
-      <div class="stamp filled">🔥</div>
-      <div class="stamp filled">🔥</div>
-      <div class="stamp filled">🔥</div>
-      <div class="stamp empty">8</div>
-      <div class="stamp empty">9</div>
-      <div class="stamp empty">🎁</div>
-    </div>
-    <div style="margin-top:10px;font-size:0.78rem;color:var(--text-muted);">7 de 10 pedidos · ¡Te faltan 3!</div>
-  </div>
-
-  <!-- BOTTOM NAV -->
-  <nav class="bottom-nav">
-    <a class="nav-item active" href="index.html">
-      <span class="nav-icon">🏠</span><span>Inicio</span>
-    </a>
-    <button class="nav-item" onclick="scrollToCarta()">
-      <span class="nav-icon">🍔</span><span>Carta</span>
-    </button>
-    <a class="nav-item" href="resumen.html">
-      <span class="nav-icon">📅</span><span>Reservas</span>
-    </a>
-    <button class="nav-item" onclick="alert('Próximamente 📦')">
-      <span class="nav-icon">🧾</span><span>Pedidos</span>
-    </button>
-    <button class="nav-item" onclick="alert('Próximamente 👤')">
-      <span class="nav-icon">👤</span><span>Perfil</span>
-    </button>
-  </nav>
-
-  <style>
-    .menu-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-  </style>
-  <script>
-    function scrollToCarta() {
-      document.getElementById('carta').scrollIntoView({ behavior: 'smooth' });
+  <meta name="description" content="El arte del fuego, el alma de la carne. Mercado Virgen del Rosario, Cádiz." />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#c8973c",
+            "background-light": "#f8f7f6",
+            "background-dark": "#1a1a1a",
+            "surface-dark": "#242424",
+          },
+          fontFamily: {
+            "display": ["Epilogue", "sans-serif"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
     }
   </script>
+  <style>
+    body {
+      font-family: 'Epilogue', sans-serif;
+      min-height: max(884px, 100dvh);
+    }
+
+    .ember-gradient {
+      background: linear-gradient(135deg, #c8973c 0%, #8e6516 100%);
+    }
+
+    .iron-border {
+      border: 1px solid rgba(200, 151, 58, 0.2);
+    }
+
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen pb-24">
+
+  <!-- Header Section -->
+  <header class="flex flex-col items-center pt-8 pb-4 px-4 bg-background-light dark:bg-background-dark">
+    <div
+      class="w-20 h-20 rounded-full border-2 border-primary flex items-center justify-center mb-3 bg-surface-dark shadow-xl">
+      <span class="material-symbols-outlined text-primary text-4xl"
+        style="font-variation-settings: 'FILL' 1">local_fire_department</span>
+    </div>
+    <h1 class="text-xl font-extrabold tracking-widest text-center uppercase dark:text-primary">El Secreto de la Brasa
+    </h1>
+    <p class="text-primary/80 text-sm font-medium italic mt-1 font-display">El arte del fuego, el alma de la carne</p>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="px-4 py-2">
+    <div class="relative w-full h-64 rounded-xl overflow-hidden shadow-2xl">
+      <div class="absolute inset-0 bg-cover bg-center"
+        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBj5Ou-d0bX7BYXc_v_S08AkM5A6JnbIMNls5dZD_BwSR_oI25LpEinGkdr6nQZur-0vkHcFTs96qw5duQkd2resrXdJCaBZ_S39a7QxCn89Sy-u-xo5L1-sQ87NQx7ipgshjGHPraBNFzYs2RHvK6UNNdiknktxKgjtU7kmRdJWlCvgZ4EimOWWqd4i6T9A46RLVCk4-sTIOTHLWqOJAGk4DOGUEw9WcDC4Lb9iIlADBUNwYjKNIXu_OUzC2uhg2Xnv_4_qbiv6HE');">
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
+      <div class="absolute bottom-0 left-0 p-6">
+        <h2 class="text-2xl font-bold leading-tight max-w-[280px]">Bienvenido al Mercado Virgen del Rosario, Cádiz</h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Actions -->
+  <section class="grid grid-cols-2 gap-4 px-4 py-6">
+    <a href="resumen.html"
+      class="ember-gradient h-14 rounded-xl flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform no-underline">
+      <span class="font-bold text-background-dark">Reservar Mesa</span>
+      <span class="material-symbols-outlined text-background-dark text-xl">local_fire_department</span>
+    </a>
+    <button onclick="document.getElementById('carta').scrollIntoView({behavior:'smooth'})"
+      class="bg-surface-dark border border-primary h-14 rounded-xl flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform">
+      <span class="font-bold text-primary">Ver Carta</span>
+      <span class="material-symbols-outlined text-primary text-xl">menu_book</span>
+    </button>
+  </section>
+
+  <!-- Status Card -->
+  <section class="px-4 mb-6">
+    <div class="bg-surface-dark iron-border p-4 rounded-xl flex items-center justify-between">
+      <div class="flex flex-col">
+        <div class="flex items-center gap-2 mb-1">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          <span class="text-emerald-500 font-bold text-sm uppercase tracking-wider">Abierto Ahora</span>
+        </div>
+        <p class="text-slate-400 text-xs font-medium">Horario: Lun–Dom: 12:00–22:00</p>
+      </div>
+      <span class="material-symbols-outlined text-primary/50">schedule</span>
+    </div>
+  </section>
+
+  <!-- Featured Burgers -->
+  <section class="mb-6">
+    <div class="flex items-center justify-between px-4 mb-4">
+      <h3 class="text-lg font-bold tracking-tight">Especialidades de la Brasa</h3>
+      <span class="text-primary text-sm font-semibold">Ver Todo</span>
+    </div>
+    <div class="flex overflow-x-auto gap-4 px-4 hide-scrollbar">
+      <!-- Card 1 -->
+      <div class="min-w-[200px] bg-surface-dark rounded-xl overflow-hidden flex-shrink-0 iron-border">
+        <div class="h-32 bg-cover bg-center relative"
+          style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAiBMj45PWyimS18XQ-_588cyy6E2iCdXkDsC9l1Ww-zQ2985rep3BPYGhIENNhe0-LMEL77jEwTrszt7QCmA0rq5bXl-uYbLbmMN0gmuurU5SbKo8AzocwquOjzKmola_YbEotK366hdTz5mqm62-3ZsHPxVRcLnH4xGKSwI9vpLTEyEZ1hdIbpnr9KpPuTgkd194s7NHtqNrKbIwZQXU6z7iiE7MuhPI_0gCfjRRyUm9SSXWjaFCBqxQ2HtySarWw4ZabaVg4HEE');">
+          <div class="absolute top-2 right-2 bg-primary text-background-dark px-2 py-1 rounded-lg text-xs font-bold">
+            15,90€ 🔥</div>
+        </div>
+        <div class="p-3">
+          <h4 class="font-bold text-sm">La Pistachera</h4>
+          <p class="text-slate-400 text-xs mt-1">Salsa de pistacho artesanal</p>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="min-w-[200px] bg-surface-dark rounded-xl overflow-hidden flex-shrink-0 iron-border">
+        <div class="h-32 bg-cover bg-center relative"
+          style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCaiHtixPMkpWPpSNNK5wmQR4TNup_xIxdxtUzCkrdP4xaPHodxl7_y2vcenmjph_gUOpobXVrmcCUlFb17Y2ys34-cPXPqprVpexm-lh06U19d3TMWERr54zP4FkJZsOVg6hErQOZkCNPwuS6FB20FTVjek6dRfvjQIV5t4hqc46J3HzZYHPOUR1NW2veK-NwuJJtRBZZ-NVbG7wked_jtbIruhedpov6hbbjrX-qdXpc4acz6wrmzkSr0k4SkeMd77WeKKAl4C7E');">
+          <div class="absolute top-2 right-2 bg-primary text-background-dark px-2 py-1 rounded-lg text-xs font-bold">
+            11,90€ 🔥</div>
+        </div>
+        <div class="p-3">
+          <h4 class="font-bold text-sm">El Furioso</h4>
+          <p class="text-slate-400 text-xs mt-1">Toque picante de la casa</p>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="min-w-[200px] bg-surface-dark rounded-xl overflow-hidden flex-shrink-0 iron-border">
+        <div class="h-32 bg-cover bg-center relative"
+          style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBkL7JtwTpTTrPb_1IyiZEcIzjNcHNKVbLUs4tltiWirhNrdyBbfVb6yadSGnF4aW8n3Xms3AUbJppz4bFQwDkQBtTwVoSCGCr2xtNnRl-wa9TjgTVqthk-0PEZ7mWY1n10xmsckJHTfdK9_JTX3KyCI7JdmSa6PDHqXJeQTKcA5qJTT1hVOmZRPIy5CNsxsYz6lRNet3EyLrclcLCvMZDqzKB4BiKo0N8qIFfVngni3TjApuozn3Ft0Yan06Aw2mp3fvTEni-zj5s');">
+          <div class="absolute top-2 right-2 bg-primary text-background-dark px-2 py-1 rounded-lg text-xs font-bold">
+            11,90€ 🔥</div>
+        </div>
+        <div class="p-3">
+          <h4 class="font-bold text-sm">Nachos Santa Brasa</h4>
+          <p class="text-slate-400 text-xs mt-1">Con carne mechada ahumada</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Loyalty Section -->
+  <section id="carta" class="px-4 mb-4">
+    <div class="bg-surface-dark rounded-xl p-5 iron-border relative overflow-hidden">
+      <div class="absolute top-0 right-0 p-4 opacity-10">
+        <span class="material-symbols-outlined text-6xl">military_tech</span>
+      </div>
+      <div class="flex items-center gap-2 mb-4">
+        <span class="text-lg">🏅</span>
+        <h3 class="font-bold text-sm">Tarjeta Fidelidad — 9 pedidos, el 10º gratis</h3>
+      </div>
+      <div class="grid grid-cols-5 gap-3">
+        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-background-dark">
+          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">check</span>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-background-dark">
+          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">check</span>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-background-dark">
+          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">check</span>
+        </div>
+        <div class="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
+        </div>
+        <div class="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
+        </div>
+        <div class="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
+        </div>
+        <div class="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
+        </div>
+        <div class="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
+        </div>
+        <div class="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
+        </div>
+        <div class="w-10 h-10 rounded-full border-2 border-dashed border-primary/40 flex items-center justify-center">
+          <span class="material-symbols-outlined text-primary/40 text-sm">card_giftcard</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom Nav Bar -->
+  <nav
+    class="fixed bottom-0 left-0 right-0 bg-surface-dark border-t border-primary/20 px-4 pt-3 pb-8 flex justify-around items-center z-50">
+    <a class="flex flex-col items-center gap-1 text-primary" href="index.html">
+      <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">home</span>
+      <span class="text-[10px] font-bold uppercase tracking-tighter">Inicio</span>
+    </a>
+    <button onclick="document.getElementById('carta').scrollIntoView({behavior:'smooth'})"
+      class="flex flex-col items-center gap-1 text-slate-400 bg-transparent border-0">
+      <span class="material-symbols-outlined">menu_book</span>
+      <span class="text-[10px] font-bold uppercase tracking-tighter">Carta</span>
+    </button>
+    <a class="flex flex-col items-center gap-1 text-slate-400" href="resumen.html">
+      <span class="material-symbols-outlined">event</span>
+      <span class="text-[10px] font-bold uppercase tracking-tighter">Reservas</span>
+    </a>
+    <a class="flex flex-col items-center gap-1 text-slate-400" href="confirmacion.html">
+      <span class="material-symbols-outlined">person</span>
+      <span class="text-[10px] font-bold uppercase tracking-tighter">Perfil</span>
+    </a>
+  </nav>
 </body>
+
 </html>
