@@ -4,186 +4,163 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Perfil y Pedido · El Secreto de la Brasa</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css">
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#eca218",
+                        "primary": "#c8973c",
                         "background-light": "#f8f7f6",
-                        "background-dark": "#1a160f",
-                        "iron": "#242424",
-                        "burnt-amber": "#d98a0d",
+                        "background-dark": "#1a1a1a",
+                        "surface-dark": "#242424",
                     },
                     fontFamily: { "display": ["Epilogue", "sans-serif"] },
-                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
                 },
             },
         }
     </script>
-    <title>Confirmación · El Secreto de la Brasa</title>
-    <style>
-        body {
-            min-height: max(884px, 100dvh);
-            font-family: 'Epilogue', sans-serif;
-        }
-
-        .font-variation-fill {
-            font-variation-settings: 'FILL' 1;
-        }
-
-        @keyframes popIn {
-            from {
-                transform: scale(0.5);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
-
-        .pop-in {
-            animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-        }
-    </style>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
-    <div
-        class="relative mx-auto min-h-screen max-w-md flex flex-col pb-24 shadow-2xl border-x border-slate-200 dark:border-slate-800">
-
+    <div class="app-wrapper">
         <!-- Header -->
         <header
-            class="sticky top-0 z-50 flex items-center justify-between bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4">
-            <a href="resumen.html"
+            class="sticky top-0 z-50 flex items-center justify-between bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 border-b border-primary/20">
+            <a href="index.html"
                 class="flex items-center justify-center size-10 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
                 <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
             </a>
-            <h1 class="text-lg font-bold text-primary tracking-tight">Reserva Confirmada ✅</h1>
+            <h1 class="text-lg font-bold text-primary tracking-tight">Mi Perfil</h1>
             <div class="size-10"></div>
         </header>
 
-        <main class="flex-1 px-4 py-6 space-y-6">
+        <main class="container px-4 py-8 space-y-8 max-w-2xl">
 
-            <!-- Success Hero -->
-            <section class="flex flex-col items-center text-center py-6">
+            <!-- Order Status Hero -->
+            <section class="flex flex-col items-center text-center py-6 animate-in">
                 <div
-                    class="pop-in size-20 rounded-full bg-emerald-500/10 border-2 border-emerald-500 flex items-center justify-center mb-4 shadow-lg shadow-emerald-500/20">
-                    <span class="material-symbols-outlined text-emerald-500 text-4xl"
-                        style="font-variation-settings:'FILL' 1">check_circle</span>
+                    class="size-24 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center mb-4 shadow-2xl shadow-primary/20">
+                    <span class="material-symbols-outlined text-primary text-5xl animate-glovo-float">moped</span>
                 </div>
-                <h2 class="text-2xl font-extrabold text-white mb-2">¡Mesa Reservada!</h2>
-                <p class="text-slate-400 text-sm">Gracias, <span class="text-primary font-bold"
-                        id="confirmNombre">—</span></p>
-                <p class="text-slate-500 text-xs mt-1">Tu reserva en El Secreto de la Brasa está confirmada.</p>
-            </section>
-
-            <!-- Reservation Summary -->
-            <section class="bg-iron rounded-xl p-5 border border-slate-800 shadow-lg space-y-4">
-                <h3 class="font-bold text-sm text-slate-400 uppercase tracking-widest">Detalles de la reserva</h3>
-                <div class="grid grid-cols-2 gap-3">
-                    <div class="bg-background-dark rounded-xl p-3 border border-slate-800">
-                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">📅 Fecha</div>
-                        <div class="text-sm font-bold" id="confirmFecha">—</div>
-                    </div>
-                    <div class="bg-background-dark rounded-xl p-3 border border-slate-800">
-                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">⏰ Hora</div>
-                        <div class="text-sm font-bold" id="confirmHora">—</div>
-                    </div>
-                    <div class="bg-background-dark rounded-xl p-3 border border-slate-800">
-                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">👥 Personas</div>
-                        <div class="text-sm font-bold" id="confirmPersonas">—</div>
-                    </div>
-                    <div class="bg-background-dark rounded-xl p-3 border border-slate-800">
-                        <div class="text-[10px] text-slate-500 uppercase font-bold mb-1">📍 Lugar</div>
-                        <div class="text-sm font-bold leading-tight">Mercado Virgen del Rosario</div>
-                    </div>
+                <h2 class="text-3xl font-black text-white mb-2">¡Pedido en Marcha!</h2>
+                <p class="text-slate-400">Tu hamburguesa está siendo mimada en la brasa.</p>
+                <div class="mt-6 flex gap-2">
+                    <span
+                        class="px-3 py-1 bg-emerald-500/10 text-emerald-500 text-xs font-bold rounded-full border border-emerald-500/20">Cocinando</span>
+                    <span
+                        class="px-3 py-1 bg-white/5 text-slate-500 text-xs font-bold rounded-full border border-white/5">En
+                        camino</span>
+                    <span
+                        class="px-3 py-1 bg-white/5 text-slate-500 text-xs font-bold rounded-full border border-white/5">Entregado</span>
                 </div>
             </section>
 
-            <!-- WhatsApp Confirmation -->
-            <section class="bg-emerald-950/30 border border-emerald-900/50 rounded-xl p-4 flex gap-3 items-start">
-                <span class="text-2xl flex-shrink-0">💬</span>
-                <div>
-                    <h4 class="font-bold text-sm text-emerald-400 mb-1">Confirmación por WhatsApp</h4>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Recibirás un mensaje en <span class="text-primary font-bold" id="confirmTelefono">—</span> con
-                        todos los detalles. Si necesitas hacer algún cambio, escríbenos directamente.
-                    </p>
+            <!-- Loyalty Status -->
+            <section class="bg-surface-dark rounded-2xl p-6 border border-primary/20 shadow-xl animate-in"
+                style="animation-delay: 0.1s">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-sm uppercase tracking-widest text-primary">Tarjeta de Fidelidad</h3>
+                    <span class="text-xs font-bold text-slate-500">3 / 10 pedidos</span>
                 </div>
+                <div class="flex gap-3 flex-wrap justify-center">
+                    <div
+                        class="size-10 rounded-full bg-primary flex items-center justify-center text-background-dark font-black">
+                        🔥</div>
+                    <div
+                        class="size-10 rounded-full bg-primary flex items-center justify-center text-background-dark font-black">
+                        🔥</div>
+                    <div
+                        class="size-10 rounded-full bg-primary flex items-center justify-center text-background-dark font-black">
+                        🔥</div>
+                    <div
+                        class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-600 font-bold">
+                        4</div>
+                    <div
+                        class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-600 font-bold">
+                        5</div>
+                    <div
+                        class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-600 font-bold">
+                        6</div>
+                    <div
+                        class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-600 font-bold">
+                        7</div>
+                    <div
+                        class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-600 font-bold">
+                        8</div>
+                    <div
+                        class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-600 font-bold">
+                        9</div>
+                    <div
+                        class="size-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary font-bold">
+                        🎁</div>
+                </div>
+                <p class="text-[10px] text-center text-slate-500 mt-4 italic">¡Faltan 7 pedidos para tu hamburguesa
+                    GRATIS!</p>
             </section>
 
-            <!-- Hours Card -->
-            <section class="bg-iron border border-slate-800 rounded-xl p-4 flex items-center gap-3">
-                <span class="material-symbols-outlined text-primary">schedule</span>
-                <div>
-                    <div class="text-sm font-bold">Horario del establecimiento</div>
-                    <div class="text-xs text-slate-400 mt-0.5">Lunes a Domingo · 12:00 – 22:00 h</div>
+            <!-- User Info -->
+            <section class="bg-surface-dark rounded-2xl p-6 border border-primary/20 space-y-4 animate-in"
+                style="animation-delay: 0.2s">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-xs text-slate-500 font-bold uppercase">Nombre</p>
+                        <p class="font-bold">Cliente Seleccionado</p>
+                    </div>
+                    <span class="material-symbols-outlined text-slate-600">edit</span>
                 </div>
-            </section>
-
-            <!-- Loyalty Teaser -->
-            <section class="bg-iron border border-slate-800 rounded-xl p-4 flex items-center gap-3">
-                <span class="text-2xl">🏅</span>
-                <div>
-                    <div class="text-sm font-bold">¡Consigue tu Tarjeta de la Brasa!</div>
-                    <div class="text-xs text-slate-400 mt-0.5">9 pedidos y el 10º es <span
-                            class="text-primary font-bold">GRATIS 🎁</span></div>
+                <div class="divider"></div>
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-xs text-slate-500 font-bold uppercase">Teléfono</p>
+                        <p class="font-bold">+34 600 000 000</p>
+                    </div>
+                    <span class="material-symbols-outlined text-slate-600">verified</span>
                 </div>
             </section>
 
             <!-- Action Buttons -->
-            <section class="space-y-3 pt-2">
+            <section class="space-y-4 pt-4 animate-in" style="animation-delay: 0.3s">
                 <a href="index.html"
-                    class="block w-full py-4 rounded-xl bg-gradient-to-r from-primary to-burnt-amber text-background-dark font-black text-lg text-center shadow-xl shadow-primary/30 active:scale-[0.98] transition-transform">
-                    🏠 Volver al Inicio
+                    class="block w-full py-4 rounded-xl bg-gradient-to-r from-primary to-[#8e6516] text-background-dark font-black text-lg text-center shadow-xl shadow-primary/30 active:scale-[0.98] transition-all">
+                    🍕 Hacer otro Pedido
                 </a>
-                <a href="index.html#carta"
-                    class="block w-full py-3 rounded-xl border border-primary text-primary font-bold text-center text-sm active:scale-[0.98] transition-transform">
-                    📋 Ver la Carta
-                </a>
+                <button
+                    class="block w-full py-3 rounded-xl border border-white/10 text-slate-400 font-bold text-center text-sm">
+                    Cerrar Sesión
+                </button>
             </section>
 
         </main>
 
         <!-- Bottom Nav -->
         <nav
-            class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-iron/95 backdrop-blur-md border-t border-slate-800 flex justify-around items-center px-4 py-3 z-[60]">
+            class="fixed bottom-0 left-0 right-0 lg:left-auto lg:right-auto lg:w-[1200px] lg:mx-auto bg-surface-dark/95 backdrop-blur-md border-t border-primary/20 flex justify-around items-center px-4 py-3 z-[60]">
             <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html">
                 <span class="material-symbols-outlined">home</span>
-                <span class="text-[10px] font-medium">Inicio</span>
+                <span class="text-[10px] font-bold">INICIO</span>
             </a>
-            <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html">
+            <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html#carta">
                 <span class="material-symbols-outlined">menu_book</span>
-                <span class="text-[10px] font-medium">Carta</span>
+                <span class="text-[10px] font-bold">CARTA</span>
             </a>
             <a class="flex flex-col items-center gap-1 text-slate-500" href="resumen.html">
-                <span class="material-symbols-outlined">calendar_month</span>
-                <span class="text-[10px] font-medium">Reservas</span>
+                <span class="material-symbols-outlined">moped</span>
+                <span class="text-[10px] font-bold">PEDIDO</span>
             </a>
             <a class="flex flex-col items-center gap-1 text-primary" href="confirmacion.html">
-                <span class="material-symbols-outlined font-variation-fill">person</span>
-                <span class="text-[10px] font-bold">Perfil</span>
+                <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">person</span>
+                <span class="text-[10px] font-bold">PERFIL</span>
             </a>
         </nav>
     </div>
-
-    <script>
-        const r = JSON.parse(sessionStorage.getItem('reserva') || '{}');
-        document.getElementById('confirmNombre').textContent = r.nombre || 'Cliente';
-        document.getElementById('confirmFecha').textContent = r.fecha || '—';
-        document.getElementById('confirmHora').textContent = r.hora || '—';
-        document.getElementById('confirmPersonas').textContent = r.personas ? r.personas + ' persona' + (r.personas > 1 ? 's' : '') : '—';
-        document.getElementById('confirmTelefono').textContent = r.telefono || '—';
-    </script>
 </body>
 
 </html>

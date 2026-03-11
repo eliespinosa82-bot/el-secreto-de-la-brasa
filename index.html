@@ -58,7 +58,7 @@
 <body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen pb-24">
 
   <!-- Header Section -->
-  <header class="flex flex-col items-center pt-8 pb-4 px-4 bg-background-light dark:bg-background-dark">
+  <header class="flex flex-col items-center pt-8 pb-4 px-4 bg-background-light dark:bg-background-dark container">
     <div
       class="w-20 h-20 rounded-full border-2 border-primary flex items-center justify-center mb-3 bg-surface-dark shadow-xl">
       <span class="material-symbols-outlined text-primary text-4xl"
@@ -69,25 +69,56 @@
     <p class="text-primary/80 text-sm font-medium italic mt-1 font-display">El arte del fuego, el alma de la carne</p>
   </header>
 
-  <!-- Hero Section -->
-  <section class="px-4 py-2">
-    <div class="relative w-full h-64 rounded-xl overflow-hidden shadow-2xl">
-      <div class="absolute inset-0 bg-cover bg-center"
-        style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBj5Ou-d0bX7BYXc_v_S08AkM5A6JnbIMNls5dZD_BwSR_oI25LpEinGkdr6nQZur-0vkHcFTs96qw5duQkd2resrXdJCaBZ_S39a7QxCn89Sy-u-xo5L1-sQ87NQx7ipgshjGHPraBNFzYs2RHvK6UNNdiknktxKgjtU7kmRdJWlCvgZ4EimOWWqd4i6T9A46RLVCk4-sTIOTHLWqOJAGk4DOGUEw9WcDC4Lb9iIlADBUNwYjKNIXu_OUzC2uhg2Xnv_4_qbiv6HE');">
+  <!-- ═══ HERO — GLOVO PARALLAX ═══ -->
+  <section class="px-4 py-2 container">
+    <div class="hero-parallax-wrapper rounded-2xl shadow-2xl" id="heroWrapper">
+
+      <!-- Gradient Background -->
+      <div class="hero-parallax-bg" id="heroBg"></div>
+
+      <!-- Floating Accent particles -->
+      <img src="images/layer-accents.png" alt="" class="hero-accent hero-accent-1" aria-hidden="true" />
+
+      <!-- === PARALLAX FOOD LAYERS === -->
+      <div class="hero-layers-group" id="heroLayers">
+        <!-- Layer 3: Top bun — fastest float -->
+        <img src="images/layer-top.png" alt="" class="hero-layer layer-top" />
+        <!-- Layer 2: Ingredients — medium float -->
+        <img src="images/layer-mid.png" alt="" class="hero-layer layer-mid" />
+        <!-- Layer 1: Bottom bun — slowest float -->
+        <img src="images/layer-bot.png" alt="" class="hero-layer layer-bot" />
       </div>
-      <div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
-      <div class="absolute bottom-0 left-0 p-6">
-        <h2 class="text-2xl font-bold leading-tight max-w-[280px]">Bienvenido al Mercado Virgen del Rosario, Cádiz</h2>
+
+      <!-- Text -->
+      <div class="hero-parallax-text">
+        <p class="text-xs font-black uppercase tracking-[4px] text-white/60 mb-2">Cádiz · Mercado Virgen del Rosario</p>
+        <h2 class="text-4xl md:text-5xl font-black leading-[1.1] text-white">El Arte<br>del Fuego</h2>
+        <p class="text-white/80 font-semibold mt-3 flex items-center gap-2 text-base">
+          <span class="material-symbols-outlined text-primary text-lg"
+            style="font-variation-settings:'FILL' 1;">stars</span>
+          Especialistas en Brasa
+        </p>
+        <a href="resumen.html" class="hero-cta-btn mt-5 inline-flex items-center gap-2">
+          <span class="material-symbols-outlined text-sm">shopping_basket</span>
+          <span>Pedir Ahora</span>
+        </a>
+      </div>
+
+      <!-- Slide dots -->
+      <div class="absolute bottom-5 right-6 z-30 flex gap-2 items-center">
+        <button class="slider-dot active-dot" id="dot-0" onclick="goToSlide(0)"></button>
+        <button class="slider-dot" id="dot-1" onclick="goToSlide(1)"></button>
+        <button class="slider-dot" id="dot-2" onclick="goToSlide(2)"></button>
       </div>
     </div>
   </section>
 
   <!-- Quick Actions -->
-  <section class="grid grid-cols-2 gap-4 px-4 py-6">
-    <a href="resumen.html"
-      class="ember-gradient h-14 rounded-xl flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform no-underline">
-      <span class="font-bold text-background-dark">Reservar Mesa</span>
-      <span class="material-symbols-outlined text-background-dark text-xl">local_fire_department</span>
+  <section class="grid grid-cols-2 gap-4 px-4 py-6 container">
+    <a href="https://glovoapp.com" target="_blank" rel="noopener noreferrer"
+      class="btn-glovo h-14 rounded-xl flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform no-underline">
+      <span class="font-bold text-background-dark">Pedir por Glovo</span>
+      <span class="material-symbols-outlined text-background-dark text-xl">moped</span>
     </a>
     <button onclick="document.getElementById('carta').scrollIntoView({behavior:'smooth'})"
       class="bg-surface-dark border border-primary h-14 rounded-xl flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform">
@@ -97,7 +128,7 @@
   </section>
 
   <!-- Status Card -->
-  <section class="px-4 mb-6">
+  <section class="px-4 mb-6 container">
     <div class="bg-surface-dark iron-border p-4 rounded-xl flex items-center justify-between">
       <div class="flex flex-col">
         <div class="flex items-center gap-2 mb-1">
@@ -111,16 +142,23 @@
   </section>
 
   <!-- Featured Burgers -->
-  <section class="mb-6">
+  <section class="mb-6 container">
     <div class="flex items-center justify-between px-4 mb-4">
       <h3 class="text-lg font-bold tracking-tight">Especialidades de la Brasa</h3>
       <span class="text-primary text-sm font-semibold">Ver Todo</span>
     </div>
-    <div class="flex overflow-x-auto gap-4 px-4 hide-scrollbar">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
       <!-- Card 1 -->
       <div
-        class="min-w-[200px] bg-surface-dark rounded-xl overflow-hidden flex-shrink-0 iron-border menu-card fade-up-enter delay-1">
-        <div class="menu-img-container">
+        class="bg-surface-dark rounded-xl overflow-hidden iron-border menu-card fade-up-enter delay-1 relative cursor-pointer"
+        onclick="openModal({
+          title: 'La Pistachera',
+          desc: 'Salsa de pistacho artesanal',
+          price: '15,90€',
+          img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAiBMj45PWyimS18XQ-_588cyy6E2iCdXkDsC9l1Ww-zQ2985rep3BPYGhIENNhe0-LMEL77jEwTrszt7QCmA0rq5bXl-uYbLbmMN0gmuurU5SbKo8AzocwquOjzKmola_YbEotK366hdTz5mqm62-3ZsHPxVRcLnH4xGKSwI9vpLTEyEZ1hdIbpnr9KpPuTgkd194s7NHtqNrKbIwZQXU6z7iiE7MuhPI_0gCfjRRyUm9SSXWjaFCBqxQ2HtySarWw4ZabaVg4HEE',
+          ingredients: ['Pan brioche', '180g Ternera Angus madurada', 'Panceta Ibérica', 'Mermelada de bacon', 'Salsa de pistacho casera']
+        })">
+        <div class="menu-img-container floating-img delay-float-1">
           <div class="menu-img"
             style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAiBMj45PWyimS18XQ-_588cyy6E2iCdXkDsC9l1Ww-zQ2985rep3BPYGhIENNhe0-LMEL77jEwTrszt7QCmA0rq5bXl-uYbLbmMN0gmuurU5SbKo8AzocwquOjzKmola_YbEotK366hdTz5mqm62-3ZsHPxVRcLnH4xGKSwI9vpLTEyEZ1hdIbpnr9KpPuTgkd194s7NHtqNrKbIwZQXU6z7iiE7MuhPI_0gCfjRRyUm9SSXWjaFCBqxQ2HtySarWw4ZabaVg4HEE');">
           </div>
@@ -132,11 +170,19 @@
           <h4 class="font-bold text-sm">La Pistachera</h4>
           <p class="text-slate-400 text-xs mt-1">Salsa de pistacho artesanal</p>
         </div>
+        <div class="quick-add-btn"><span class="material-symbols-outlined text-lg">add</span></div>
       </div>
       <!-- Card 2 -->
       <div
-        class="min-w-[200px] bg-surface-dark rounded-xl overflow-hidden flex-shrink-0 iron-border menu-card fade-up-enter delay-2">
-        <div class="menu-img-container">
+        class="bg-surface-dark rounded-xl overflow-hidden iron-border menu-card fade-up-enter delay-2 relative cursor-pointer"
+        onclick="openModal({
+          title: 'El Furioso',
+          desc: 'Toque picante de la casa',
+          price: '11,90€',
+          img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCaiHtixPMkpWPpSNNK5wmQR4TNup_xIxdxtUzCkrdP4xaPHodxl7_y2vcenmjph_gUOpobXVrmcCUlFb17Y2ys34-cPXPqprVpexm-lh06U19d3TMWERr54zP4FkJZsOVg6hErQOZkCNPwuS6FB20FTVjek6dRfvjQIV5t4hqc46J3HzZYHPOUR1NW2veK-NwuJJtRBZZ-NVbG7wked_jtbIruhedpov6hbbjrX-qdXpc4acz6wrmzkSr0k4SkeMd77WeKKAl4C7E',
+          ingredients: ['Pan brioche', 'Carne 180g', 'Salsa de la casa (picante)', 'Queso']
+        })">
+        <div class="menu-img-container floating-img delay-float-2">
           <div class="menu-img"
             style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCaiHtixPMkpWPpSNNK5wmQR4TNup_xIxdxtUzCkrdP4xaPHodxl7_y2vcenmjph_gUOpobXVrmcCUlFb17Y2ys34-cPXPqprVpexm-lh06U19d3TMWERr54zP4FkJZsOVg6hErQOZkCNPwuS6FB20FTVjek6dRfvjQIV5t4hqc46J3HzZYHPOUR1NW2veK-NwuJJtRBZZ-NVbG7wked_jtbIruhedpov6hbbjrX-qdXpc4acz6wrmzkSr0k4SkeMd77WeKKAl4C7E');">
           </div>
@@ -148,11 +194,19 @@
           <h4 class="font-bold text-sm">El Furioso</h4>
           <p class="text-slate-400 text-xs mt-1">Toque picante de la casa</p>
         </div>
+        <div class="quick-add-btn"><span class="material-symbols-outlined text-lg">add</span></div>
       </div>
       <!-- Card 3 -->
       <div
-        class="min-w-[200px] bg-surface-dark rounded-xl overflow-hidden flex-shrink-0 iron-border menu-card fade-up-enter delay-3">
-        <div class="menu-img-container">
+        class="bg-surface-dark rounded-xl overflow-hidden iron-border menu-card fade-up-enter delay-3 relative cursor-pointer"
+        onclick="openModal({
+          title: 'Nachos Santa Brasa',
+          desc: 'Con carne mechada ahumada',
+          price: '11,90€',
+          img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBkL7JtwTpTTrPb_1IyiZEcIzjNcHNKVbLUs4tltiWirhNrdyBbfVb6yadSGnF4aW8n3Xms3AUbJppz4bFQwDkQBtTwVoSCGCr2xtNnRl-wa9TjgTVqthk-0PEZ7mWY1n10xmsckJHTfdK9_JTX3KyCI7JdmSa6PDHqXJeQTKcA5qJTT1hVOmZRPIy5CNsxsYz6lRNet3EyLrclcLCvMZDqzKB4BiKo0N8qIFfVngni3TjApuozn3Ft0Yan06Aw2mp3fvTEni-zj5s',
+          ingredients: ['Carne mechada', 'Queso fundido', 'Pico de gallo', 'Guacamole']
+        })">
+        <div class="menu-img-container floating-img delay-float-3">
           <div class="menu-img"
             style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBkL7JtwTpTTrPb_1IyiZEcIzjNcHNKVbLUs4tltiWirhNrdyBbfVb6yadSGnF4aW8n3Xms3AUbJppz4bFQwDkQBtTwVoSCGCr2xtNnRl-wa9TjgTVqthk-0PEZ7mWY1n10xmsckJHTfdK9_JTX3KyCI7JdmSa6PDHqXJeQTKcA5qJTT1hVOmZRPIy5CNsxsYz6lRNet3EyLrclcLCvMZDqzKB4BiKo0N8qIFfVngni3TjApuozn3Ft0Yan06Aw2mp3fvTEni-zj5s');">
           </div>
@@ -164,12 +218,13 @@
           <h4 class="font-bold text-sm">Nachos Santa Brasa</h4>
           <p class="text-slate-400 text-xs mt-1">Con carne mechada ahumada</p>
         </div>
+        <div class="quick-add-btn"><span class="material-symbols-outlined text-lg">add</span></div>
       </div>
     </div>
   </section>
 
   <!-- ========= LA CARTA COMPLETA ========= -->
-  <section id="carta" class="px-4 mb-8">
+  <section id="carta" class="px-4 mb-8 container">
 
     <!-- Título sección -->
     <div class="flex items-center gap-3 mb-6 pt-2">
@@ -185,7 +240,7 @@
         <h3 class="text-base font-extrabold uppercase tracking-wider border-b border-primary/30 pb-1 flex-1">
           Hamburguesas</h3>
       </div>
-      <div class="space-y-3">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <!-- La Secreta -->
         <div
           class="bg-surface-dark iron-border rounded-xl p-4 flex justify-between items-start gap-3 menu-item-card fade-up-enter delay-4">
@@ -226,7 +281,7 @@
           <div class="flex-1">
             <h4 class="font-bold text-sm text-primary">La Simple con Queso</h4>
             <p class="text-slate-400 text-xs mt-1 leading-relaxed">Pan brioche, 180g ternera angus irlandesa madurada,
-              cheddar americano y edam.</p>
+              cheddar americano and edam.</p>
             <span class="text-[10px] text-slate-600 mt-1 inline-block">Alér: 2,4,7,5,6,1</span>
           </div>
           <span class="font-extrabold text-primary text-sm whitespace-nowrap">9,00€</span>
@@ -470,14 +525,206 @@
       <span class="text-[10px] font-bold uppercase tracking-tighter">Carta</span>
     </button>
     <a class="flex flex-col items-center gap-1 text-slate-400" href="resumen.html">
-      <span class="material-symbols-outlined">event</span>
-      <span class="text-[10px] font-bold uppercase tracking-tighter">Reservas</span>
+      <span class="material-symbols-outlined">shopping_basket</span>
+      <span class="text-[10px] font-bold uppercase tracking-tighter">Pedido</span>
     </a>
     <a class="flex flex-col items-center gap-1 text-slate-400" href="confirmacion.html">
       <span class="material-symbols-outlined">person</span>
       <span class="text-[10px] font-bold uppercase tracking-tighter">Perfil</span>
     </a>
   </nav>
+
+  <!-- ══ OVELAY & MODAL PRODUCTO ══ -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+
+  <div class="product-modal" id="productModal">
+    <div class="modal-handle-warp" onclick="closeModal()">
+      <div class="modal-handle"></div>
+    </div>
+    <div class="modal-header-img" id="modalImg" style="background-image: url('');"></div>
+
+    <div class="modal-content-scroll hide-scrollbar">
+      <h2 class="text-2xl font-black text-primary mb-1" id="modalTitle">Nombre</h2>
+      <p class="text-slate-400 text-sm mb-6" id="modalDesc">Descripción</p>
+
+      <div class="ingredient-group">
+        <h3 class="text-lg font-bold mb-2 uppercase tracking-wide">Personaliza tu plato</h3>
+        <p class="text-xs text-slate-500 mb-4">Quita los ingredientes que no desees.</p>
+
+        <div id="modalIngredientsList" class="flex flex-col">
+          <!-- JS fills this -->
+        </div>
+      </div>
+
+      <div class="ingredient-group mt-8">
+        <h3 class="text-lg font-bold mb-2 uppercase tracking-wide">Añadir Extras</h3>
+
+        <label class="ingredient-label">
+          <span class="ingredient-name">Doble Carne <span class="ingredient-price">+3,50€</span></span>
+          <input type="checkbox" class="custom-checkbox">
+        </label>
+        <label class="ingredient-label">
+          <span class="ingredient-name">Bacon Extra <span class="ingredient-price">+1,50€</span></span>
+          <input type="checkbox" class="custom-checkbox">
+        </label>
+        <label class="ingredient-label">
+          <span class="ingredient-name">Queso Extra <span class="ingredient-price">+1,00€</span></span>
+          <input type="checkbox" class="custom-checkbox">
+        </label>
+      </div>
+
+    </div>
+
+    <!-- Fixed Footer Add Button -->
+    <div class="modal-footer">
+      <button class="btn-glovo w-full rounded-xl py-3 font-bold text-lg flex items-center justify-between px-6"
+        onclick="closeModal()">
+        <span>Añadir</span>
+        <span id="modalPrice">0,00€</span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const modalOverlay = document.getElementById('modalOverlay');
+    const productModal = document.getElementById('productModal');
+
+    function openModal(data) {
+      document.body.style.overflow = 'hidden'; // block background scrolling
+
+      // Update data
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalDesc').textContent = data.desc;
+      document.getElementById('modalPrice').textContent = data.price;
+
+      const imgEl = document.getElementById('modalImg');
+      if (data.img) {
+        imgEl.style.display = 'block';
+        imgEl.style.backgroundImage = `url('${data.img}')`;
+      } else {
+        imgEl.style.display = 'none'; // hide if no image
+      }
+
+      // Populate ingredients toggles
+      const list = document.getElementById('modalIngredientsList');
+      list.innerHTML = '';
+      if (data.ingredients && data.ingredients.length > 0) {
+        data.ingredients.forEach(ing => {
+          list.innerHTML += `
+            <label class="ingredient-label">
+              <span class="ingredient-name">${ing}</span>
+              <input type="checkbox" class="custom-checkbox" checked>
+            </label>
+          `;
+        });
+      }
+
+      // Animate modal up
+      modalOverlay.classList.add('active');
+      productModal.classList.add('active');
+    }
+
+    function closeModal() {
+      document.body.style.overflow = '';
+      modalOverlay.classList.remove('active');
+      productModal.classList.remove('active');
+    }
+
+    // ═══ HERO PARALLAX SLIDER ═══
+    const SLIDE_COUNT = 3;
+    let currentSlide = 0;
+
+    const slidesData = [
+      {
+        top: 'images/layer-top.png',
+        mid: 'images/layer-mid.png',
+        bot: 'images/layer-bot.png',
+        bg: 'linear-gradient(135deg, #f5a623 0%, #c8973c 45%, #8e6516 100%)',
+      },
+      {
+        top: 'images/steak-hero.png',
+        mid: 'images/steak-hero.png',
+        bot: 'images/steak-hero.png',
+        bg: 'linear-gradient(135deg, #c0392b 0%, #a93226 45%, #6e1d1d 100%)',
+      },
+      {
+        top: 'images/nachos-hero.png',
+        mid: 'images/nachos-hero.png',
+        bot: 'images/nachos-hero.png',
+        bg: 'linear-gradient(135deg, #d4a017 0%, #b8860b 45%, #7a5c00 100%)',
+      },
+    ];
+
+    function goToSlide(n) {
+      currentSlide = n;
+      const s = slidesData[n];
+
+      // Fade layers out
+      const layers = document.querySelectorAll('.hero-layer, .hero-accent');
+      layers.forEach(l => { l.style.opacity = '0'; l.style.transform = 'scale(0.85) translateY(-10px)'; });
+
+      // Update background immediately
+      const heroBg = document.getElementById('heroBg');
+      if (heroBg) heroBg.style.background = s.bg;
+
+      // Swap images and bounce in with stagger
+      setTimeout(() => {
+        const topEl = document.querySelector('.layer-top');
+        const midEl = document.querySelector('.layer-mid');
+        const botEl = document.querySelector('.layer-bot');
+        if (n === 0) {
+          if (topEl) topEl.src = s.top;
+          if (midEl) midEl.src = s.mid;
+          if (botEl) botEl.src = s.bot;
+        } else {
+          // Single full food image (steak / nachos) — show only one layer
+          if (topEl) { topEl.src = s.top; topEl.style.bottom = '0'; topEl.style.width = '100%'; }
+          if (midEl) midEl.src = '';
+          if (botEl) botEl.src = '';
+        }
+        layers.forEach((l, i) => {
+          setTimeout(() => {
+            l.style.opacity = '1';
+            l.style.transform = '';
+          }, i * 80);
+        });
+      }, 280);
+
+      // Update dots
+      document.querySelectorAll('.slider-dot').forEach((dot, i) => {
+        dot.classList.toggle('active-dot', i === n);
+      });
+    }
+
+    // Initialise CSS transitions on layers
+    document.querySelectorAll('.hero-layer, .hero-accent').forEach(l => {
+      l.style.transition = 'opacity 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1)';
+    });
+
+    function nextSlide() { goToSlide((currentSlide + 1) % SLIDE_COUNT); }
+    setInterval(nextSlide, 6000);
+
+    // Intersection Observer for Menu animations
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const entranceObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-in, .menu-card').forEach(el => {
+      entranceObserver.observe(el);
+    });
+  </script>
+
 </body>
 
 </html>

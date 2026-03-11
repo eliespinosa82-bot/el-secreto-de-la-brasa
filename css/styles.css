@@ -44,11 +44,21 @@ body {
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  max-width: 430px;
+  width: 100%;
   margin: 0 auto;
   position: relative;
   padding-bottom: 80px;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 /* ── Scrollbar ── */
@@ -408,14 +418,19 @@ body {
 .bottom-nav {
   position: fixed;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   width: 100%;
-  max-width: 430px;
   background: var(--surface);
   border-top: 1px solid var(--border);
   display: flex;
   z-index: 200;
+  justify-content: center;
+}
+
+@media (min-width: 768px) {
+  .bottom-nav {
+    padding: 0 20px;
+  }
 }
 
 .nav-item {
@@ -783,7 +798,225 @@ body {
   margin: 0 20px;
 }
 
-/* ══ MENU ANIMATIONS & HOVER EFFECTS ══ */
+/* ═══════════════════════════════════════════
+   HERO — GLOVO PARALLAX (layered floating)
+═══════════════════════════════════════════ */
+.hero-parallax-wrapper {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+/* Gradient BG */
+.hero-parallax-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #f5a623 0%, #c8973c 45%, #8e6516 100%);
+  transition: background 1.2s ease;
+  z-index: 0;
+}
+
+/* ── LAYERS (right side absolute stack, overlapping) ── */
+.hero-layers-group {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 58%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.hero-layer {
+  position: absolute;
+  right: -10px;
+  width: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.35));
+}
+
+/* Bottom bun: slowest, anchors at bottom */
+.layer-bot {
+  bottom: -5%;
+  animation: floatBot 5s ease-in-out infinite;
+}
+
+/* Middle ingredients: medium speed */
+.layer-mid {
+  bottom: 20%;
+  animation: floatMid 4s ease-in-out infinite;
+  animation-delay: -1s;
+}
+
+/* Top bun: fastest, highest amplitude */
+.layer-top {
+  bottom: 45%;
+  animation: floatTop 3.2s ease-in-out infinite;
+  animation-delay: -0.5s;
+}
+
+/* Accent: tiny floating detail */
+.hero-accent {
+  position: absolute;
+  z-index: 8;
+  pointer-events: none;
+  object-fit: contain;
+  opacity: 0.85;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.25));
+}
+
+.hero-accent-1 {
+  top: 8%;
+  left: 35%;
+  width: 18%;
+  animation: floatAccent 3.8s ease-in-out infinite;
+  animation-delay: -2s;
+}
+
+/* ── PARALLAX KEYFRAMES (different amplitudes) ── */
+@keyframes floatBot {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes floatMid {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes floatTop {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-28px) rotate(3deg);
+  }
+}
+
+@keyframes floatAccent {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-14px) rotate(-6deg);
+  }
+}
+
+/* ── TEXT SIDE ── */
+.hero-parallax-text {
+  position: relative;
+  z-index: 20;
+  padding: 2.5rem 1.75rem;
+  max-width: 50%;
+}
+
+/* CTA Button */
+.hero-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.5rem;
+  background: white;
+  color: #1a0e00;
+  font-weight: 900;
+  font-size: 0.9rem;
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  margin-top: 1.25rem;
+}
+
+.hero-cta-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+}
+
+/* Slider Dots */
+.slider-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.3s;
+  padding: 0;
+}
+
+.slider-dot.active-dot {
+  background: white;
+  transform: scale(1.4);
+}
+
+/* Glovo-style Floating (Applied to Hero Burger) */
+@keyframes glovoFloat {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-15px) rotate(2deg);
+  }
+
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.animate-glovo-float {
+  animation: glovoFloat 4s ease-in-out infinite;
+}
+
+/* Bouncy Entrance Animation */
+@keyframes bouncyIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(40px);
+  }
+
+  70% {
+    opacity: 1;
+    transform: scale(1.1) translateY(-5px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-in {
+  opacity: 0;
+}
+
+.animate-in.visible {
+  animation: bouncyIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
 .menu-card {
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease, border-color 0.4s ease;
   will-change: transform, box-shadow;
@@ -806,12 +1039,31 @@ body {
   inset: 0;
   background-size: cover;
   background-position: center;
-  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-  will-change: transform;
+  transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.5s ease;
+  will-change: transform, filter;
+  filter: brightness(0.9) contrast(1.1);
 }
 
 .menu-card:hover .menu-img {
-  transform: scale(1.1);
+  transform: scale(1.15) rotate(2deg);
+  filter: brightness(1.1) contrast(1.2);
+}
+
+/* Enhanced Entrance for Menu Images */
+@keyframes imageIn {
+  from {
+    transform: scale(0.8) rotate(-5deg);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+.menu-img-container.animate-in .menu-img {
+  animation: imageIn 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
 
 .menu-item-card {
@@ -882,4 +1134,232 @@ body {
 
 .delay-5 {
   animation-delay: 0.5s;
+}
+
+/* ══ GLOVO DELIVERY BTN ══ */
+.btn-glovo {
+  background: linear-gradient(135deg, #FFC244 0%, #ebb23d 100%);
+  color: #1a0e00;
+  box-shadow: 0 4px 18px rgba(255, 194, 68, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.btn-glovo:hover {
+  box-shadow: 0 6px 24px rgba(255, 194, 68, 0.5);
+  background: linear-gradient(135deg, #ffd370 0%, #FFC244 100%);
+}
+
+/* ══ FLOATING EFFECTS ══ */
+.floating-img {
+  animation: floatBurger 4s ease-in-out infinite;
+  will-change: transform;
+}
+
+.delay-float-1 {
+  animation-delay: 0s;
+}
+
+.delay-float-2 {
+  animation-delay: 0.8s;
+}
+
+.delay-float-3 {
+  animation-delay: 1.5s;
+}
+
+@keyframes floatBurger {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/* ══ NEW: QUICK ADD BUTTONS & PRODUCT CUSTOMIZATION MODAL ══ */
+.quick-add-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+  z-index: 20;
+}
+
+.quick-add-btn:hover {
+  background: var(--accent);
+  color: #1a0e00;
+  transform: scale(1.1);
+}
+
+/* Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Bottom Sheet Modal */
+.product-modal {
+  position: fixed;
+  bottom: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  background: var(--bg);
+  border-radius: 24px 24px 0 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  max-height: 90vh;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+  transition: bottom 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.product-modal.active {
+  bottom: 0;
+}
+
+/* Handle bar */
+.modal-handle-warp {
+  padding: 12px 0 0;
+  display: flex;
+  justify-content: center;
+  background: transparent;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+.modal-handle {
+  width: 40px;
+  height: 5px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.modal-header-img {
+  height: 220px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 24px 24px 0 0;
+  position: relative;
+}
+
+.modal-header-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--bg) 0%, transparent 60%);
+}
+
+.modal-content-scroll {
+  padding: 16px 20px 100px;
+  overflow-y: auto;
+}
+
+/* Ingredient Checks */
+.ingredient-group {
+  margin-top: 24px;
+}
+
+.ingredient-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+}
+
+.ingredient-label:last-child {
+  border-bottom: none;
+}
+
+.ingredient-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ingredient-price {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Custom Checkbox */
+.custom-checkbox {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  background: transparent;
+  display: grid;
+  place-content: center;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.custom-checkbox::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(--bg);
+  background-color: var(--bg);
+  clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.custom-checkbox:checked {
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+.custom-checkbox:checked::before {
+  transform: scale(1);
+}
+
+/* Fixed Add Button */
+.modal-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px 20px;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.4);
 }

@@ -4,255 +4,157 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Finalizar Pedido · El Secreto de la Brasa</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css">
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        "primary": "#eca218",
+                        "primary": "#c8973c",
                         "background-light": "#f8f7f6",
-                        "background-dark": "#1a160f",
-                        "iron": "#242424",
-                        "burnt-amber": "#d98a0d",
+                        "background-dark": "#1a1a1a",
+                        "surface-dark": "#242424",
                     },
                     fontFamily: { "display": ["Epilogue", "sans-serif"] },
-                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
                 },
             },
         }
     </script>
-    <title>Reservar Mesa · El Secreto de la Brasa</title>
-    <style>
-        body {
-            min-height: max(884px, 100dvh);
-        }
-
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .font-variation-fill {
-            font-variation-settings: 'FILL' 1;
-        }
-    </style>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
-    <div
-        class="relative mx-auto min-h-screen max-w-md flex flex-col pb-24 shadow-2xl border-x border-slate-200 dark:border-slate-800">
-
+    <div class="app-wrapper">
         <!-- Header -->
         <header
-            class="sticky top-0 z-50 flex items-center justify-between bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4">
+            class="sticky top-0 z-50 flex items-center justify-between bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 border-b border-primary/20">
             <a href="index.html"
                 class="flex items-center justify-center size-10 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
                 <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
             </a>
-            <h1 class="text-lg font-bold text-primary tracking-tight">Reservar Mesa 📅</h1>
+            <h1 class="text-xl font-black text-primary tracking-tight">Mi Pedido 🛒</h1>
             <div class="size-10"></div>
         </header>
 
-        <main class="flex-1 overflow-y-auto px-4 py-2 space-y-6">
+        <main class="container py-8 px-4 space-y-8 max-w-2xl">
 
-            <!-- Info Banner -->
-            <section class="bg-iron rounded-xl overflow-hidden shadow-lg border border-slate-800">
-                <div class="h-32 w-full bg-cover bg-center"
-                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCVto92vVTHw6hnVGFZTD-HWDUvgDezQYlBT9Sjh-4uKdLhY88ggA5nhbVHICCdWGkV8t6lbhJG1bCqXLRoznY3YLCUc1DEyD-78PFb_qvzfQo1PdXR24WjVG7qzmyMF2j8IQL1srHXtOZiFlUnM67ZClsPbY4cJpjI5olKToF7fMB_AVl_uTUFYQK8LJffjVpLAQLkoZBHHHoUccus8_e7Bmew37x9U55Tqwsl3jddDeR9n2CxtTcj8brW0YkHqm4xzBTHPJf8EMA')">
-                </div>
-                <div class="p-4 space-y-2">
-                    <h2 class="text-xl font-bold text-white">El Secreto de la Brasa</h2>
-                    <div class="flex items-center gap-2 text-slate-400 text-sm">
-                        <span class="material-symbols-outlined text-primary text-sm">location_on</span>
-                        <span>Mercado Virgen del Rosario, Cádiz</span>
+            <!-- Order Summary -->
+            <section class="bg-surface-dark rounded-2xl p-6 border border-primary/20 shadow-2xl animate-in">
+                <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">shopping_bag</span>
+                    Resumen del Pedido
+                </h2>
+                <div class="space-y-4" id="orderItems">
+                    <!-- Example Item -->
+                    <div class="flex justify-between items-center border-b border-white/5 pb-4">
+                        <div class="flex gap-4 items-center">
+                            <div
+                                class="size-12 rounded-lg bg-cover bg-center bg-[url('https://lh3.googleusercontent.com/aida-public/AB6AXuAiBMj45PWyimS18XQ-_588cyy6E2iCdXkDsC9l1Ww-zQ2985rep3BPYGhIENNhe0-LMEL77jEwTrszt7QCmA0rq5bXl-uYbLbmMN0gmuurU5SbKo8AzocwquOjzKmola_YbEotK366hdTz5mqm62-3ZsHPxVRcLnH4xGKSwI9vpLTEyEZ1hdIbpnr9KpPuTgkd194s7NHtqNrKbIwZQXU6z7iiE7MuhPI_0gCfjRRyUm9SSXWjaFCBqxQ2HtySarWw4ZabaVg4HEE')]">
+                            </div>
+                            <div>
+                                <p class="font-bold">La Pistachera</p>
+                                <p class="text-xs text-slate-500">Sin cebolla, Doble carne</p>
+                            </div>
+                        </div>
+                        <span class="font-bold text-primary">19,40€</span>
                     </div>
-                    <div class="flex items-center justify-between text-xs pt-2">
-                        <span class="text-slate-400">Capacidad: 45 pax</span>
-                        <span class="flex items-center gap-1 text-emerald-500 font-medium">
-                            <span class="size-2 bg-emerald-500 rounded-full animate-pulse"></span>
-                            Disponibilidad en tiempo real
-                        </span>
+                </div>
+                <div class="flex justify-between items-center pt-6">
+                    <span class="text-lg font-medium">Total</span>
+                    <span class="text-2xl font-black text-primary">19,40€</span>
+                </div>
+            </section>
+
+            <!-- Delivery Details -->
+            <section class="space-y-4 animate-in" style="animation-delay: 0.1s">
+                <h2 class="text-lg font-bold flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">location_on</span>
+                    Detalles de Entrega
+                </h2>
+                <div class="grid gap-4">
+                    <div class="space-y-1">
+                        <label class="text-xs font-bold text-slate-500 uppercase px-1">Dirección de entrega</label>
+                        <input
+                            class="w-full bg-surface-dark border-primary/20 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600"
+                            placeholder="Calle, número, piso..." type="text" />
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-slate-500 uppercase px-1">Tu nombre</label>
+                            <input
+                                class="w-full bg-surface-dark border-primary/20 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600"
+                                placeholder="Nombre completo" type="text" />
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-slate-500 uppercase px-1">Teléfono</label>
+                            <input
+                                class="w-full bg-surface-dark border-primary/20 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600"
+                                placeholder="600 000 000" type="tel" />
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Date Picker -->
-            <section>
-                <div class="flex items-center justify-between mb-3">
-                    <h3 class="font-bold text-base">Seleccionar Fecha</h3>
-                    <span class="text-xs text-primary font-medium" id="mesActual"></span>
+            <!-- Payment -->
+            <section class="bg-primary/5 border border-primary/20 p-6 rounded-2xl animate-in"
+                style="animation-delay: 0.2s">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="material-symbols-outlined text-primary">payments</span>
+                    <h3 class="font-bold">Método de Pago</h3>
                 </div>
-                <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar" id="dateStrip"></div>
-            </section>
-
-            <!-- Time Slots -->
-            <section>
-                <h3 class="font-bold text-base mb-3">Horarios</h3>
-                <div class="grid grid-cols-3 gap-2">
-                    <button onclick="selectTime(this,'12:00')"
-                        class="time-btn py-3 px-1 rounded-full border border-slate-700 text-sm font-medium">12:00</button>
-                    <button onclick="selectTime(this,'12:30')"
-                        class="time-btn py-3 px-1 rounded-full border border-slate-700 text-sm font-medium">12:30</button>
+                <div class="flex gap-4">
                     <button
-                        class="py-3 px-1 rounded-full border border-red-900/50 bg-red-950/20 text-red-500 text-xs flex flex-col items-center justify-center"
-                        disabled>
-                        <span class="font-medium">13:00</span>
-                        <span class="text-[9px] uppercase font-bold">Completo</span>
+                        class="flex-1 py-3 px-4 rounded-xl border-2 border-primary bg-primary/10 text-primary font-bold flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">payments</span> Efectivo
                     </button>
-                    <button onclick="selectTime(this,'13:30')"
-                        class="time-btn py-3 px-1 rounded-full border border-slate-700 text-sm font-medium">13:30</button>
-                    <button onclick="selectTime(this,'14:00')"
-                        class="time-btn active-time py-3 px-1 rounded-full bg-primary text-background-dark font-bold text-sm shadow-lg shadow-primary/20">14:00</button>
-                    <button onclick="selectTime(this,'14:30')"
-                        class="time-btn py-3 px-1 rounded-full border border-slate-700 text-sm font-medium">14:30</button>
-                    <button onclick="selectTime(this,'20:00')"
-                        class="time-btn py-3 px-1 rounded-full border border-slate-700 text-sm font-medium">20:00</button>
-                    <button onclick="selectTime(this,'20:30')"
-                        class="time-btn py-3 px-1 rounded-full border border-slate-700 text-sm font-medium">20:30</button>
-                    <button onclick="selectTime(this,'21:00')"
-                        class="time-btn py-3 px-1 rounded-full border border-slate-700 text-sm font-medium">21:00</button>
-                </div>
-            </section>
-
-            <!-- Party Size -->
-            <section class="flex items-center justify-between bg-iron p-4 rounded-xl border border-slate-800">
-                <span class="font-bold">Comensales</span>
-                <div class="flex items-center gap-6">
-                    <button onclick="changeParty(-1)"
-                        class="size-8 rounded-full border border-primary flex items-center justify-center text-primary">
-                        <span class="material-symbols-outlined text-base">remove</span>
-                    </button>
-                    <span class="text-2xl font-bold text-primary" id="partyCount">2</span>
-                    <button onclick="changeParty(1)"
-                        class="size-8 rounded-full bg-primary flex items-center justify-center text-background-dark">
-                        <span class="material-symbols-outlined text-base">add</span>
+                    <button
+                        class="flex-1 py-3 px-4 rounded-xl border border-white/10 bg-surface-dark text-slate-400 font-bold flex items-center justify-center gap-2">
+                        <span class="material-symbols-outlined">credit_card</span> Tarjeta
                     </button>
                 </div>
-            </section>
-
-            <!-- Contact Form -->
-            <section class="space-y-4 pt-4">
-                <div class="space-y-1">
-                    <label class="text-xs font-bold text-slate-500 uppercase px-1">Tu nombre</label>
-                    <input id="nombre"
-                        class="w-full bg-iron border-slate-800 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-3 text-slate-100 placeholder:text-slate-600"
-                        placeholder="Ej: Manuel García" type="text" />
-                </div>
-                <div class="space-y-1">
-                    <label class="text-xs font-bold text-slate-500 uppercase px-1">Teléfono (WhatsApp)</label>
-                    <input id="telefono"
-                        class="w-full bg-iron border-slate-800 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-3 text-slate-100 placeholder:text-slate-600"
-                        placeholder="+34 600 000 000" type="tel" />
-                </div>
-            </section>
-
-            <!-- Waitlist -->
-            <section class="border-l-4 border-primary bg-iron p-4 rounded-r-xl shadow-md">
-                <div class="flex items-center gap-2 mb-1">
-                    <span class="material-symbols-outlined text-primary text-sm">notifications_active</span>
-                    <h4 class="font-bold text-sm">Lista de espera inteligente</h4>
-                </div>
-                <p class="text-xs text-slate-400 leading-relaxed">Si el horario deseado se libera, te avisaremos
-                    inmediatamente por WhatsApp.</p>
             </section>
 
             <!-- CTA -->
-            <section class="pt-4 pb-8">
-                <button onclick="confirmarReserva()"
-                    class="w-full py-4 rounded-xl bg-gradient-to-r from-primary to-burnt-amber text-background-dark font-black text-lg shadow-xl shadow-primary/30 flex items-center justify-center gap-2 mb-2 active:scale-[0.98] transition-transform">
-                    🔥 Confirmar Reserva
+            <section class="pt-4 pb-12 animate-in" style="animation-delay: 0.3s">
+                <button onclick="window.location.href='confirmacion.html'"
+                    class="w-full py-5 rounded-2xl bg-gradient-to-r from-primary to-[#8e6516] text-background-dark font-black text-xl shadow-2xl shadow-primary/30 flex items-center justify-center gap-3 active:scale-[0.98] transition-all hover:brightness-110">
+                    🛵 Realizar Pedido
                 </button>
-                <p class="text-center text-[10px] text-slate-500 italic">Recibirás una confirmación instantánea por
-                    WhatsApp</p>
+                <p class="text-center text-xs text-slate-500 mt-4 italic flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined text-sm">bolt</span>
+                    Llegará en aproximadamente 25-35 min
+                </p>
             </section>
 
         </main>
 
         <!-- Bottom Nav -->
         <nav
-            class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-iron/95 backdrop-blur-md border-t border-slate-800 flex justify-around items-center px-4 py-3 z-[60]">
+            class="fixed bottom-0 left-0 right-0 lg:left-auto lg:right-auto lg:w-[1200px] lg:mx-auto bg-surface-dark/95 backdrop-blur-md border-t border-primary/20 flex justify-around items-center px-4 py-3 z-[60]">
             <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html">
                 <span class="material-symbols-outlined">home</span>
-                <span class="text-[10px] font-medium">Inicio</span>
+                <span class="text-[10px] font-bold">INICIO</span>
             </a>
             <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html#carta">
                 <span class="material-symbols-outlined">menu_book</span>
-                <span class="text-[10px] font-medium">Carta</span>
+                <span class="text-[10px] font-bold">CARTA</span>
             </a>
             <a class="flex flex-col items-center gap-1 text-primary" href="resumen.html">
-                <span class="material-symbols-outlined font-variation-fill">calendar_month</span>
-                <span class="text-[10px] font-bold">Reservas</span>
+                <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">moped</span>
+                <span class="text-[10px] font-bold">PEDIDO</span>
             </a>
             <a class="flex flex-col items-center gap-1 text-slate-500" href="confirmacion.html">
                 <span class="material-symbols-outlined">person</span>
-                <span class="text-[10px] font-medium">Perfil</span>
+                <span class="text-[10px] font-bold">PERFIL</span>
             </a>
         </nav>
     </div>
-
-    <script>
-        // ── STATE ──
-        let selectedDate = '', selectedTime = '14:00', partyCount = 2;
-
-        // ── DATE STRIP ──
-        const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
-        const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-        const today = new Date();
-        const strip = document.getElementById('dateStrip');
-        document.getElementById('mesActual').textContent = months[today.getMonth()] + ' ' + today.getFullYear();
-        for (let i = 0; i < 7; i++) {
-            const d = new Date(today); d.setDate(today.getDate() + i);
-            const btn = document.createElement('button');
-            btn.className = 'flex flex-col items-center justify-center min-w-[56px] h-20 rounded-xl ' +
-                (i === 0 ? 'bg-primary text-background-dark shadow-lg shadow-primary/20' : 'bg-slate-200 dark:bg-slate-800/50');
-            btn.innerHTML = `<span class="text-[10px] uppercase font-bold ${i === 0 ? 'opacity-70' : 'text-slate-500'}">${days[d.getDay()]}</span><span class="text-lg font-bold">${d.getDate()}</span>`;
-            btn.dataset.dateStr = d.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
-            btn.addEventListener('click', () => {
-                [...strip.children].forEach(b => b.className = b.className.replace('bg-primary text-background-dark shadow-lg shadow-primary/20', 'bg-slate-200 dark:bg-slate-800/50').replace('opacity-70', 'text-slate-500'));
-                btn.className = 'flex flex-col items-center justify-center min-w-[56px] h-20 rounded-xl bg-primary text-background-dark shadow-lg shadow-primary/20';
-                btn.querySelector('span').className = 'text-[10px] uppercase font-bold opacity-70';
-                selectedDate = btn.dataset.dateStr;
-            });
-            if (i === 0) selectedDate = btn.dataset.dateStr;
-            strip.appendChild(btn);
-        }
-
-        // ── TIME ──
-        function selectTime(el, t) {
-            document.querySelectorAll('.time-btn').forEach(b => {
-                b.className = b.className.replace('bg-primary text-background-dark font-bold shadow-lg shadow-primary/20', '').trim();
-                if (!b.className.includes('border')) b.className += ' border border-slate-700 text-sm font-medium';
-            });
-            el.className = 'time-btn py-3 px-1 rounded-full bg-primary text-background-dark font-bold text-sm shadow-lg shadow-primary/20';
-            selectedTime = t;
-        }
-
-        // ── STEPPER ──
-        function changeParty(d) {
-            partyCount = Math.max(1, Math.min(20, partyCount + d));
-            document.getElementById('partyCount').textContent = partyCount;
-        }
-
-        // ── CONFIRM ──
-        function confirmarReserva() {
-            const nombre = document.getElementById('nombre').value.trim();
-            const telefono = document.getElementById('telefono').value.trim();
-            if (!nombre) { alert('Por favor introduce tu nombre 😊'); document.getElementById('nombre').focus(); return; }
-            if (!telefono) { alert('Por favor introduce tu teléfono de WhatsApp 📱'); document.getElementById('telefono').focus(); return; }
-            sessionStorage.setItem('reserva', JSON.stringify({ nombre, telefono, fecha: selectedDate, hora: selectedTime, personas: partyCount }));
-            window.location.href = 'confirmacion.html';
-        }
-    </script>
 </body>
 
 </html>
