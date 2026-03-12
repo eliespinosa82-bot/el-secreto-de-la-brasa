@@ -4,13 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Perfil y Pedido · El Secreto de la Brasa</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="css/styles.css">
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -20,147 +18,230 @@
                         "primary": "#c8973c",
                         "background-light": "#f8f7f6",
                         "background-dark": "#1a1a1a",
-                        "surface-dark": "#242424",
+                        "iron": "#242424",
+                        "burnt-amber": "#8e6516",
                     },
                     fontFamily: { "display": ["Epilogue", "sans-serif"] },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
                 },
             },
         }
     </script>
+    <title>Pedido Confirmado · El Secreto de la Brasa</title>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+            font-family: 'Epilogue', sans-serif;
+            background-color: #1a1a1a;
+        }
+
+        .font-variation-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .pop-in {
+            animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+        }
+
+        .pulse-orange {
+            animation: pulseOrange 2s infinite;
+        }
+
+        @keyframes pulseOrange {
+            0% {
+                box-shadow: 0 0 0 0 rgba(200, 151, 58, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 15px rgba(200, 151, 58, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(200, 151, 58, 0);
+            }
+        }
+    </style>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
-    <div class="app-wrapper">
+<body class="bg-background-dark font-display text-slate-100 antialiased">
+    <div class="relative mx-auto min-h-screen max-w-md flex flex-col pb-24 shadow-2xl border-x border-slate-800">
+
         <!-- Header -->
         <header
-            class="sticky top-0 z-50 flex items-center justify-between bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 border-b border-primary/20">
+            class="sticky top-0 z-50 flex items-center justify-between bg-background-dark/80 backdrop-blur-md p-4 border-b border-white/5">
             <a href="index.html"
-                class="flex items-center justify-center size-10 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
-                <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
+                class="flex items-center justify-center size-10 rounded-full hover:bg-slate-800 transition-colors">
+                <span class="material-symbols-outlined text-slate-100">home</span>
             </a>
-            <h1 class="text-lg font-bold text-primary tracking-tight">Mi Perfil</h1>
-            <div class="size-10"></div>
+            <h1 class="text-lg font-bold text-primary tracking-tight" data-i18n="confirm_title">Pedido Confirmado ✅</h1>
+            <!-- Language picker trigger -->
+            <button class="lang-trigger" onclick="openLangPanel()" aria-label="Select language" id="langTriggerBtn">
+                <span class="lang-trigger-flag" id="langTriggerFlag">🇪🇸</span>
+                <span class="material-symbols-outlined" style="font-size:.85rem;opacity:.7">expand_more</span>
+            </button>
         </header>
 
-        <main class="container px-4 py-8 space-y-8 max-w-2xl">
+        <main class="flex-1 px-4 py-6 space-y-6">
 
-            <!-- Order Status Hero -->
-            <section class="flex flex-col items-center text-center py-6 animate-in">
+            <!-- Success Hero -->
+            <section class="flex flex-col items-center text-center py-6">
                 <div
-                    class="size-24 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center mb-4 shadow-2xl shadow-primary/20">
-                    <span class="material-symbols-outlined text-primary text-5xl animate-glovo-float">moped</span>
+                    class="pop-in size-24 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center mb-6 shadow-lg shadow-primary/20 pulse-orange">
+                    <span class="material-symbols-outlined text-primary text-5xl"
+                        style="font-variation-settings:'FILL' 1">moped</span>
                 </div>
-                <h2 class="text-3xl font-black text-white mb-2">¡Pedido en Marcha!</h2>
-                <p class="text-slate-400">Tu hamburguesa está siendo mimada en la brasa.</p>
-                <div class="mt-6 flex gap-2">
-                    <span
-                        class="px-3 py-1 bg-emerald-500/10 text-emerald-500 text-xs font-bold rounded-full border border-emerald-500/20">Cocinando</span>
-                    <span
-                        class="px-3 py-1 bg-white/5 text-slate-500 text-xs font-bold rounded-full border border-white/5">En
-                        camino</span>
-                    <span
-                        class="px-3 py-1 bg-white/5 text-slate-500 text-xs font-bold rounded-full border border-white/5">Entregado</span>
+                <h2 class="text-2xl font-extrabold text-white mb-2" data-i18n="order_on_way">¡Pedido en Marcha!</h2>
+                <p class="text-slate-400 text-sm"><span data-i18n="thanks_customer">Gracias,</span> <span class="text-primary font-bold"
+                        id="confirmNombre">Cliente</span></p>
+                <p class="text-slate-500 text-xs mt-1" data-i18n="preparing_order">Estamos preparando tu carne a la brasa con todo el mimo del
+                    mundo.</p>
+            </section>
+
+            <!-- Order Tracking -->
+            <section class="bg-iron rounded-2xl p-5 border border-white/5 shadow-lg space-y-6">
+                <div
+                    class="flex justify-between items-center bg-background-dark/50 p-4 rounded-xl border border-primary/20">
+                    <div>
+                        <p class="text-[10px] text-slate-500 uppercase font-black tracking-widest mb-1" data-i18n="estimated_time_label">Tiempo Estimado
+                        </p>
+                        <p class="text-xl font-black text-primary">25-35 min</p>
+                    </div>
+                    <span class="material-symbols-outlined text-primary text-3xl animate-bounce">bolt</span>
+                </div>
+
+                <div class="space-y-4">
+                    <h3 class="font-bold text-sm text-slate-400 uppercase tracking-widest" data-i18n="delivery_details">Detalles de Entrega</h3>
+                    <div class="grid grid-cols-1 gap-3">
+                        <div class="bg-background-dark/30 rounded-xl p-4 border border-white/5 flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">location_on</span>
+                            <div>
+                                <div class="text-[10px] text-slate-500 uppercase font-bold" data-i18n="address_label">Dirección</div>
+                                <div class="text-sm font-bold leading-tight" id="confirmDireccion">Mercado Virgen del
+                                    Rosario, Cádiz</div>
+                            </div>
+                        </div>
+                        <div class="bg-background-dark/30 rounded-xl p-4 border border-white/5 flex items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">payments</span>
+                            <div>
+                                <div class="text-[10px] text-slate-500 uppercase font-bold" data-i18n="payment_method">Método de Pago</div>
+                                <div class="text-sm font-bold leading-tight" data-i18n="cash">Efectivo (en el local/entrega)</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Loyalty Status -->
-            <section class="bg-surface-dark rounded-2xl p-6 border border-primary/20 shadow-xl animate-in"
-                style="animation-delay: 0.1s">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-bold text-sm uppercase tracking-widest text-primary">Tarjeta de Fidelidad</h3>
-                    <span class="text-xs font-bold text-slate-500">3 / 10 pedidos</span>
+            <!-- Loyalty Progress -->
+            <section
+                class="bg-iron border border-white/5 rounded-2xl p-5 flex gap-4 items-center relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 opacity-5 transform rotate-12">
+                    <span class="material-symbols-outlined text-8xl">military_tech</span>
                 </div>
-                <div class="flex gap-3 flex-wrap justify-center">
-                    <div
-                        class="size-10 rounded-full bg-primary flex items-center justify-center text-background-dark font-black">
-                        🔥</div>
-                    <div
-                        class="size-10 rounded-full bg-primary flex items-center justify-center text-background-dark font-black">
-                        🔥</div>
-                    <div
-                        class="size-10 rounded-full bg-primary flex items-center justify-center text-background-dark font-black">
-                        🔥</div>
-                    <div
-                        class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-600 font-bold">
-                        4</div>
-                    <div
-                        class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-600 font-bold">
-                        5</div>
-                    <div
-                        class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-600 font-bold">
-                        6</div>
-                    <div
-                        class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-600 font-bold">
-                        7</div>
-                    <div
-                        class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-600 font-bold">
-                        8</div>
-                    <div
-                        class="size-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-600 font-bold">
-                        9</div>
-                    <div
-                        class="size-10 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center text-primary font-bold">
-                        🎁</div>
+                <div
+                    class="size-14 rounded-full bg-gradient-to-br from-primary to-burnt-amber flex items-center justify-center flex-shrink-0 shadow-lg shadow-primary/20">
+                    <span class="material-symbols-outlined text-background-dark font-black">star</span>
                 </div>
-                <p class="text-[10px] text-center text-slate-500 mt-4 italic">¡Faltan 7 pedidos para tu hamburguesa
-                    GRATIS!</p>
+                <div>
+                    <h4 class="font-bold text-sm text-white mb-1" data-i18n="stamp_added">Sello Añadido 🏅</h4>
+                    <p class="text-xs text-slate-400 leading-relaxed" id="loyaltyMsg" data-i18n="loyalty_progress">
+                        ¡Ya tienes <span class="text-primary font-bold">4/9</span> sellos! Tu próximo pedido está más
+                        cerca de ser gratis.
+                    </p>
+                </div>
             </section>
 
-            <!-- User Info -->
-            <section class="bg-surface-dark rounded-2xl p-6 border border-primary/20 space-y-4 animate-in"
-                style="animation-delay: 0.2s">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-xs text-slate-500 font-bold uppercase">Nombre</p>
-                        <p class="font-bold">Cliente Seleccionado</p>
-                    </div>
-                    <span class="material-symbols-outlined text-slate-600">edit</span>
-                </div>
-                <div class="divider"></div>
-                <div class="flex items-center justify-between">
-                    <div>
-                        <p class="text-xs text-slate-500 font-bold uppercase">Teléfono</p>
-                        <p class="font-bold">+34 600 000 000</p>
-                    </div>
-                    <span class="material-symbols-outlined text-slate-600">verified</span>
+            <!-- Feedback -->
+            <section class="bg-zinc-900 border border-white/5 rounded-2xl p-4 flex items-center gap-3">
+                <span class="material-symbols-outlined text-primary">chat_bubble</span>
+                <div>
+                    <div class="text-sm font-bold" data-i18n="order_problem">¿Algún problema con el pedido?</div>
+                    <div class="text-xs text-slate-500 mt-0.5 underline" data-i18n="contact_support">Contactar con soporte por WhatsApp</div>
                 </div>
             </section>
 
             <!-- Action Buttons -->
-            <section class="space-y-4 pt-4 animate-in" style="animation-delay: 0.3s">
+            <section class="space-y-3 pt-2">
                 <a href="index.html"
-                    class="block w-full py-4 rounded-xl bg-gradient-to-r from-primary to-[#8e6516] text-background-dark font-black text-lg text-center shadow-xl shadow-primary/30 active:scale-[0.98] transition-all">
-                    🍕 Hacer otro Pedido
+                    class="block w-full py-4 rounded-xl bg-gradient-to-r from-primary to-burnt-amber text-background-dark font-black text-lg text-center shadow-xl shadow-primary/30 active:scale-[0.98] transition-transform" data-i18n="back_to_home">
+                    🏠 Volver al Inicio
                 </a>
-                <button
-                    class="block w-full py-3 rounded-xl border border-white/10 text-slate-400 font-bold text-center text-sm">
-                    Cerrar Sesión
-                </button>
             </section>
 
         </main>
 
         <!-- Bottom Nav -->
         <nav
-            class="fixed bottom-0 left-0 right-0 lg:left-auto lg:right-auto lg:w-[1200px] lg:mx-auto bg-surface-dark/95 backdrop-blur-md border-t border-primary/20 flex justify-around items-center px-4 py-3 z-[60]">
+            class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-iron/95 backdrop-blur-md border-t border-white/5 flex justify-around items-center px-4 py-3 z-[60]">
             <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html">
                 <span class="material-symbols-outlined">home</span>
-                <span class="text-[10px] font-bold">INICIO</span>
+                <span class="text-[10px] font-medium" data-i18n="nav_home">Inicio</span>
             </a>
             <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html#carta">
                 <span class="material-symbols-outlined">menu_book</span>
-                <span class="text-[10px] font-bold">CARTA</span>
+                <span class="text-[10px] font-medium" data-i18n="nav_menu">Carta</span>
             </a>
             <a class="flex flex-col items-center gap-1 text-slate-500" href="resumen.html">
                 <span class="material-symbols-outlined">moped</span>
-                <span class="text-[10px] font-bold">PEDIDO</span>
+                <span class="text-[10px] font-medium" data-i18n="nav_order">Pedido</span>
             </a>
-            <a class="flex flex-col items-center gap-1 text-primary" href="confirmacion.html">
-                <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">person</span>
-                <span class="text-[10px] font-bold">PERFIL</span>
+            <a class="flex flex-col items-center gap-1 text-primary" href="perfil.html">
+                <span class="material-symbols-outlined font-variation-fill">person</span>
+                <span class="text-[10px] font-bold" data-i18n="nav_profile">Perfil</span>
             </a>
         </nav>
     </div>
+
+    <!-- i18n scripts -->
+    <script src="js/i18n.js" defer></script>
+    <script src="js/menu-i18n.js" defer></script>
+
+    <script>
+        function updateLoyaltyMessage() {
+            const stamps = 4; // Dynamic if needed
+            const msgEl = document.getElementById('loyaltyMsg');
+            if (!msgEl) return;
+            
+            const lang = (typeof I18N !== 'undefined') ? I18N.current : 'es';
+            const dict = (typeof I18N !== 'undefined') ? I18N.translations : null;
+            
+            let rawText = "¡Ya tienes {0}/9 sellos! Tu próximo pedido está más cerca de ser gratis.";
+            if (dict && dict.loyalty_progress && dict.loyalty_progress[lang]) {
+                rawText = dict.loyalty_progress[lang];
+            }
+            
+            msgEl.innerHTML = rawText.replace('{0}', `<span class="text-primary font-bold">${stamps}</span>`);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Carga de datos desde sessionStorage y localStorage (brasa_user)
+            const pedido = JSON.parse(sessionStorage.getItem('pedido') || '{}');
+            const usuario = JSON.parse(localStorage.getItem('brasa_user') || '{}');
+
+            const nombre = pedido.nombre || usuario.nombre || 'Cliente';
+            const direccion = pedido.direccion || usuario.direccion || 'Mercado Virgen del Rosario, Cádiz';
+
+            document.getElementById('confirmNombre').textContent = nombre;
+            document.getElementById('confirmDireccion').textContent = direccion;
+
+            updateLoyaltyMessage();
+        });
+
+        window.addEventListener('languageChanged', () => {
+            updateLoyaltyMessage();
+        });
+    </script>
 </body>
 
 </html>

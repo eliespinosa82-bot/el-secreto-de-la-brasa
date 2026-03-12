@@ -11,6 +11,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
     <link rel="stylesheet" href="css/styles.css">
+    <script src="js/i18n.js" defer></script>
+    <script src="js/menu-i18n.js" defer></script>
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -38,61 +40,95 @@
                 class="flex items-center justify-center size-10 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
                 <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
             </a>
-            <h1 class="text-xl font-black text-primary tracking-tight">Mi Pedido 🛒</h1>
-            <div class="size-10"></div>
+            <h1 class="text-xl font-black text-primary tracking-tight" data-i18n="resumen_title">Mi Pedido 🛒</h1>
+            <!-- Language picker trigger -->
+            <button class="lang-trigger" onclick="openLangPanel()" aria-label="Select language" id="langTriggerBtn">
+                <span class="lang-trigger-flag" id="langTriggerFlag">🇪🇸</span>
+                <span class="material-symbols-outlined" style="font-size:.85rem;opacity:.7">expand_more</span>
+            </button>
         </header>
 
-        <main class="container py-8 px-4 space-y-8 max-w-2xl">
+        <!-- User greeting banner -->
+        <div id="userBanner" class="px-4 pt-4 hidden">
+            <div class="flex items-center gap-3 bg-primary/10 border border-primary/20 rounded-2xl p-3.5">
+                <div id="bannerAvatar"
+                    class="size-9 rounded-full bg-gradient-to-br from-primary to-[#8e6516] flex items-center justify-center text-sm font-black text-background-dark flex-shrink-0">
+                    U</div>
+                <div class="flex-1 min-w-0">
+                    <p class="text-xs text-slate-400">Pedido como</p>
+                    <p id="bannerName" class="font-bold text-sm text-white truncate">Usuario</p>
+                </div>
+                <a href="perfil.html" class="text-xs text-primary font-bold hover:underline">Cambiar</a>
+            </div>
+        </div>
+        <!-- No-session banner -->
+        <div id="guestBanner" class="px-4 pt-4">
+            <a href="perfil.html"
+                class="flex items-center gap-3 bg-surface-dark border border-white/10 rounded-2xl p-3.5 hover:border-primary/30 transition-colors">
+                <span class="material-symbols-outlined text-slate-400">person_add</span>
+                <div class="flex-1">
+                    <p class="font-bold text-sm" data-i18n="tab_login">Accede o regístrate</p>
+                    <p class="text-xs text-slate-500">Más rápido y acumulas sellos 🏅</p>
+                </div>
+                <span class="material-symbols-outlined text-slate-500">chevron_right</span>
+            </a>
+        </div>
+
+        <main class="container py-4 px-4 space-y-8 max-w-2xl">
 
             <!-- Order Summary -->
             <section class="bg-surface-dark rounded-2xl p-6 border border-primary/20 shadow-2xl animate-in">
                 <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">shopping_bag</span>
-                    Resumen del Pedido
+                    <span data-i18n="summary_title">Resumen del Pedido</span>
                 </h2>
-                <div class="space-y-4" id="orderItems">
-                    <!-- Example Item -->
-                    <div class="flex justify-between items-center border-b border-white/5 pb-4">
-                        <div class="flex gap-4 items-center">
-                            <div
-                                class="size-12 rounded-lg bg-cover bg-center bg-[url('https://lh3.googleusercontent.com/aida-public/AB6AXuAiBMj45PWyimS18XQ-_588cyy6E2iCdXkDsC9l1Ww-zQ2985rep3BPYGhIENNhe0-LMEL77jEwTrszt7QCmA0rq5bXl-uYbLbmMN0gmuurU5SbKo8AzocwquOjzKmola_YbEotK366hdTz5mqm62-3ZsHPxVRcLnH4xGKSwI9vpLTEyEZ1hdIbpnr9KpPuTgkd194s7NHtqNrKbIwZQXU6z7iiE7MuhPI_0gCfjRRyUm9SSXWjaFCBqxQ2HtySarWw4ZabaVg4HEE')]">
-                            </div>
-                            <div>
-                                <p class="font-bold">La Pistachera</p>
-                                <p class="text-xs text-slate-500">Sin cebolla, Doble carne</p>
-                            </div>
-                        </div>
-                        <span class="font-bold text-primary">19,40€</span>
-                    </div>
+                <!-- Cart items rendered by JS -->
+                <div id="orderItems" class="space-y-3"></div>
+                <!-- Empty state -->
+                <div id="emptyCart" class="hidden py-8 text-center">
+                    <span class="material-symbols-outlined text-slate-600 text-5xl block mb-2">shopping_basket</span>
+                    <p class="text-slate-500 text-sm" data-i18n="empty_cart">Tu pedido está vacío</p>
+                    <a href="index.html#carta"
+                        class="mt-4 inline-block text-xs font-bold text-primary hover:underline">← Ver la carta</a>
                 </div>
-                <div class="flex justify-between items-center pt-6">
-                    <span class="text-lg font-medium">Total</span>
-                    <span class="text-2xl font-black text-primary">19,40€</span>
+                <div id="orderTotal" class="flex justify-between items-center pt-6 border-t border-white/10 mt-4"
+                    style="display:none!important">
+                    <span class="text-lg font-medium" data-i18n="total_label">Total</span>
+                    <span id="totalAmount" class="text-2xl font-black text-primary">0,00€</span>
                 </div>
+            </section>
+
+            <!-- Quick Drinks Add-On -->
+            <section id="drinksSection" class="animate-in hidden" style="animation-delay: 0.05s">
+                <h2 class="text-base font-bold mb-3 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary" style="font-size:1.2rem">local_bar</span>
+                    <span data-i18n="add_drink">¿Añadir una bebida?</span>
+                </h2>
+                <div id="drinkQuickList" class="grid grid-cols-2 gap-2"></div>
             </section>
 
             <!-- Delivery Details -->
             <section class="space-y-4 animate-in" style="animation-delay: 0.1s">
                 <h2 class="text-lg font-bold flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">location_on</span>
-                    Detalles de Entrega
+                    <span data-i18n="delivery_details">Detalles de Entrega</span>
                 </h2>
                 <div class="grid gap-4">
                     <div class="space-y-1">
-                        <label class="text-xs font-bold text-slate-500 uppercase px-1">Dirección de entrega</label>
+                        <label class="text-xs font-bold text-slate-500 uppercase px-1" data-i18n="delivery_addr">Dirección de entrega</label>
                         <input
                             class="w-full bg-surface-dark border-primary/20 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600"
-                            placeholder="Calle, número, piso..." type="text" />
+                            placeholder="Calle, número, piso..." type="text" data-i18n="addr_placeholder" data-i18n-attr="placeholder" />
                     </div>
                     <div class="grid grid-cols-2 gap-4">
                         <div class="space-y-1">
-                            <label class="text-xs font-bold text-slate-500 uppercase px-1">Tu nombre</label>
-                            <input
+                            <label class="text-xs font-bold text-slate-500 uppercase px-1" data-i18n="your_name">Tu nombre</label>
+                            <input id="inputNombre"
                                 class="w-full bg-surface-dark border-primary/20 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600"
-                                placeholder="Nombre completo" type="text" />
+                                placeholder="Nombre completo" type="text" data-i18n="name_placeholder" data-i18n-attr="placeholder" />
                         </div>
                         <div class="space-y-1">
-                            <label class="text-xs font-bold text-slate-500 uppercase px-1">Teléfono</label>
+                            <label class="text-xs font-bold text-slate-500 uppercase px-1" data-i18n="phone_label">Teléfono</label>
                             <input
                                 class="w-full bg-surface-dark border-primary/20 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600"
                                 placeholder="600 000 000" type="tel" />
@@ -106,29 +142,29 @@
                 style="animation-delay: 0.2s">
                 <div class="flex items-center gap-2 mb-4">
                     <span class="material-symbols-outlined text-primary">payments</span>
-                    <h3 class="font-bold">Método de Pago</h3>
+                    <h3 class="font-bold" data-i18n="payment_method">Método de Pago</h3>
                 </div>
                 <div class="flex gap-4">
                     <button
                         class="flex-1 py-3 px-4 rounded-xl border-2 border-primary bg-primary/10 text-primary font-bold flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined">payments</span> Efectivo
+                        <span class="material-symbols-outlined">payments</span> <span data-i18n="cash">Efectivo</span>
                     </button>
                     <button
                         class="flex-1 py-3 px-4 rounded-xl border border-white/10 bg-surface-dark text-slate-400 font-bold flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined">credit_card</span> Tarjeta
+                        <span class="material-symbols-outlined">credit_card</span> <span data-i18n="card">Tarjeta</span>
                     </button>
                 </div>
             </section>
 
             <!-- CTA -->
             <section class="pt-4 pb-12 animate-in" style="animation-delay: 0.3s">
-                <button onclick="window.location.href='confirmacion.html'"
+                <button onclick="realizarPedido()"
                     class="w-full py-5 rounded-2xl bg-gradient-to-r from-primary to-[#8e6516] text-background-dark font-black text-xl shadow-2xl shadow-primary/30 flex items-center justify-center gap-3 active:scale-[0.98] transition-all hover:brightness-110">
-                    🛵 Realizar Pedido
+                    <span data-i18n="place_order_btn">🛵 Realizar Pedido</span>
                 </button>
                 <p class="text-center text-xs text-slate-500 mt-4 italic flex items-center justify-center gap-2">
                     <span class="material-symbols-outlined text-sm">bolt</span>
-                    Llegará en aproximadamente 25-35 min
+                    <span data-i18n="estimated_time">Llegará en aproximadamente 25-35 min</span>
                 </p>
             </section>
 
@@ -149,12 +185,203 @@
                 <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">moped</span>
                 <span class="text-[10px] font-bold">PEDIDO</span>
             </a>
-            <a class="flex flex-col items-center gap-1 text-slate-500" href="confirmacion.html">
+            <a class="flex flex-col items-center gap-1 text-slate-500" href="perfil.html">
                 <span class="material-symbols-outlined">person</span>
                 <span class="text-[10px] font-bold">PERFIL</span>
             </a>
         </nav>
     </div>
+
+    <script>
+        // ── Shared constants ──
+        const USER_KEY = 'brasa_user';
+        const CART_KEY = 'brasa_cart';
+
+        function getCurrentUser() {
+            try { return JSON.parse(localStorage.getItem(USER_KEY)); } catch { return null; }
+        }
+        function getCart() { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; } }
+        function saveCart(cart) { localStorage.setItem(CART_KEY, JSON.stringify(cart)); renderCart(); }
+
+        // ── Quick-add drinks data ──
+        const DRINKS = [
+            { id: 'coca-cola', name: 'Coca-Cola', price: 2.50 },
+            { id: 'coca-cola-zero', name: 'Coca-Cola Zero', price: 2.50 },
+            { id: 'fanta-naranja', name: 'Fanta Naranja', price: 2.50 },
+            { id: 'fanta-limon', name: 'Fanta Limón', price: 2.50 },
+            { id: 'agua', name: 'Agua Mineral', price: 1.50 },
+            { id: 'cerveza', name: 'Cerveza', price: 2.80 },
+            { id: 'cerveza-sin', name: 'Cerveza Sin', price: 2.80 },
+            { id: 'limonada', name: 'Limonada Casera', price: 3.50 }
+        ];
+
+        function addDrink(id) {
+            const d = DRINKS.find(x => x.id === id);
+            if (!d) return;
+            const cart = getCart();
+            const ex = cart.find(i => i.id === id);
+            if (ex) { ex.qty = (ex.qty || 1) + 1; }
+            else { cart.push({ key: id, id, name: d.name, baseNum: d.price, extraCost: 0, totalStr: d.price.toFixed(2).replace('.', ',') + '€', removed: [], extras: [], img: '', qty: 1 }); }
+            saveCart(cart);
+        }
+
+        function changeQty(key, delta) {
+            const cart = getCart();
+            const idx = cart.findIndex(i => i.key === key);
+            if (idx === -1) return;
+            cart[idx].qty = Math.max(0, (cart[idx].qty || 1) + delta);
+            if (cart[idx].qty === 0) cart.splice(idx, 1);
+            saveCart(cart);
+        }
+
+        function removeItem(key) {
+            const cart = getCart().filter(i => i.key !== key);
+            saveCart(cart);
+        }
+
+        function renderCart() {
+            const cart = getCart();
+            const container = document.getElementById('orderItems');
+            const emptyEl = document.getElementById('emptyCart');
+            const totalEl = document.getElementById('orderTotal');
+            const totalAmtEl = document.getElementById('totalAmount');
+            const drinksSection = document.getElementById('drinksSection');
+
+            // Cart badge in nav
+            const badge = document.getElementById('cartNavBadge');
+            if (badge) { const t = cart.reduce((s, i) => s + (i.qty || 1), 0); badge.textContent = t; badge.style.display = t > 0 ? '' : 'none'; }
+
+            if (cart.length === 0) {
+                container.innerHTML = '';
+                emptyEl.classList.remove('hidden');
+                totalEl.style.removeProperty('display'); totalEl.style.display = 'none';
+                drinksSection.classList.remove('hidden'); // always show drinks
+                renderDrinks();
+                return;
+            }
+
+            emptyEl.classList.add('hidden');
+            totalEl.style.removeProperty('display');
+
+            let grandTotal = 0;
+
+            container.innerHTML = cart.map(item => {
+                const perItem = (item.baseNum || 0) + (item.extraCost || 0);
+                const lineTotal = perItem * (item.qty || 1);
+                grandTotal += lineTotal;
+
+                const emoji = item.img ? '' : '🍔';
+                const imgStyle = item.img
+                    ? `background-image:url('${item.img}');background-size:cover;background-position:center`
+                    : `display:flex;align-items:center;justify-content:center;font-size:1.4rem`;
+
+                const displayName = (typeof tIng === 'function') ? tIng(item.name) : item.name;
+                const mods = [];
+                if (item.removed && item.removed.length) {
+                    const translatedRemoved = item.removed.map(r => (typeof tIng === 'function') ? tIng(r) : r);
+                    const withoutLabel = (typeof I18N !== 'undefined' && I18N.translations.without) ? I18N.translations.without[I18N.current] : 'Sin';
+                    mods.push(withoutLabel + ': ' + translatedRemoved.join(', '));
+                }
+                if (item.extras && item.extras.length) {
+                    const translatedExtras = item.extras.map(e => (typeof tIng === 'function') ? tIng(e) : e);
+                    mods.push(translatedExtras.join(', '));
+                }
+
+                return `
+                <div style="display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.07)">
+                    <div style="flex-shrink:0;width:3rem;height:3rem;border-radius:.6rem;background:#2a2a2a;${imgStyle}">${emoji}</div>
+                    <div style="flex:1;min-width:0">
+                        <p style="font-weight:700;font-size:.9rem;margin:0 0 2px">${displayName}</p>
+                        ${mods.length ? `<p style="font-size:.72rem;color:#8a8a8a;margin:0">${mods.join(' · ')}</p>` : ''}
+                    </div>
+                    <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+                        <button onclick="changeQty('${item.key}',-1)" style="background:#2a2a2a;border:none;border-radius:50%;width:1.7rem;height:1.7rem;cursor:pointer;color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .15s" onmouseenter="this.style.background='#c8973c33'" onmouseleave="this.style.background='#2a2a2a'">−</button>
+                        <span style="font-weight:800;font-size:.9rem;min-width:1.2rem;text-align:center">${item.qty || 1}</span>
+                        <button onclick="changeQty('${item.key}',1)" style="background:#2a2a2a;border:none;border-radius:50%;width:1.7rem;height:1.7rem;cursor:pointer;color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .15s" onmouseenter="this.style.background='#c8973c33'" onmouseleave="this.style.background='#2a2a2a'">+</button>
+                    </div>
+                    <p style="font-weight:800;color:#c8973c;white-space:nowrap;font-size:.9rem;min-width:3.5rem;text-align:right">${lineTotal.toFixed(2).replace('.', ',') + '€'}</p>
+                    <button onclick="removeItem('${item.key}')" title="Eliminar" style="background:none;border:none;cursor:pointer;padding:4px;border-radius:50%;transition:background .15s;flex-shrink:0" onmouseenter="this.style.background='rgba(255,80,80,.15)'" onmouseleave="this.style.background='none'">
+                        <span class="material-symbols-outlined" style="font-size:1.1rem;color:#666">delete</span>
+                    </button>
+                </div>`;
+            }).join('');
+
+            totalAmtEl.textContent = grandTotal.toFixed(2).replace('.', ',') + '€';
+            drinksSection.classList.remove('hidden');
+            renderDrinks();
+        }
+
+        function renderDrinks() {
+            const list = document.getElementById('drinkQuickList');
+            const cart = getCart();
+            list.innerHTML = DRINKS.map(d => {
+                const inCart = cart.find(i => i.id === d.id);
+                const drinkName = (typeof tIng === 'function') ? tIng(d.name) : d.name;
+                return `
+                <button onclick="addDrink('${d.id}')" style="background:#242424;border:1px solid rgba(200,151,60,.2);border-radius:.75rem;padding:.6rem .8rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:6px;transition:border-color .15s,background .15s;text-align:left" onmouseenter="this.style.borderColor='rgba(200,151,60,.6)';this.style.background='rgba(200,151,60,.08)'" onmouseleave="this.style.borderColor='rgba(200,151,60,.2)';this.style.background='#242424'">
+                    <div>
+                        <p style="font-weight:700;font-size:.78rem;color:#f0f0f0;margin:0">${drinkName}${inCart ? ` <span style="color:#c8973c">(×${inCart.qty})</span>` : ''}</p>
+                        <p style="font-size:.68rem;color:#8a8a8a;margin:0">${d.price.toFixed(2).replace('.', ',')}€</p>
+                    </div>
+                    <span class="material-symbols-outlined" style="font-size:1rem;color:#c8973c;flex-shrink:0">add_circle</span>
+                </button>`;
+            }).join('');
+        }
+
+        window.addEventListener('languageChanged', () => {
+            renderCart();
+        });
+
+        function initResumen() {
+            const user = getCurrentUser();
+            if (user) {
+                document.getElementById('userBanner').classList.remove('hidden');
+                document.getElementById('guestBanner').classList.add('hidden');
+                document.getElementById('bannerAvatar').textContent = user.initials || '👤';
+                document.getElementById('bannerName').textContent = user.nombre || 'Usuario';
+                const inputNombre = document.getElementById('inputNombre');
+                if (inputNombre && user.nombre) inputNombre.value = user.nombre;
+            }
+            renderCart();
+        }
+
+        function realizarPedido() {
+            const cart = getCart();
+            if (cart.length === 0) {
+                alert('Tu pedido está vacío. Añade algo de la carta primero.');
+                return;
+            }
+            const user = getCurrentUser();
+            const dir = document.querySelector('input[type=text]')?.value.trim();
+            const nombre = document.getElementById('inputNombre')?.value.trim() || (user && user.nombre) || 'Cliente';
+
+            if (!user) {
+                sessionStorage.setItem('pendingOrder', JSON.stringify({ direccion: dir || '' }));
+                window.location.href = 'perfil.html';
+                return;
+            }
+
+            const pedido = {
+                nombre: nombre,
+                direccion: dir || user.direccion || 'Mercado Virgen del Rosario, Cádiz',
+                pago: 'Efectivo',
+                items: cart,
+                fecha: new Date().toISOString(),
+                total: document.getElementById('totalAmount').textContent
+            };
+
+            // Guardar en el historial de pedidos
+            const orders = JSON.parse(localStorage.getItem('brasa_orders') || '[]');
+            orders.unshift(pedido); // Add to the beginning
+            localStorage.setItem('brasa_orders', JSON.stringify(orders.slice(0, 10))); // Keep last 10
+
+            sessionStorage.setItem('pedido', JSON.stringify(pedido));
+            localStorage.removeItem(CART_KEY); // clear cart after order
+            window.location.href = 'confirmacion.html';
+        }
+
+        initResumen();
+    </script>
 </body>
 
 </html>

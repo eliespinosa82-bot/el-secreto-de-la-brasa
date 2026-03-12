@@ -3,726 +3,707 @@
 
 <head>
   <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>El Secreto de la Brasa</title>
-  <meta name="description" content="El arte del fuego, el alma de la carne. Mercado Virgen del Rosario, Cádiz." />
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700;800&display=swap"
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>El Secreto de la Brasa · Cádiz</title>
+  <meta name="description"
+    content="El arte del fuego, el alma de la carne. Mercado Virgen del Rosario, Cádiz. Pide tu hamburguesa artesana online." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0..1&display=swap"
     rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-    rel="stylesheet" />
-  <script id="tailwind-config">
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            "primary": "#c8973c",
-            "background-light": "#f8f7f6",
-            "background-dark": "#1a1a1a",
-            "surface-dark": "#242424",
-          },
-          fontFamily: {
-            "display": ["Epilogue", "sans-serif"]
-          },
-          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
-        },
-      },
-    }
-  </script>
-  <style>
-    body {
-      font-family: 'Epilogue', sans-serif;
-      min-height: max(884px, 100dvh);
-    }
-
-    .ember-gradient {
-      background: linear-gradient(135deg, #c8973c 0%, #8e6516 100%);
-    }
-
-    .iron-border {
-      border: 1px solid rgba(200, 151, 58, 0.2);
-    }
-
-    .hide-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-
-    .hide-scrollbar {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-  </style>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="js/i18n.js" defer></script>
+  <script src="js/menu-i18n.js" defer></script>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen pb-24">
+<body>
 
-  <!-- Header Section -->
-  <header class="flex flex-col items-center pt-8 pb-4 px-4 bg-background-light dark:bg-background-dark container">
-    <div
-      class="w-20 h-20 rounded-full border-2 border-primary flex items-center justify-center mb-3 bg-surface-dark shadow-xl">
-      <span class="material-symbols-outlined text-primary text-4xl"
-        style="font-variation-settings: 'FILL' 1">local_fire_department</span>
-    </div>
-    <h1 class="text-xl font-extrabold tracking-widest text-center uppercase dark:text-primary">El Secreto de la Brasa
-    </h1>
-    <p class="text-primary/80 text-sm font-medium italic mt-1 font-display">El arte del fuego, el alma de la carne</p>
-  </header>
+  <!-- ═══ APP WRAPPER: Max 430px, centrado en desktop ═══ -->
+  <div class="app-shell">
 
-  <!-- ═══ HERO — GLOVO PARALLAX ═══ -->
-  <section class="px-4 py-2 container">
-    <div class="hero-parallax-wrapper rounded-2xl shadow-2xl" id="heroWrapper">
+    <!-- ── STICKY HEADER ── -->
+    <header class="app-header">
+      <div class="app-logo">
+        <span class="material-symbols-outlined app-logo-icon"
+          style="font-variation-settings:'FILL' 1">local_fire_department</span>
+      </div>
+      <div class="app-header-text">
+        <h1 class="app-header-title">El Secreto de la Brasa</h1>
+        <p class="app-header-sub">Mercado Virgen del Rosario · Cádiz</p>
+      </div>
+      <div class="app-open-badge">
+        <span class="app-open-dot"></span>
+        <span data-i18n="badge_open">Abierto</span>
+      </div>
+      <!-- Language picker trigger -->
+      <button class="lang-trigger" onclick="openLangPanel()" aria-label="Select language" id="langTriggerBtn">
+        <span class="lang-trigger-flag" id="langTriggerFlag">🇪🇸</span>
+        <span class="material-symbols-outlined" style="font-size:.85rem;opacity:.7">expand_more</span>
+      </button>
+    </header>
 
-      <!-- Gradient Background -->
+    <!-- ═══ HERO PARALLAX ═══ -->
+    <section id="heroWrapper" class="hero-parallax-wrapper">
+      <!-- Gradient BG -->
       <div class="hero-parallax-bg" id="heroBg"></div>
 
-      <!-- Floating Accent particles -->
+      <!-- Accent particle -->
       <img src="images/layer-accents.png" alt="" class="hero-accent hero-accent-1" aria-hidden="true" />
 
-      <!-- === PARALLAX FOOD LAYERS === -->
+      <!-- Parallax food layers -->
       <div class="hero-layers-group" id="heroLayers">
-        <!-- Layer 3: Top bun — fastest float -->
-        <img src="images/layer-top.png" alt="" class="hero-layer layer-top" />
-        <!-- Layer 2: Ingredients — medium float -->
-        <img src="images/layer-mid.png" alt="" class="hero-layer layer-mid" />
-        <!-- Layer 1: Bottom bun — slowest float -->
-        <img src="images/layer-bot.png" alt="" class="hero-layer layer-bot" />
+        <!-- Antigravity Burger (slide 0) -->
+        <div id="antigravityBurger" class="burger-antigravity-container">
+          <img src="images/bun-top.png" alt="" class="ag-layer ag-bun-top" />
+          <img src="images/sauce-drops.png" alt="" class="ag-layer ag-sauce-drops" />
+          <img src="images/onion-rings.png" alt="" class="ag-layer ag-onions" />
+          <img src="images/lettuce-chili.png" alt="" class="ag-layer ag-lettuce" />
+          <img src="images/cheese-melt.png" alt="" class="ag-layer ag-cheese" />
+          <img src="images/meat-1.png" alt="" class="ag-layer ag-meat-1" />
+          <img src="images/veg-slices.png" alt="" class="ag-layer ag-vegs" />
+          <img src="images/bun-bot.png" alt="" class="ag-layer ag-bun-bot" />
+        </div>
+        <!-- Standard layers for slides 1-2 -->
+        <img src="images/layer-top.png" alt="" class="hero-layer layer-top" style="display:none" />
+        <img src="images/layer-mid.png" alt="" class="hero-layer layer-mid" style="display:none" />
+        <img src="images/layer-bot.png" alt="" class="hero-layer layer-bot" style="display:none" />
       </div>
 
-      <!-- Text -->
+      <!-- Hero text -->
       <div class="hero-parallax-text">
-        <p class="text-xs font-black uppercase tracking-[4px] text-white/60 mb-2">Cádiz · Mercado Virgen del Rosario</p>
-        <h2 class="text-4xl md:text-5xl font-black leading-[1.1] text-white">El Arte<br>del Fuego</h2>
-        <p class="text-white/80 font-semibold mt-3 flex items-center gap-2 text-base">
-          <span class="material-symbols-outlined text-primary text-lg"
-            style="font-variation-settings:'FILL' 1;">stars</span>
-          Especialistas en Brasa
-        </p>
-        <a href="resumen.html" class="hero-cta-btn mt-5 inline-flex items-center gap-2">
-          <span class="material-symbols-outlined text-sm">shopping_basket</span>
-          <span>Pedir Ahora</span>
+        <p class="hero-eyebrow" data-i18n="hero_eyebrow">Especialistas en Brasa 🔥</p>
+        <h2 class="hero-headline"><span data-i18n="hero_headline_1">El Arte</span><br><span
+            data-i18n="hero_headline_2">del Fuego</span></h2>
+        <a href="#carta" class="hero-cta-btn">
+          <span class="material-symbols-outlined" style="font-size:1rem">restaurant_menu</span>
+          <span data-i18n="hero_cta">Ver la Carta</span>
         </a>
       </div>
 
       <!-- Slide dots -->
-      <div class="absolute bottom-5 right-6 z-30 flex gap-2 items-center">
+      <div class="hero-dots">
         <button class="slider-dot active-dot" id="dot-0" onclick="goToSlide(0)"></button>
         <button class="slider-dot" id="dot-1" onclick="goToSlide(1)"></button>
         <button class="slider-dot" id="dot-2" onclick="goToSlide(2)"></button>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Quick Actions -->
-  <section class="grid grid-cols-2 gap-4 px-4 py-6 container">
-    <a href="https://glovoapp.com" target="_blank" rel="noopener noreferrer"
-      class="btn-glovo h-14 rounded-xl flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform no-underline">
-      <span class="font-bold text-background-dark">Pedir por Glovo</span>
-      <span class="material-symbols-outlined text-background-dark text-xl">moped</span>
-    </a>
-    <button onclick="document.getElementById('carta').scrollIntoView({behavior:'smooth'})"
-      class="bg-surface-dark border border-primary h-14 rounded-xl flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-transform">
-      <span class="font-bold text-primary">Ver Carta</span>
-      <span class="material-symbols-outlined text-primary text-xl">menu_book</span>
-    </button>
-  </section>
+    <!-- ── QUICK ACTIONS ── -->
+    <section class="quick-actions">
+      <a href="https://glovoapp.com" target="_blank" rel="noopener noreferrer" class="btn btn-glovo btn-full">
+        <span class="material-symbols-outlined">moped</span>
+        <span data-i18n="btn_glovo">Pedir por Glovo</span>
+      </a>
+      <a href="#carta" class="btn btn-outline btn-full">
+        <span class="material-symbols-outlined">menu_book</span>
+        <span data-i18n="btn_view_menu">Ver Carta</span>
+      </a>
+    </section>
 
-  <!-- Status Card -->
-  <section class="px-4 mb-6 container">
-    <div class="bg-surface-dark iron-border p-4 rounded-xl flex items-center justify-between">
-      <div class="flex flex-col">
-        <div class="flex items-center gap-2 mb-1">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span class="text-emerald-500 font-bold text-sm uppercase tracking-wider">Abierto Ahora</span>
-        </div>
-        <p class="text-slate-400 text-xs font-medium">Horario: Lun–Dom: 12:00–22:00</p>
+    <!-- ── STATUS ── -->
+    <div class="status-card card">
+      <span class="status-dot"></span>
+      <div>
+        <p class="status-text" data-i18n="status_open">Abierto Ahora</p>
+        <p class="status-meta" data-i18n="status_hours">Lun – Dom: 12:00 – 22:00 h</p>
       </div>
-      <span class="material-symbols-outlined text-primary/50">schedule</span>
-    </div>
-  </section>
-
-  <!-- Featured Burgers -->
-  <section class="mb-6 container">
-    <div class="flex items-center justify-between px-4 mb-4">
-      <h3 class="text-lg font-bold tracking-tight">Especialidades de la Brasa</h3>
-      <span class="text-primary text-sm font-semibold">Ver Todo</span>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4">
-      <!-- Card 1 -->
-      <div
-        class="bg-surface-dark rounded-xl overflow-hidden iron-border menu-card fade-up-enter delay-1 relative cursor-pointer"
-        onclick="openModal({
-          title: 'La Pistachera',
-          desc: 'Salsa de pistacho artesanal',
-          price: '15,90€',
-          img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAiBMj45PWyimS18XQ-_588cyy6E2iCdXkDsC9l1Ww-zQ2985rep3BPYGhIENNhe0-LMEL77jEwTrszt7QCmA0rq5bXl-uYbLbmMN0gmuurU5SbKo8AzocwquOjzKmola_YbEotK366hdTz5mqm62-3ZsHPxVRcLnH4xGKSwI9vpLTEyEZ1hdIbpnr9KpPuTgkd194s7NHtqNrKbIwZQXU6z7iiE7MuhPI_0gCfjRRyUm9SSXWjaFCBqxQ2HtySarWw4ZabaVg4HEE',
-          ingredients: ['Pan brioche', '180g Ternera Angus madurada', 'Panceta Ibérica', 'Mermelada de bacon', 'Salsa de pistacho casera']
-        })">
-        <div class="menu-img-container floating-img delay-float-1">
-          <div class="menu-img"
-            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAiBMj45PWyimS18XQ-_588cyy6E2iCdXkDsC9l1Ww-zQ2985rep3BPYGhIENNhe0-LMEL77jEwTrszt7QCmA0rq5bXl-uYbLbmMN0gmuurU5SbKo8AzocwquOjzKmola_YbEotK366hdTz5mqm62-3ZsHPxVRcLnH4xGKSwI9vpLTEyEZ1hdIbpnr9KpPuTgkd194s7NHtqNrKbIwZQXU6z7iiE7MuhPI_0gCfjRRyUm9SSXWjaFCBqxQ2HtySarWw4ZabaVg4HEE');">
-          </div>
-          <div
-            class="absolute top-2 right-2 bg-primary text-background-dark px-2 py-1 rounded-lg text-xs font-bold z-10">
-            15,90€ 🔥</div>
-        </div>
-        <div class="p-3">
-          <h4 class="font-bold text-sm">La Pistachera</h4>
-          <p class="text-slate-400 text-xs mt-1">Salsa de pistacho artesanal</p>
-        </div>
-        <div class="quick-add-btn"><span class="material-symbols-outlined text-lg">add</span></div>
-      </div>
-      <!-- Card 2 -->
-      <div
-        class="bg-surface-dark rounded-xl overflow-hidden iron-border menu-card fade-up-enter delay-2 relative cursor-pointer"
-        onclick="openModal({
-          title: 'El Furioso',
-          desc: 'Toque picante de la casa',
-          price: '11,90€',
-          img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCaiHtixPMkpWPpSNNK5wmQR4TNup_xIxdxtUzCkrdP4xaPHodxl7_y2vcenmjph_gUOpobXVrmcCUlFb17Y2ys34-cPXPqprVpexm-lh06U19d3TMWERr54zP4FkJZsOVg6hErQOZkCNPwuS6FB20FTVjek6dRfvjQIV5t4hqc46J3HzZYHPOUR1NW2veK-NwuJJtRBZZ-NVbG7wked_jtbIruhedpov6hbbjrX-qdXpc4acz6wrmzkSr0k4SkeMd77WeKKAl4C7E',
-          ingredients: ['Pan brioche', 'Carne 180g', 'Salsa de la casa (picante)', 'Queso']
-        })">
-        <div class="menu-img-container floating-img delay-float-2">
-          <div class="menu-img"
-            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCaiHtixPMkpWPpSNNK5wmQR4TNup_xIxdxtUzCkrdP4xaPHodxl7_y2vcenmjph_gUOpobXVrmcCUlFb17Y2ys34-cPXPqprVpexm-lh06U19d3TMWERr54zP4FkJZsOVg6hErQOZkCNPwuS6FB20FTVjek6dRfvjQIV5t4hqc46J3HzZYHPOUR1NW2veK-NwuJJtRBZZ-NVbG7wked_jtbIruhedpov6hbbjrX-qdXpc4acz6wrmzkSr0k4SkeMd77WeKKAl4C7E');">
-          </div>
-          <div
-            class="absolute top-2 right-2 bg-primary text-background-dark px-2 py-1 rounded-lg text-xs font-bold z-10">
-            11,90€ 🔥</div>
-        </div>
-        <div class="p-3">
-          <h4 class="font-bold text-sm">El Furioso</h4>
-          <p class="text-slate-400 text-xs mt-1">Toque picante de la casa</p>
-        </div>
-        <div class="quick-add-btn"><span class="material-symbols-outlined text-lg">add</span></div>
-      </div>
-      <!-- Card 3 -->
-      <div
-        class="bg-surface-dark rounded-xl overflow-hidden iron-border menu-card fade-up-enter delay-3 relative cursor-pointer"
-        onclick="openModal({
-          title: 'Nachos Santa Brasa',
-          desc: 'Con carne mechada ahumada',
-          price: '11,90€',
-          img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBkL7JtwTpTTrPb_1IyiZEcIzjNcHNKVbLUs4tltiWirhNrdyBbfVb6yadSGnF4aW8n3Xms3AUbJppz4bFQwDkQBtTwVoSCGCr2xtNnRl-wa9TjgTVqthk-0PEZ7mWY1n10xmsckJHTfdK9_JTX3KyCI7JdmSa6PDHqXJeQTKcA5qJTT1hVOmZRPIy5CNsxsYz6lRNet3EyLrclcLCvMZDqzKB4BiKo0N8qIFfVngni3TjApuozn3Ft0Yan06Aw2mp3fvTEni-zj5s',
-          ingredients: ['Carne mechada', 'Queso fundido', 'Pico de gallo', 'Guacamole']
-        })">
-        <div class="menu-img-container floating-img delay-float-3">
-          <div class="menu-img"
-            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBkL7JtwTpTTrPb_1IyiZEcIzjNcHNKVbLUs4tltiWirhNrdyBbfVb6yadSGnF4aW8n3Xms3AUbJppz4bFQwDkQBtTwVoSCGCr2xtNnRl-wa9TjgTVqthk-0PEZ7mWY1n10xmsckJHTfdK9_JTX3KyCI7JdmSa6PDHqXJeQTKcA5qJTT1hVOmZRPIy5CNsxsYz6lRNet3EyLrclcLCvMZDqzKB4BiKo0N8qIFfVngni3TjApuozn3Ft0Yan06Aw2mp3fvTEni-zj5s');">
-          </div>
-          <div
-            class="absolute top-2 right-2 bg-primary text-background-dark px-2 py-1 rounded-lg text-xs font-bold z-10">
-            11,90€ 🔥</div>
-        </div>
-        <div class="p-3">
-          <h4 class="font-bold text-sm">Nachos Santa Brasa</h4>
-          <p class="text-slate-400 text-xs mt-1">Con carne mechada ahumada</p>
-        </div>
-        <div class="quick-add-btn"><span class="material-symbols-outlined text-lg">add</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ========= LA CARTA COMPLETA ========= -->
-  <section id="carta" class="px-4 mb-8 container">
-
-    <!-- Título sección -->
-    <div class="flex items-center gap-3 mb-6 pt-2">
-      <div class="flex-1 h-px bg-primary/20"></div>
-      <h2 class="text-xl font-extrabold uppercase tracking-widest text-primary">La Carta</h2>
-      <div class="flex-1 h-px bg-primary/20"></div>
+      <span class="material-symbols-outlined" style="color:var(--accent);opacity:.5;margin-left:auto">schedule</span>
     </div>
 
-    <!-- HAMBURGUESAS -->
-    <div class="mb-6">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="text-lg">🍔</span>
-        <h3 class="text-base font-extrabold uppercase tracking-wider border-b border-primary/30 pb-1 flex-1">
-          Hamburguesas</h3>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <!-- La Secreta -->
-        <div
-          class="bg-surface-dark iron-border rounded-xl p-4 flex justify-between items-start gap-3 menu-item-card fade-up-enter delay-4">
-          <div class="flex-1">
-            <h4 class="font-bold text-sm text-primary">La Secreta</h4>
-            <p class="text-slate-400 text-xs mt-1 leading-relaxed">Pan brioche, 180g de ternera angus irlandesa
-              madurada, cebolla crispy, mermelada de bacon, cheddar americano, edam, pepinillos y nuestra salsa secreta.
-            </p>
-            <span class="text-[10px] text-slate-600 mt-1 inline-block">Alér: 1,2,5,7,8,6,4,9</span>
-          </div>
-          <span class="font-extrabold text-primary text-sm whitespace-nowrap">13,90€</span>
-        </div>
-        <!-- La Explosiva -->
-        <div
-          class="bg-surface-dark iron-border rounded-xl p-4 flex justify-between items-start gap-3 menu-item-card fade-up-enter delay-4">
-          <div class="flex-1">
-            <h4 class="font-bold text-sm text-primary">La Explosiva</h4>
-            <p class="text-slate-400 text-xs mt-1 leading-relaxed">Pan brioche, 180g de ternera angus irlandesa
-              madurada, pulled pork, salsa queso cheddar de risketos, cebolla crispy y crunchy de risketos.</p>
-            <span class="text-[10px] text-slate-600 mt-1 inline-block">Alér: 2</span>
-          </div>
-          <span class="font-extrabold text-primary text-sm whitespace-nowrap">12,90€</span>
-        </div>
-        <!-- La Campera -->
-        <div
-          class="bg-surface-dark iron-border rounded-xl p-4 flex justify-between items-start gap-3 menu-item-card fade-up-enter delay-4">
-          <div class="flex-1">
-            <h4 class="font-bold text-sm text-primary">La Campera</h4>
-            <p class="text-slate-400 text-xs mt-1 leading-relaxed">Pan brioche, 180g ternera angus irlandesa madurada,
-              salsa jabugitos, panceta ibérica y huevo frito.</p>
-            <span class="text-[10px] text-slate-600 mt-1 inline-block">Alér: 2,4,7,5,6,1</span>
-          </div>
-          <span class="font-extrabold text-primary text-sm whitespace-nowrap">12,90€</span>
-        </div>
-        <!-- La Simple con Queso -->
-        <div
-          class="bg-surface-dark iron-border rounded-xl p-4 flex justify-between items-start gap-3 menu-item-card fade-up-enter delay-4">
-          <div class="flex-1">
-            <h4 class="font-bold text-sm text-primary">La Simple con Queso</h4>
-            <p class="text-slate-400 text-xs mt-1 leading-relaxed">Pan brioche, 180g ternera angus irlandesa madurada,
-              cheddar americano and edam.</p>
-            <span class="text-[10px] text-slate-600 mt-1 inline-block">Alér: 2,4,7,5,6,1</span>
-          </div>
-          <span class="font-extrabold text-primary text-sm whitespace-nowrap">9,00€</span>
-        </div>
-        <!-- La Pistachera -->
-        <div
-          class="bg-surface-dark iron-border rounded-xl p-4 flex justify-between items-start gap-3 menu-item-card fade-up-enter delay-4">
-          <div class="flex-1">
-            <h4 class="font-bold text-sm text-primary">La Pistachera</h4>
-            <p class="text-slate-400 text-xs mt-1 leading-relaxed">Pan brioche, 180g de ternera angus irlandesa
-              madurada, panceta ibérica, huevo frito, mermelada de bacon y nuestra salsa especial de pistacho casera.
-            </p>
-            <span class="text-[10px] text-slate-600 mt-1 inline-block">Alér: 1,2,4,5,8</span>
-          </div>
-          <span class="font-extrabold text-primary text-sm whitespace-nowrap">15,90€</span>
-        </div>
-      </div>
+    <!-- ── FEATURED CARDS ── -->
+    <p class="section-label" data-i18n="featured_label">Especialidades de la Brasa</p>
+    <div class="featured-burgers-showcase" id="featuredDishes">
+      <!-- Rendered by JS from MENU_DATA -->
     </div>
 
-    <!-- ROLLS DOG -->
-    <div class="mb-6">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="text-lg">🌭</span>
-        <h3 class="text-base font-extrabold uppercase tracking-wider border-b border-primary/30 pb-1 flex-1">Rolls Dog
-        </h3>
+    <!-- ── FULL MENU ── -->
+    <section id="carta" class="menu-section">
+      <div class="menu-section-title">
+        <div class="menu-divider"></div>
+        <h2 data-i18n="menu_title">La Carta</h2>
+        <div class="menu-divider"></div>
       </div>
-      <div class="space-y-3">
-        <!-- El Furioso -->
-        <div
-          class="bg-surface-dark iron-border rounded-xl p-4 flex justify-between items-start gap-3 menu-item-card fade-up-enter delay-4">
-          <div class="flex-1">
-            <h4 class="font-bold text-sm text-primary">El Furioso</h4>
-            <p class="text-slate-400 text-xs mt-1 leading-relaxed">Pan brioche abierto con pulled pork y kimchi,
-              guacamole, nachos, cheddar y jalapeños.</p>
-            <span class="text-[10px] text-slate-600 mt-1 inline-block">Alér: 2,1,5,6,7,11,12</span>
-          </div>
-          <span class="font-extrabold text-primary text-sm whitespace-nowrap">11,90€</span>
-        </div>
-        <!-- El Simplón -->
-        <div
-          class="bg-surface-dark iron-border rounded-xl p-4 flex justify-between items-start gap-3 menu-item-card fade-up-enter delay-4">
-          <div class="flex-1">
-            <h4 class="font-bold text-sm text-primary">El Simplón</h4>
-            <p class="text-slate-400 text-xs mt-1 leading-relaxed">Pan brioche abierto, filetes de pollo crujiente
-              especiado, mayo de trufa, bacon y cheddar.</p>
-            <span class="text-[10px] text-slate-600 mt-1 inline-block">Alér: 7,2,12,1,4,11,9,5,6</span>
-          </div>
-          <span class="font-extrabold text-primary text-sm whitespace-nowrap">9,90€</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- SANDWICHES -->
-    <div class="mb-6">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="text-lg">🥪</span>
-        <h3 class="text-base font-extrabold uppercase tracking-wider border-b border-primary/30 pb-1 flex-1">Sandwiches
-        </h3>
-      </div>
-      <div
-        class="bg-surface-dark iron-border rounded-xl p-4 flex justify-between items-start gap-3 menu-item-card fade-up-enter delay-4">
-        <div class="flex-1">
-          <h4 class="font-bold text-sm text-primary">El Americano</h4>
-          <p class="text-slate-400 text-xs mt-1 leading-relaxed">Rebanadas de pan brioche marcadas con mantequilla,
-            pollo trufado, huevo, cheddar americano, alioli de trufa y crujiente fresca lechuga y rodaja tomate.</p>
-          <span class="text-[10px] text-slate-600 mt-1 inline-block">Alér: 2,7,4,5,6,1,10,11,12,9</span>
+      <!-- HAMBURGUESAS -->
+      <div class="menu-category" id="cat-burgers">
+        <div class="menu-cat-header"><span>🍔</span>
+          <h3 data-i18n="cat_burgers">Hamburguesas</h3>
         </div>
-        <span class="font-extrabold text-primary text-sm whitespace-nowrap">8,90€</span>
+        <div class="menu-list" id="list-burgers"></div>
       </div>
-    </div>
 
-    <!-- CARNES -->
-    <div class="mb-6">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="text-lg">🥩</span>
-        <h3 class="text-base font-extrabold uppercase tracking-wider border-b border-primary/30 pb-1 flex-1">Carnes</h3>
+      <!-- ROLLS DOG -->
+      <div class="menu-category" id="cat-rolls">
+        <div class="menu-cat-header"><span>🌭</span>
+          <h3 data-i18n="cat_rolls">Rolls Dog</h3>
+        </div>
+        <div class="menu-list" id="list-rolls"></div>
       </div>
-      <div class="bg-surface-dark iron-border rounded-xl p-4">
-        <p class="text-slate-400 text-sm text-center italic">Pregunta a nuestro personal por las carnes.<br />Varían
-          dependiendo de la semana 🔥</p>
-      </div>
-    </div>
 
-    <!-- ENTRANTES Y ENSALADAS -->
-    <div class="mb-6">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="text-lg">🥗</span>
-        <h3 class="text-base font-extrabold uppercase tracking-wider border-b border-primary/30 pb-1 flex-1">Entrantes y
-          Ensaladas</h3>
+      <!-- SANDWICHES -->
+      <div class="menu-category" id="cat-sandwiches">
+        <div class="menu-cat-header"><span>🥪</span>
+          <h3 data-i18n="cat_sandwiches">Sandwiches</h3>
+        </div>
+        <div class="menu-list" id="list-sandwiches"></div>
       </div>
-      <div class="space-y-3">
-        <!-- Nachos -->
-        <div
-          class="bg-surface-dark iron-border rounded-xl p-4 flex justify-between items-start gap-3 menu-item-card fade-up-enter delay-4">
-          <div class="flex-1">
-            <h4 class="font-bold text-sm text-primary">Nachos Santa Brasa</h4>
-            <p class="text-slate-400 text-xs mt-1 leading-relaxed">Nachos crujientes, guacamole casero, carne salteada
-              con pique, pico de gallo, crema agria, crema de queso cheddar americano, jalapeños y frijoles.</p>
-            <span class="text-[10px] text-slate-600 mt-1 inline-block">Alér: 1,2</span>
-          </div>
-          <span class="font-extrabold text-primary text-sm whitespace-nowrap">11,90€</span>
-        </div>
-        <!-- Patatas -->
-        <div
-          class="bg-surface-dark iron-border rounded-xl p-4 flex justify-between items-start gap-3 menu-item-card fade-up-enter delay-4">
-          <div class="flex-1">
-            <h4 class="font-bold text-sm text-primary">Patatas Gajo</h4>
-            <p class="text-slate-400 text-xs mt-1 leading-relaxed">Patatas gajo con cualquiera de nuestras salsas. Se
-              podrá elegir un ingrediente extra por +1,50€.</p>
-          </div>
-          <span class="font-extrabold text-primary text-sm whitespace-nowrap">4,50€</span>
-        </div>
-        <!-- Ensalada -->
-        <div
-          class="bg-surface-dark iron-border rounded-xl p-4 flex justify-between items-start gap-3 menu-item-card fade-up-enter delay-4">
-          <div class="flex-1">
-            <h4 class="font-bold text-sm text-primary">Ensalada de Pollo</h4>
-            <p class="text-slate-400 text-xs mt-1 leading-relaxed">Ensalada mezclum, pollo asado al carbón especiado,
-              queso parmesano, salsa yogur especiada, croutons al ajillo y aceitunas negras.</p>
-            <span class="text-[10px] text-slate-600 mt-1 inline-block">Alér: 1,2,3,4,5</span>
-          </div>
-          <span class="font-extrabold text-primary text-sm whitespace-nowrap">9,90€</span>
-        </div>
-        <!-- Alitas -->
-        <div
-          class="bg-surface-dark iron-border rounded-xl p-4 flex justify-between items-start gap-3 menu-item-card fade-up-enter delay-4">
-          <div class="flex-1">
-            <h4 class="font-bold text-sm text-primary">Alitas BBQ Koreanas</h4>
-            <p class="text-slate-400 text-xs mt-1 leading-relaxed">Alitas de pollo crujientes asadas con nuestra salsa
-              barbacoa coreana, decoradas con cebollino.</p>
-          </div>
-          <span class="font-extrabold text-primary text-sm whitespace-nowrap">5,90€</span>
-        </div>
-      </div>
-    </div>
 
-    <!-- SALSAS CASERAS -->
-    <div class="mb-6">
-      <div class="flex items-center gap-2 mb-4">
-        <span class="text-lg">🫙</span>
-        <h3 class="text-base font-extrabold uppercase tracking-wider border-b border-primary/30 pb-1 flex-1">Salsas
-          Caseras · 1€</h3>
-      </div>
-      <div class="grid grid-cols-2 gap-2">
-        <div class="bg-surface-dark iron-border rounded-xl p-3 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-primary flex-shrink-0"></span>
-          <span class="text-sm font-medium">Salsa Secreta</span>
+      <!-- CARNES -->
+      <div class="menu-category">
+        <div class="menu-cat-header"><span>🥩</span>
+          <h3 data-i18n="cat_meats">Carnes</h3>
         </div>
-        <div class="bg-surface-dark iron-border rounded-xl p-3 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-primary flex-shrink-0"></span>
-          <span class="text-sm font-medium">BBQ Japonesa</span>
-        </div>
-        <div class="bg-surface-dark iron-border rounded-xl p-3 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-primary flex-shrink-0"></span>
-          <span class="text-sm font-medium">Ali Oli de Lima</span>
-        </div>
-        <div class="bg-surface-dark iron-border rounded-xl p-3 flex items-center gap-2">
-          <span class="w-2 h-2 rounded-full bg-primary flex-shrink-0"></span>
-          <span class="text-sm font-medium">Mayotrufa</span>
-        </div>
-        <div class="bg-surface-dark iron-border rounded-xl p-3 flex items-center gap-2 col-span-2">
-          <span class="w-2 h-2 rounded-full bg-primary flex-shrink-0"></span>
-          <span class="text-sm font-medium">Cheddar de Risketos</span>
+        <div class="card"
+          style="text-align:center;color:var(--text-muted);font-style:italic;font-size:.85rem;padding:1.2rem">
+          <span data-i18n="cat_meats_msg">Pregunta a nuestro personal — varían según la semana 🔥</span>
         </div>
       </div>
-    </div>
 
-    <!-- ALÉRGENOS -->
-    <div class="mb-6">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="text-base">⚠️</span>
-        <h3 class="text-xs font-extrabold uppercase tracking-wider text-slate-500">Alérgenos</h3>
+      <!-- ENTRANTES -->
+      <div class="menu-category" id="cat-entrantes">
+        <div class="menu-cat-header"><span>🥗</span>
+          <h3 data-i18n="cat_starters">Entrantes y Ensaladas</h3>
+        </div>
+        <div class="menu-list" id="list-entrantes"></div>
       </div>
-      <div class="bg-surface-dark iron-border rounded-xl p-4 grid grid-cols-2 gap-x-6 gap-y-1">
-        <span class="text-[11px] text-slate-500"><b class="text-slate-400">1</b> Lácteos</span>
-        <span class="text-[11px] text-slate-500"><b class="text-slate-400">7</b> Soja</span>
-        <span class="text-[11px] text-slate-500"><b class="text-slate-400">2</b> Gluten</span>
-        <span class="text-[11px] text-slate-500"><b class="text-slate-400">8</b> Sulfitos</span>
-        <span class="text-[11px] text-slate-500"><b class="text-slate-400">3</b> Mostaza</span>
-        <span class="text-[11px] text-slate-500"><b class="text-slate-400">9</b> Apio</span>
-        <span class="text-[11px] text-slate-500"><b class="text-slate-400">4</b> Huevo</span>
-        <span class="text-[11px] text-slate-500"><b class="text-slate-400">10</b> Crustáceos</span>
-        <span class="text-[11px] text-slate-500"><b class="text-slate-400">5</b> Frutos cáscara</span>
-        <span class="text-[11px] text-slate-500"><b class="text-slate-400">11</b> Pescado</span>
-        <span class="text-[11px] text-slate-500"><b class="text-slate-400">6</b> Cacahuete</span>
-        <span class="text-[11px] text-slate-500"><b class="text-slate-400">12</b> Sésamo</span>
-      </div>
-    </div>
 
-  </section>
+      <!-- BEBIDAS -->
+      <div class="menu-category" id="cat-bebidas">
+        <div class="menu-cat-header"><span>🥤</span>
+          <h3>Bebidas</h3>
+        </div>
+        <div class="menu-list" id="list-bebidas"></div>
+      </div>
 
-  <!-- Loyalty Section -->
-  <section class="px-4 mb-4">
-    <div class="bg-surface-dark rounded-xl p-5 iron-border relative overflow-hidden">
-      <div class="absolute top-0 right-0 p-4 opacity-10">
-        <span class="material-symbols-outlined text-6xl">military_tech</span>
-      </div>
-      <div class="flex items-center gap-2 mb-4">
-        <span class="text-lg">🏅</span>
-        <h3 class="font-bold text-sm">Tarjeta Fidelidad — 9 pedidos, el 10º gratis</h3>
-      </div>
-      <div class="grid grid-cols-5 gap-3">
-        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-background-dark">
-          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">check</span>
+      <!-- SALSAS -->
+      <div class="menu-category">
+        <div class="menu-cat-header"><span>🫙</span>
+          <h3 data-i18n="cat_sauces">Salsas Caseras · 1 €</h3>
         </div>
-        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-background-dark">
-          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">check</span>
-        </div>
-        <div class="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-background-dark">
-          <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1">check</span>
-        </div>
-        <div class="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-        </div>
-        <div class="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-        </div>
-        <div class="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-        </div>
-        <div class="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-        </div>
-        <div class="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-        </div>
-        <div class="w-10 h-10 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-        </div>
-        <div class="w-10 h-10 rounded-full border-2 border-dashed border-primary/40 flex items-center justify-center">
-          <span class="material-symbols-outlined text-primary/40 text-sm">card_giftcard</span>
+        <div class="sauces-grid">
+          <div class="sauce-chip">Salsa Secreta</div>
+          <div class="sauce-chip">BBQ Japonesa</div>
+          <div class="sauce-chip">Ali Oli de Lima</div>
+          <div class="sauce-chip">Mayotrufa</div>
+          <div class="sauce-chip sauce-chip--wide">Cheddar de Risketos</div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- Bottom Nav Bar -->
-  <nav
-    class="fixed bottom-0 left-0 right-0 bg-surface-dark border-t border-primary/20 px-4 pt-3 pb-8 flex justify-around items-center z-50">
-    <a class="flex flex-col items-center gap-1 text-primary" href="index.html">
-      <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1">home</span>
-      <span class="text-[10px] font-bold uppercase tracking-tighter">Inicio</span>
-    </a>
-    <button onclick="document.getElementById('carta').scrollIntoView({behavior:'smooth'})"
-      class="flex flex-col items-center gap-1 text-slate-400 bg-transparent border-0">
-      <span class="material-symbols-outlined">menu_book</span>
-      <span class="text-[10px] font-bold uppercase tracking-tighter">Carta</span>
-    </button>
-    <a class="flex flex-col items-center gap-1 text-slate-400" href="resumen.html">
-      <span class="material-symbols-outlined">shopping_basket</span>
-      <span class="text-[10px] font-bold uppercase tracking-tighter">Pedido</span>
-    </a>
-    <a class="flex flex-col items-center gap-1 text-slate-400" href="confirmacion.html">
-      <span class="material-symbols-outlined">person</span>
-      <span class="text-[10px] font-bold uppercase tracking-tighter">Perfil</span>
-    </a>
-  </nav>
+      <!-- ALÉRGENOS -->
+      <div class="menu-category">
+        <div class="menu-cat-header"><span>⚠️</span>
+          <h3 style="color:var(--text-muted)" data-i18n="cat_allergens">Alérgenos</h3>
+        </div>
+        <div class="allergens-grid card">
+          <span><b>1</b> <span data-i18n="allergen_1">Lácteos</span></span><span><b>7</b> <span
+              data-i18n="allergen_7">Soja</span></span>
+          <span><b>2</b> <span data-i18n="allergen_2">Gluten</span></span><span><b>8</b> <span
+              data-i18n="allergen_8">Sulfitos</span></span>
+          <span><b>3</b> <span data-i18n="allergen_3">Mostaza</span></span><span><b>9</b> <span
+              data-i18n="allergen_9">Apio</span></span>
+          <span><b>4</b> <span data-i18n="allergen_4">Huevo</span></span><span><b>10</b> <span
+              data-i18n="allergen_10">Crustáceos</span></span>
+          <span><b>5</b> <span data-i18n="allergen_5">F. cáscara</span></span><span><b>11</b> <span
+              data-i18n="allergen_11">Pescado</span></span>
+          <span><b>6</b> <span data-i18n="allergen_6">Cacahuete</span></span><span><b>12</b> <span
+              data-i18n="allergen_12">Sésamo</span></span>
+        </div>
+      </div>
+    </section>
 
-  <!-- ══ OVELAY & MODAL PRODUCTO ══ -->
+    <!-- ── LOYALTY ── -->
+    <section class="loyalty-teaser">
+      <div class="loyalty-title" data-i18n="loyalty_title">🏅 Tarjeta Fidelidad — 9 pedidos, el 10º gratis</div>
+      <div class="loyalty-dots">
+        <div class="stamp filled">✓</div>
+        <div class="stamp filled">✓</div>
+        <div class="stamp filled">✓</div>
+        <div class="stamp empty">4</div>
+        <div class="stamp empty">5</div>
+        <div class="stamp empty">6</div>
+        <div class="stamp empty">7</div>
+        <div class="stamp empty">8</div>
+        <div class="stamp empty">9</div>
+        <div class="stamp empty" style="border-style:dashed;font-size:.65rem">🎁</div>
+      </div>
+    </section>
+
+    <!-- ── BOTTOM NAV ── -->
+    <nav class="bottom-nav">
+      <a href="index.html" class="nav-item active"><span class="nav-icon material-symbols-outlined"
+          style="font-variation-settings:'FILL' 1">home</span><span data-i18n="nav_home">Inicio</span></a>
+      <button onclick="document.getElementById('carta').scrollIntoView({behavior:'smooth'})" class="nav-item"><span
+          class="nav-icon material-symbols-outlined">menu_book</span><span data-i18n="nav_menu">Carta</span></button>
+      <a href="resumen.html" class="nav-item" style="position:relative">
+        <span class="nav-icon material-symbols-outlined">shopping_basket</span>
+        <span id="cartBadge"
+          style="display:none;position:absolute;top:2px;right:8px;background:var(--accent);color:#111;border-radius:999px;font-size:.6rem;font-weight:900;min-width:1.2rem;height:1.2rem;line-height:1.2rem;text-align:center;padding:0 3px"></span>
+        <span data-i18n="nav_order">Pedido</span>
+      </a>
+      <a href="perfil.html" class="nav-item"><span class="nav-icon material-symbols-outlined">person</span><span
+          data-i18n="nav_profile">Perfil</span></a>
+    </nav>
+
+  </div><!-- end .app-shell -->
+
+  <!-- ══ OVERLAY & MODAL ══ -->
   <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
-
   <div class="product-modal" id="productModal">
     <div class="modal-handle-warp" onclick="closeModal()">
       <div class="modal-handle"></div>
     </div>
-    <div class="modal-header-img" id="modalImg" style="background-image: url('');"></div>
-
+    <div class="modal-header-img" id="modalImg"></div>
     <div class="modal-content-scroll hide-scrollbar">
-      <h2 class="text-2xl font-black text-primary mb-1" id="modalTitle">Nombre</h2>
-      <p class="text-slate-400 text-sm mb-6" id="modalDesc">Descripción</p>
-
+      <h2 class="modal-title" id="modalTitle">Nombre</h2>
+      <p class="modal-desc" id="modalDesc">Descripción</p>
       <div class="ingredient-group">
-        <h3 class="text-lg font-bold mb-2 uppercase tracking-wide">Personaliza tu plato</h3>
-        <p class="text-xs text-slate-500 mb-4">Quita los ingredientes que no desees.</p>
-
-        <div id="modalIngredientsList" class="flex flex-col">
-          <!-- JS fills this -->
-        </div>
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.25rem;text-transform:uppercase;letter-spacing:.04em"
+          data-i18n="modal_customize">
+          Personaliza tu plato</h3>
+        <p style="font-size:.75rem;color:var(--text-muted);margin-bottom:1rem" data-i18n="modal_uncheck">Desmarca lo que
+          no quieras.</p>
+        <div id="modalIngredientsList"></div>
       </div>
-
-      <div class="ingredient-group mt-8">
-        <h3 class="text-lg font-bold mb-2 uppercase tracking-wide">Añadir Extras</h3>
-
-        <label class="ingredient-label">
-          <span class="ingredient-name">Doble Carne <span class="ingredient-price">+3,50€</span></span>
-          <input type="checkbox" class="custom-checkbox">
-        </label>
-        <label class="ingredient-label">
-          <span class="ingredient-name">Bacon Extra <span class="ingredient-price">+1,50€</span></span>
-          <input type="checkbox" class="custom-checkbox">
-        </label>
-        <label class="ingredient-label">
-          <span class="ingredient-name">Queso Extra <span class="ingredient-price">+1,00€</span></span>
-          <input type="checkbox" class="custom-checkbox">
-        </label>
+      <div class="ingredient-group">
+        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.04em"
+          data-i18n="modal_extras">
+          Añadir Extras</h3>
+        <label class="ingredient-label"><span class="ingredient-name"><span data-i18n="modal_extra_meat">Doble
+              Carne</span> <span class="ingredient-price">+3,50€</span></span><input type="checkbox"
+            class="custom-checkbox"></label>
+        <label class="ingredient-label"><span class="ingredient-name"><span data-i18n="modal_extra_bacon">Bacon
+              Extra</span> <span class="ingredient-price">+1,50€</span></span><input type="checkbox"
+            class="custom-checkbox"></label>
+        <label class="ingredient-label"><span class="ingredient-name"><span data-i18n="modal_extra_cheese">Queso
+              Extra</span> <span class="ingredient-price">+1,00€</span></span><input type="checkbox"
+            class="custom-checkbox"></label>
       </div>
-
     </div>
-
-    <!-- Fixed Footer Add Button -->
     <div class="modal-footer">
-      <button class="btn-glovo w-full rounded-xl py-3 font-bold text-lg flex items-center justify-between px-6"
-        onclick="closeModal()">
-        <span>Añadir</span>
+      <button class="btn btn-glovo btn-full btn-lg" id="modalAddBtn" onclick="addToCartAndClose()">
+        <span data-i18n="modal_add_btn">Añadir al pedido</span>
         <span id="modalPrice">0,00€</span>
       </button>
     </div>
   </div>
 
   <script>
-    const modalOverlay = document.getElementById('modalOverlay');
-    const productModal = document.getElementById('productModal');
+    // ═══════════════════════════════════════
+    // MENU DATA — Fuente única de verdad
+    // ═══════════════════════════════════════
+    const MENU_DATA = {
+      burgers: [
+        {
+          id: 'la-secreta', name: 'La Secreta', price: '13,90€',
+          desc: 'Pan brioche, 180g ternera angus irlandesa madurada, cebolla crispy, mermelada de bacon, cheddar americano, edam, pepinillos y salsa secreta.',
+          allergens: '1,2,5,7,8,6,4,9',
+          img: 'images/burger-la-secreta.png',
+          ingredients: ['Pan brioche', '180g Angus madurada', 'Cebolla crispy', 'Mermelada de bacon', 'Cheddar americano', 'Edam', 'Pepinillos', 'Salsa secreta'],
+          featured: true,
+          premium: true
+        },
+        {
+          id: 'la-explosiva', name: 'La Explosiva', price: '12,90€',
+          desc: 'Pan brioche, 180g ternera angus, pulled pork, salsa queso cheddar de risketos, cebolla crispy y crunchy de risketos.',
+          allergens: '2',
+          img: 'images/burger-la-explosiva.png',
+          ingredients: ['Pan brioche', '180g Angus', 'Pulled pork', 'Salsa cheddar de risketos', 'Cebolla crispy', 'Crunchy de risketos'],
+          featured: true
+        },
+        {
+          id: 'la-campera', name: 'La Campera', price: '12,90€',
+          desc: 'Pan brioche, 180g ternera angus madurada, salsa jabugitos, panceta ibérica y huevo frito.',
+          allergens: '2,4,7,5,6,1',
+          img: 'images/burger-la-campera.png',
+          ingredients: ['Pan brioche', '180g Angus madurada', 'Salsa jabugitos', 'Panceta ibérica', 'Huevo frito']
+        },
+        {
+          id: 'la-simple', name: 'La Simple con Queso', price: '9,00€',
+          desc: 'Pan brioche, 180g ternera angus madurada, cheddar americano y edam.',
+          allergens: '2,4,7,5,6,1',
+          img: 'images/burger-la-simple.png',
+          ingredients: ['Pan brioche', '180g Angus madurada', 'Cheddar americano', 'Edam']
+        },
+        {
+          id: 'la-pistachera', name: 'La Pistachera', price: '15,90€',
+          desc: 'Pan brioche, 180g ternera angus madurada, panceta ibérica, huevo frito, mermelada de bacon y salsa especial de pistacho casera.',
+          allergens: '1,2,4,5,8',
+          img: 'images/burger-la-pistachera.png',
+          ingredients: ['Pan brioche', '180g Angus madurada', 'Panceta ibérica', 'Huevo frito', 'Mermelada de bacon', 'Salsa de pistacho casera'],
+          featured: true
+        }
+      ],
+      rolls: [
+        {
+          id: 'el-furioso', name: 'El Furioso', price: '11,90€',
+          desc: 'Pan brioche abierto con pulled pork y kimchi, guacamole, nachos, cheddar y jalapeños.',
+          allergens: '2,1,5,6,7,11,12',
+          img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCaiHtixPMkpWPpSNNK5wmQR4TNup_xIxdxtUzCkrdP4xaPHodxl7_y2vcenmjph_gUOpobXVrmcCUlFb17Y2ys34-cPXPqprVpexm-lh06U19d3TMWERr54zP4FkJZsOVg6hErQOZkCNPwuS6FB20FTVjek6dRfvjQIV5t4hqc46J3HzZYHPOUR1NW2veK-NwuJJtRBZZ-NVbG7wked_jtbIruhedpov6hbbjrX-qdXpc4acz6wrmzkSr0k4SkeMd77WeKKAl4C7E',
+          ingredients: ['Pan brioche', 'Pulled pork', 'Kimchi', 'Guacamole', 'Nachos', 'Cheddar', 'Jalapeños'],
+          featured: true
+        },
+        {
+          id: 'el-simplon', name: 'El Simplón', price: '9,90€',
+          desc: 'Pan brioche abierto, filetes de pollo crujiente especiado, mayo de trufa, bacon y cheddar.',
+          allergens: '7,2,12,1,4,11,9,5,6',
+          img: 'images/roll-el-simplon.png',
+          ingredients: ['Pan brioche', 'Pollo crujiente especiado', 'Mayo de trufa', 'Bacon', 'Cheddar']
+        }
+      ],
+      sandwiches: [
+        {
+          id: 'el-americano', name: 'El Americano', price: '8,90€',
+          desc: 'Rebanadas de pan brioche marcadas con mantequilla, pollo trufado, huevo, cheddar americano, alioli de trufa y crujiente lechuga y tomate.',
+          allergens: '2,7,4,5,6,1,10,11,12,9',
+          img: 'images/sandwich-el-americano.png',
+          ingredients: ['Pan brioche', 'Pollo trufado', 'Huevo', 'Cheddar americano', 'Alioli de trufa', 'Lechuga', 'Tomate']
+        }
+      ],
+      entrantes: [
+        {
+          id: 'nachos', name: 'Nachos Santa Brasa', price: '11,90€',
+          desc: 'Nachos crujientes, guacamole casero, carne salteada con pique, pico de gallo, crema agria, cheddar, jalapeños y frijoles.',
+          allergens: '1,2',
+          img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBkL7JtwTpTTrPb_1IyiZEcIzjNcHNKVbLUs4tltiWirhNrdyBbfVb6yadSGnF4aW8n3Xms3AUbJppz4bFQwDkQBtTwVoSCGCr2xtNnRl-wa9TjgTVqthk-0PEZ7mWY1n10xmsckJHTfdK9_JTX3KyCI7JdmSa6PDHqXJeQTKcA5qJTT1hVOmZRPIy5CNsxsYz6lRNet3EyLrclcLCvMZDqzKB4BiKo0N8qIFfVngni3TjApuozn3Ft0Yan06Aw2mp3fvTEni-zj5s',
+          ingredients: ['Nachos crujientes', 'Guacamole casero', 'Carne salteada', 'Pico de gallo', 'Crema agria', 'Cheddar', 'Jalapeños', 'Frijoles'],
+          featured: true
+        },
+        {
+          id: 'patatas', name: 'Patatas Gajo', price: '4,50€',
+          desc: 'Patatas gajo con cualquiera de nuestras salsas. Ingrediente extra por +1,50€.',
+          allergens: '',
+          img: 'images/entrante-patatas-gajo.png',
+          ingredients: ['Patatas gajo', 'Salsa a elegir']
+        },
+        {
+          id: 'ensalada', name: 'Ensalada de Pollo', price: '9,90€',
+          desc: 'Ensalada mezclum, pollo asado al carbón, parmesano, salsa yogur, croutons al ajillo y aceitunas negras.',
+          allergens: '1,2,3,4,5',
+          img: 'images/entrante-ensalada-pollo.png',
+          ingredients: ['Mezclum', 'Pollo asado', 'Parmesano', 'Salsa yogur', 'Croutons', 'Aceitunas negras']
+        },
+        {
+          id: 'alitas', name: 'Alitas BBQ Koreanas', price: '5,90€',
+          desc: 'Alitas de pollo crujientes asadas con salsa barbacoa coreana, decoradas con cebollino.',
+          allergens: '',
+          img: 'images/entrante-alitas-bbq.png',
+          ingredients: ['Alitas de pollo', 'Salsa BBQ coreana', 'Cebollino']
+        }
+      ],
+      bebidas: [
+        {
+          id: 'coca-cola', name: 'Coca-Cola', price: '2,50€',
+          desc: 'Lata 33cl.',
+          allergens: '', img: '',
+          ingredients: [], noConfigure: true
+        },
+        {
+          id: 'coca-cola-zero', name: 'Coca-Cola Zero', price: '2,50€',
+          desc: 'Lata 33cl.',
+          allergens: '', img: '',
+          ingredients: [], noConfigure: true
+        },
+        {
+          id: 'fanta-naranja', name: 'Fanta Naranja', price: '2,50€',
+          desc: 'Lata 33cl.',
+          allergens: '', img: '',
+          ingredients: [], noConfigure: true
+        },
+        {
+          id: 'fanta-limon', name: 'Fanta Limón', price: '2,50€',
+          desc: 'Lata 33cl.',
+          allergens: '', img: '',
+          ingredients: [], noConfigure: true
+        },
+        {
+          id: 'agua', name: 'Agua Mineral', price: '1,50€',
+          desc: 'Botella 50cl.',
+          allergens: '', img: '',
+          ingredients: [], noConfigure: true
+        },
+        {
+          id: 'cerveza', name: 'Cerveza', price: '2,80€',
+          desc: 'Caña de cerveza fría.',
+          allergens: '8', img: '',
+          ingredients: [], noConfigure: true
+        },
+        {
+          id: 'cerveza-sin', name: 'Cerveza Sin', price: '2,80€',
+          desc: 'Caña sin alcohol.',
+          allergens: '8', img: '',
+          ingredients: [], noConfigure: true
+        },
+        {
+          id: 'limonada', name: 'Limonada Casera', price: '3,50€',
+          desc: 'Limonada natural con hierbabuena.',
+          allergens: '', img: '',
+          ingredients: [], noConfigure: true
+        }
+      ]
+    };
 
-    function openModal(data) {
-      document.body.style.overflow = 'hidden'; // block background scrolling
+    // ═══════════════════════════════════════
+    // RENDER FUNCTIONS
+    // ═══════════════════════════════════════
+    function buildFeaturedCard(item) {
+      const isPremium = item.id === 'la-secreta';
+      const name = (typeof tIng === 'function') ? tIng(item.name) : item.name;
+      return `
+      <div class="featured-burger-card ${isPremium ? 'featured-burger-card--premium' : ''} menu-card fade-up-enter delay-1" onclick="openModal('${item.id}')" style="cursor:pointer">
+        ${isPremium ? '<div class="featured-burger-crown">⭐ La Premium</div>' : ''}
+        <div class="featured-burger-img-wrap">
+          ${item.img
+          ? `<img src="${item.img}" alt="${name}" class="featured-burger-img" />`
+          : `<div class="featured-burger-emoji">🍔</div>`
+        }
+        </div>
+        <div class="featured-burger-info">
+          <span class="dish-name">${item.name}</span>
+          <span class="dish-price">${item.price}</span>
+        </div>
+      </div>`;
+    }
 
-      // Update data
-      document.getElementById('modalTitle').textContent = data.title;
-      document.getElementById('modalDesc').textContent = data.desc;
-      document.getElementById('modalPrice').textContent = data.price;
+    function buildMenuRow(item) {
+      const name = (typeof tIng === 'function') ? tIng(item.name) : item.name;
+      const desc = (typeof tDesc === 'function') ? (tDesc(item.id) || item.desc) : item.desc;
+      return `
+      <div class="menu-item-card card fade-up-enter delay-4" onclick="openModal('${item.id}')" style="cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+        <div style="flex:1">
+          <h4 style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:4px">${name}</h4>
+          <p style="font-size:.75rem;color:var(--text-muted);line-height:1.5">${desc}</p>
+          ${item.allergens ? `<span style="font-size:.65rem;color:#666;margin-top:4px;display:block">Alér: ${item.allergens}</span>` : ''}
+        </div>
+        <span style="font-size:.85rem;font-weight:800;color:var(--accent);white-space:nowrap">${item.price}</span>
+      </div>`;
+    }
+
+    function buildDrinkRow(item) {
+      const name = (typeof tIng === 'function') ? tIng(item.name) : item.name;
+      return `
+      <div class="menu-item-card card fade-up-enter delay-4" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+        <div style="flex:1">
+          <h4 style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:2px">${name}</h4>
+          <p style="font-size:.75rem;color:var(--text-muted)">${item.desc}</p>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:.85rem;font-weight:800;color:var(--accent);white-space:nowrap">${item.price}</span>
+          <button onclick="addDrinkToCart('${item.id}')" style="background:var(--accent);border:none;border-radius:50%;width:2rem;height:2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .15s" onmouseenter="this.style.transform='scale(1.15)'" onmouseleave="this.style.transform='scale(1)'">
+            <span class="material-symbols-outlined" style="font-size:1.1rem;color:#111">add</span>
+          </button>
+        </div>
+      </div>`;
+    }
+
+    function renderMenu() {
+      // Featured burgers: always show La Explosiva | La Secreta (premium, center) | La Pistachera
+      const featuredBurgers = [
+        MENU_DATA.burgers.find(i => i.id === 'la-explosiva'),
+        MENU_DATA.burgers.find(i => i.id === 'la-secreta'),
+        MENU_DATA.burgers.find(i => i.id === 'la-pistachera')
+      ].filter(Boolean);
+      document.getElementById('featuredDishes').innerHTML = featuredBurgers.map(buildFeaturedCard).join('');
+      document.getElementById('list-burgers').innerHTML = MENU_DATA.burgers.map(buildMenuRow).join('');
+      document.getElementById('list-rolls').innerHTML = MENU_DATA.rolls.map(buildMenuRow).join('');
+      document.getElementById('list-sandwiches').innerHTML = MENU_DATA.sandwiches.map(buildMenuRow).join('');
+      document.getElementById('list-entrantes').innerHTML = MENU_DATA.entrantes.map(buildMenuRow).join('');
+      document.getElementById('list-bebidas').innerHTML = MENU_DATA.bebidas.map(buildDrinkRow).join('');
+    }
+    renderMenu();
+
+    window.addEventListener('languageChanged', () => {
+      renderMenu();
+    });
+
+    // ═══════════════════════════════════════
+    // MODAL
+    // ═══════════════════════════════════════
+    function openModal(id) {
+      const item = Object.values(MENU_DATA).flat().find(i => i.id === id);
+      if (!item) return;
+
+      const name = (typeof tIng === 'function') ? tIng(item.name) : item.name;
+      const desc = (typeof tDesc === 'function') ? (tDesc(item.id) || item.desc) : item.desc;
+
+      document.body.style.overflow = 'hidden';
+      document.getElementById('modalTitle').textContent = name;
+      document.getElementById('modalDesc').textContent = desc;
+      document.getElementById('modalPrice').textContent = item.price;
 
       const imgEl = document.getElementById('modalImg');
-      if (data.img) {
+      if (item.img) {
+        imgEl.style.backgroundImage = `url('${item.img}')`;
         imgEl.style.display = 'block';
-        imgEl.style.backgroundImage = `url('${data.img}')`;
+        imgEl.innerHTML = '';
       } else {
-        imgEl.style.display = 'none'; // hide if no image
+        imgEl.style.backgroundImage = '';
+        imgEl.style.display = 'flex';
+        imgEl.innerHTML = '<span style="font-size:4rem">🍽️</span>';
       }
 
-      // Populate ingredients toggles
-      const list = document.getElementById('modalIngredientsList');
-      list.innerHTML = '';
-      if (data.ingredients && data.ingredients.length > 0) {
-        data.ingredients.forEach(ing => {
-          list.innerHTML += `
-            <label class="ingredient-label">
-              <span class="ingredient-name">${ing}</span>
-              <input type="checkbox" class="custom-checkbox" checked>
-            </label>
-          `;
-        });
-      }
+      document.getElementById('modalIngredientsList').innerHTML = item.ingredients.map(ing => {
+        const ingName = (typeof tIng === 'function') ? tIng(ing) : ing;
+        return `<label class="ingredient-label">
+         <span class="ingredient-name">${ingName}</span>
+         <input type="checkbox" class="custom-checkbox" checked>
+       </label>`;
+      }).join('');
 
-      // Animate modal up
-      modalOverlay.classList.add('active');
-      productModal.classList.add('active');
+      document.getElementById('modalOverlay').classList.add('active');
+      document.getElementById('productModal').classList.add('active');
     }
 
     function closeModal() {
       document.body.style.overflow = '';
-      modalOverlay.classList.remove('active');
-      productModal.classList.remove('active');
+      document.getElementById('modalOverlay').classList.remove('active');
+      document.getElementById('productModal').classList.remove('active');
     }
 
-    // ═══ HERO PARALLAX SLIDER ═══
+    // ═══════════════════════════════════════
+    // CART — localStorage
+    // ═══════════════════════════════════════
+    const CART_KEY = 'brasa_cart';
+    function getCart() { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; } }
+    function saveCart(cart) { localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateCartBadge(); }
+    function updateCartBadge() {
+      const cart = getCart();
+      const badge = document.getElementById('cartBadge');
+      if (!badge) return;
+      const total = cart.reduce((s, i) => s + (i.qty || 1), 0);
+      badge.textContent = total;
+      badge.style.display = total > 0 ? 'block' : 'none';
+    }
+
+    function addToCartAndClose() {
+      // Get current modal item
+      const title = document.getElementById('modalTitle').textContent;
+      const priceText = document.getElementById('modalPrice').textContent;
+
+      // Removed ingredients
+      const removed = [];
+      document.querySelectorAll('#modalIngredientsList .custom-checkbox').forEach((cb, i) => {
+        const label = document.querySelectorAll('#modalIngredientsList .ingredient-name')[i];
+        if (!cb.checked && label) removed.push(label.textContent.trim());
+      });
+
+      // Extras
+      const extraLabels = ['Doble Carne (+3,50€)', 'Bacon Extra (+1,50€)', 'Queso Extra (+1,00€)'];
+      const extraPrices = [3.50, 1.50, 1.00];
+      const extras = [];
+      let extraCost = 0;
+      document.querySelectorAll('.ingredient-group')[1]?.querySelectorAll('.custom-checkbox').forEach((cb, i) => {
+        if (cb.checked) { extras.push(extraLabels[i]); extraCost += extraPrices[i]; }
+      });
+
+      // Parse base price
+      const baseNum = parseFloat(priceText.replace(',', '.').replace('€', '')) || 0;
+      const totalNum = baseNum + extraCost;
+      const totalStr = totalNum.toFixed(2).replace('.', ',') + '€';
+
+      // Find item id from MENU_DATA by name
+      const allItems = Object.values(MENU_DATA).flat();
+      const found = allItems.find(i => i.name === title);
+      const itemId = found ? found.id : 'custom-' + Date.now();
+      const img = found ? (found.img || '') : '';
+
+      const cart = getCart();
+      // Check if identical item exists already
+      const key = itemId + '|' + removed.join(',') + '|' + extras.join(',');
+      const existing = cart.find(i => i.key === key);
+      if (existing) {
+        existing.qty = (existing.qty || 1) + 1;
+        existing.totalStr = (parseFloat(existing.baseNum || baseNum) * existing.qty + extraCost * existing.qty).toFixed(2).replace('.', ',') + '€';
+      } else {
+        cart.push({ key, id: itemId, name: title, baseNum, extraCost, totalStr, removed, extras, img, qty: 1 });
+      }
+      saveCart(cart);
+      closeModal();
+
+      // Toast
+      showCartToast(title);
+    }
+
+    function addDrinkToCart(id) {
+      const drink = MENU_DATA.bebidas.find(d => d.id === id);
+      if (!drink) return;
+      const cart = getCart();
+      const existing = cart.find(i => i.id === id);
+      if (existing) {
+        existing.qty = (existing.qty || 1) + 1;
+      } else {
+        const baseNum = parseFloat(drink.price.replace(',', '.').replace('€', '')) || 0;
+        cart.push({ key: id, id, name: drink.name, baseNum, extraCost: 0, totalStr: drink.price, removed: [], extras: [], img: '', qty: 1 });
+      }
+      saveCart(cart);
+      showCartToast(drink.name);
+    }
+
+    function showCartToast(name) {
+      let toast = document.getElementById('cartToast');
+      if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'cartToast';
+        toast.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--accent);color:#111;font-weight:800;font-size:.85rem;padding:.6rem 1.2rem;border-radius:999px;z-index:9999;opacity:0;transition:all .3s;white-space:nowrap;pointer-events:none';
+        document.body.appendChild(toast);
+      }
+      toast.textContent = '✓ ' + name + ' añadido';
+      toast.style.opacity = '1'; toast.style.transform = 'translateX(-50%) translateY(0)';
+      clearTimeout(toast._t);
+      toast._t = setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(-50%) translateY(20px)'; }, 2200);
+    }
+
+    updateCartBadge();
+
+    // ═══════════════════════════════════════
+    // HERO SLIDER
+    // ═══════════════════════════════════════
     const SLIDE_COUNT = 3;
     let currentSlide = 0;
-
     const slidesData = [
-      {
-        top: 'images/layer-top.png',
-        mid: 'images/layer-mid.png',
-        bot: 'images/layer-bot.png',
-        bg: 'linear-gradient(135deg, #f5a623 0%, #c8973c 45%, #8e6516 100%)',
-      },
-      {
-        top: 'images/steak-hero.png',
-        mid: 'images/steak-hero.png',
-        bot: 'images/steak-hero.png',
-        bg: 'linear-gradient(135deg, #c0392b 0%, #a93226 45%, #6e1d1d 100%)',
-      },
-      {
-        top: 'images/nachos-hero.png',
-        mid: 'images/nachos-hero.png',
-        bot: 'images/nachos-hero.png',
-        bg: 'linear-gradient(135deg, #d4a017 0%, #b8860b 45%, #7a5c00 100%)',
-      },
+      { bg: 'linear-gradient(160deg,#ff8c00 0%,#c8793c 40%,#7a4010 100%)' },
+      { bg: 'linear-gradient(160deg,#c0392b 0%,#a93226 45%,#6e1d1d 100%)', img: 'images/steak-hero.png' },
+      { bg: 'linear-gradient(160deg,#d4a017 0%,#b8860b 45%,#7a5c00 100%)', img: 'images/nachos-hero.png' },
     ];
 
     function goToSlide(n) {
       currentSlide = n;
       const s = slidesData[n];
-
-      // Fade layers out
-      const layers = document.querySelectorAll('.hero-layer, .hero-accent');
-      layers.forEach(l => { l.style.opacity = '0'; l.style.transform = 'scale(0.85) translateY(-10px)'; });
-
-      // Update background immediately
       const heroBg = document.getElementById('heroBg');
       if (heroBg) heroBg.style.background = s.bg;
 
-      // Swap images and bounce in with stagger
-      setTimeout(() => {
-        const topEl = document.querySelector('.layer-top');
-        const midEl = document.querySelector('.layer-mid');
-        const botEl = document.querySelector('.layer-bot');
-        if (n === 0) {
-          if (topEl) topEl.src = s.top;
-          if (midEl) midEl.src = s.mid;
-          if (botEl) botEl.src = s.bot;
-        } else {
-          // Single full food image (steak / nachos) — show only one layer
-          if (topEl) { topEl.src = s.top; topEl.style.bottom = '0'; topEl.style.width = '100%'; }
-          if (midEl) midEl.src = '';
-          if (botEl) botEl.src = '';
-        }
-        layers.forEach((l, i) => {
-          setTimeout(() => {
-            l.style.opacity = '1';
-            l.style.transform = '';
-          }, i * 80);
-        });
-      }, 280);
+      const agContainer = document.getElementById('antigravityBurger');
+      const topEl = document.querySelector('.layer-top');
+      const midEl = document.querySelector('.layer-mid');
+      const botEl = document.querySelector('.layer-bot');
 
-      // Update dots
+      if (n === 0) {
+        if (agContainer) agContainer.style.display = '';
+        if (topEl) topEl.style.display = 'none';
+        if (midEl) midEl.style.display = 'none';
+        if (botEl) botEl.style.display = 'none';
+      } else {
+        if (agContainer) agContainer.style.display = 'none';
+        if (topEl) { topEl.style.display = 'block'; topEl.src = s.img; }
+        if (midEl) midEl.style.display = 'none';
+        if (botEl) botEl.style.display = 'none';
+      }
+
       document.querySelectorAll('.slider-dot').forEach((dot, i) => {
         dot.classList.toggle('active-dot', i === n);
       });
     }
 
-    // Initialise CSS transitions on layers
-    document.querySelectorAll('.hero-layer, .hero-accent').forEach(l => {
-      l.style.transition = 'opacity 0.35s ease, transform 0.35s cubic-bezier(0.34,1.56,0.64,1)';
-    });
-
     function nextSlide() { goToSlide((currentSlide + 1) % SLIDE_COUNT); }
     setInterval(nextSlide, 6000);
+    goToSlide(0); // initialize
 
-    // Intersection Observer for Menu animations
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-
-    const entranceObserver = new IntersectionObserver((entries, observer) => {
+    // ═══ Intersection Observer for entrance animations ═══
+    const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
       });
-    }, observerOptions);
-
-    document.querySelectorAll('.animate-in, .menu-card').forEach(el => {
-      entranceObserver.observe(el);
-    });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.menu-card, .menu-item-card').forEach(el => observer.observe(el));
   </script>
 
 </body>
