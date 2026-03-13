@@ -29,6 +29,22 @@
             },
         }
     </script>
+    <style>
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .animate-in {
+            animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.3s ease both;
+        }
+    </style>
 </head>
 
 <body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
@@ -145,14 +161,47 @@
                     <h3 class="font-bold" data-i18n="payment_method">Método de Pago</h3>
                 </div>
                 <div class="flex gap-4">
-                    <button
-                        class="flex-1 py-3 px-4 rounded-xl border-2 border-primary bg-primary/10 text-primary font-bold flex items-center justify-center gap-2">
+                    <button id="btnCash" onclick="selectPayment('cash')"
+                        class="flex-1 py-3 px-4 rounded-xl border-2 border-primary bg-primary/10 text-primary font-bold flex items-center justify-center gap-2 transition-all">
                         <span class="material-symbols-outlined">payments</span> <span data-i18n="cash">Efectivo</span>
                     </button>
-                    <button
-                        class="flex-1 py-3 px-4 rounded-xl border border-white/10 bg-surface-dark text-slate-400 font-bold flex items-center justify-center gap-2">
+                    <button id="btnCard" onclick="selectPayment('card')"
+                        class="flex-1 py-3 px-4 rounded-xl border border-white/10 bg-surface-dark text-slate-400 font-bold flex items-center justify-center gap-2 transition-all">
                         <span class="material-symbols-outlined">credit_card</span> <span data-i18n="card">Tarjeta</span>
                     </button>
+                </div>
+
+                <!-- Card details form (initially hidden) -->
+                <div id="cardForm" class="hidden mt-6 pt-6 border-t border-primary/10 space-y-4 animate-in">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-slate-500 uppercase px-1" data-i18n="card_holder_label">Nombre del Titular</label>
+                        <input id="cardHolder" type="text" placeholder="John Doe"
+                            class="w-full bg-surface-dark border border-primary/20 focus:border-primary rounded-xl p-3.5 text-sm text-slate-100 placeholder:text-slate-600 transition-all" />
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-slate-500 uppercase px-1" data-i18n="card_number_label">Número de Tarjeta</label>
+                        <div class="relative">
+                            <input id="cardNumber" type="text" placeholder="0000 0000 0000 0000" maxlength="19"
+                                class="w-full bg-surface-dark border border-primary/20 focus:border-primary rounded-xl p-3.5 pl-11 text-sm text-slate-100 placeholder:text-slate-600 transition-all font-mono" />
+                            <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-lg">credit_card</span>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase px-1" data-i18n="card_expiry_label">Caducidad</label>
+                            <input id="cardExpiry" type="text" placeholder="MM/YY" maxlength="5"
+                                class="w-full bg-surface-dark border border-primary/20 focus:border-primary rounded-xl p-3.5 text-sm text-slate-100 placeholder:text-slate-600 transition-all text-center" />
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-[10px] font-bold text-slate-500 uppercase px-1" data-i18n="card_cvc_label">CVC</label>
+                            <input id="cardCVC" type="text" placeholder="123" maxlength="3"
+                                class="w-full bg-surface-dark border border-primary/20 focus:border-primary rounded-xl p-3.5 text-sm text-slate-100 placeholder:text-slate-600 transition-all text-center" />
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 text-[10px] text-slate-500 bg-black/20 p-2 rounded-lg">
+                        <span class="material-symbols-outlined text-xs">lock</span>
+                        <span>Pago seguro encriptado (SSL)</span>
+                    </div>
                 </div>
             </section>
 
@@ -196,6 +245,7 @@
         // ── Shared constants ──
         const USER_KEY = 'brasa_user';
         const CART_KEY = 'brasa_cart';
+        let selectedPaymentMethod = 'cash';
 
         function getCurrentUser() {
             try { return JSON.parse(localStorage.getItem(USER_KEY)); } catch { return null; }
@@ -332,6 +382,39 @@
             renderCart();
         });
 
+        function selectPayment(method) {
+            selectedPaymentMethod = method;
+            const isCard = method === 'card';
+            
+            // UI Toggle for buttons
+            const btnCash = document.getElementById('btnCash');
+            const btnCard = document.getElementById('btnCard');
+            const cardForm = document.getElementById('cardForm');
+            
+            if (isCard) {
+                btnCard.className = "flex-1 py-3 px-4 rounded-xl border-2 border-primary bg-primary/10 text-primary font-bold flex items-center justify-center gap-2 transition-all";
+                btnCash.className = "flex-1 py-3 px-4 rounded-xl border border-white/10 bg-surface-dark text-slate-400 font-bold flex items-center justify-center gap-2 transition-all";
+                cardForm.classList.remove('hidden');
+            } else {
+                btnCash.className = "flex-1 py-3 px-4 rounded-xl border-2 border-primary bg-primary/10 text-primary font-bold flex items-center justify-center gap-2 transition-all";
+                btnCard.className = "flex-1 py-3 px-4 rounded-xl border border-white/10 bg-surface-dark text-slate-400 font-bold flex items-center justify-center gap-2 transition-all";
+                cardForm.classList.add('hidden');
+            }
+        }
+
+        // Format card input
+        document.getElementById('cardNumber')?.addEventListener('input', (e) => {
+            let val = e.target.value.replace(/\D/g, '');
+            val = val.match(/.{1,4}/g)?.join(' ') || val;
+            e.target.value = val;
+        });
+
+        document.getElementById('cardExpiry')?.addEventListener('input', (e) => {
+            let val = e.target.value.replace(/\D/g, '');
+            if (val.length > 2) val = val.slice(0, 2) + '/' + val.slice(2, 4);
+            e.target.value = val;
+        });
+
         function initResumen() {
             const user = getCurrentUser();
             if (user) {
@@ -355,16 +438,45 @@
             const dir = document.querySelector('input[type=text]')?.value.trim();
             const nombre = document.getElementById('inputNombre')?.value.trim() || (user && user.nombre) || 'Cliente';
 
+            // Validate card if selected
+            if (selectedPaymentMethod === 'card') {
+                const holder = document.getElementById('cardHolder').value.trim();
+                const num = document.getElementById('cardNumber').value.trim();
+                const exp = document.getElementById('cardExpiry').value.trim();
+                const cvc = document.getElementById('cardCVC').value.trim();
+
+                if (!holder || num.length < 19 || exp.length < 5 || cvc.length < 3) {
+                    alert('Por favor, completa correctamente los datos de la tarjeta.');
+                    return;
+                }
+
+                // Processing simulation
+                const btn = document.querySelector('button[onclick="realizarPedido()"]');
+                const originalContent = btn.innerHTML;
+                const processingText = (typeof I18N !== 'undefined') ? I18N.t('processing_payment') : 'Procesando pago seguro...';
+                
+                btn.disabled = true;
+                btn.innerHTML = `<span class="material-symbols-outlined animate-spin">sync</span><span>${processingText}</span>`;
+                
+                setTimeout(() => finalizeOrder(nombre, dir, user, cart), 2500);
+            } else {
+                finalizeOrder(nombre, dir, user, cart);
+            }
+        }
+
+        function finalizeOrder(nombre, dir, user, cart) {
             if (!user) {
                 sessionStorage.setItem('pendingOrder', JSON.stringify({ direccion: dir || '' }));
                 window.location.href = 'perfil.html';
                 return;
             }
 
+            const paymentLabel = selectedPaymentMethod === 'card' ? 'Tarjeta' : 'Efectivo';
+
             const pedido = {
                 nombre: nombre,
                 direccion: dir || user.direccion || 'Mercado Virgen del Rosario, Cádiz',
-                pago: 'Efectivo',
+                pago: paymentLabel,
                 items: cart,
                 fecha: new Date().toISOString(),
                 total: document.getElementById('totalAmount').textContent

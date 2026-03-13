@@ -815,6 +815,36 @@ const I18N = {
             it: 'Carta', nl: 'Kaart', pl: 'Karta', ru: 'Карта',
             zh: '卡', ja: 'カード', ko: '카드', ar: 'بطاقة',
         },
+        card_number_label: {
+            es: 'Número de Tarjeta', en: 'Card Number', de: 'Kartennummer', fr: 'Numéro de Carte',
+            sv: 'Kortnummer', da: 'Kortnummer', no: 'Kortnummer', pt: 'Número do Cartão',
+            it: 'Numero Carta', nl: 'Kaartnummer', pl: 'Numer Karty', ru: 'Номер карты',
+            zh: '卡号', ja: 'カード番号', ko: '카드 번호', ar: 'رقم البطاقة',
+        },
+        card_expiry_label: {
+            es: 'Vencimiento', en: 'Expiry', de: 'Gültig bis', fr: 'Expiration',
+            sv: 'Utgångsdatum', da: 'Udløbsdato', no: 'Utløpsdato', pt: 'Validade',
+            it: 'Scadenza', nl: 'Vervaldatum', pl: 'Termin ważności', ru: 'Срок действия',
+            zh: '有效期', ja: '有効期限', ko: '만료일', ar: 'تاريخ الانتهاء',
+        },
+        card_cvc_label: {
+            es: 'CVC', en: 'CVC', de: 'CVC', fr: 'CVC',
+            sv: 'CVC', da: 'CVC', no: 'CVC', pt: 'CVC',
+            it: 'CVC', nl: 'CVC', pl: 'CVC', ru: 'CVC',
+            zh: 'CVC', ja: 'CVC', ko: 'CVC', ar: 'CVC',
+        },
+        card_holder_label: {
+            es: 'Nombre del titular', en: 'Cardholder name', de: 'Name des Karteninhabers', fr: 'Nom du titulaire',
+            sv: 'Kortinnehavarens namn', da: 'Kortholders navn', no: 'Kortholders navn', pt: 'Nome do titular',
+            it: 'Nome titolare', nl: 'Naam kaarthouder', pl: 'Imię i nazwisko właściciela', ru: 'Имя владельца',
+            zh: '持卡人姓名', ja: 'カード名義', ko: '카드 소유자 이름', ar: 'اسم صاحب البطاقة',
+        },
+        processing_payment: {
+            es: 'Procesando pago seguro...', en: 'Processing secure payment...', de: 'Sichere Zahlung wird verarbeitet...', fr: 'Traitement du paiement sécurisé...',
+            sv: 'Bearbetar säker betalning...', da: 'Behandler sikker betaling...', no: 'Behandler sikker betaling...', pt: 'Processando pagamento seguro...',
+            it: 'Elaborazione pagamento sicuro...', nl: 'Beveiligde betaling verwerken...', pl: 'Przetwarzanie bezpiecznej płatności...', ru: 'Обработка безопасного платежа...',
+            zh: '正在处理安全支付...', ja: '安全な支払いを処理中...', ko: '안전한 결제 처리 중...', ar: 'جاري معالجة الدفع الآمن...',
+        },
         place_order_btn: {
             es: '🛵 Realizar Pedido', en: '🛵 Place Order', de: '🛵 Bestellung aufgeben', fr: '🛵 Passer la Commande',
             sv: '🛵 Lägg Beställning', da: '🛵 Afgiv Bestilling', no: '🛵 Legg Bestilling', pt: '🛵 Fazer Pedido',
