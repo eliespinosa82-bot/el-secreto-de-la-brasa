@@ -123,16 +123,38 @@
                 <div id="drinkQuickList" class="grid grid-cols-2 gap-2"></div>
             </section>
 
-            <!-- Delivery Details -->
+            <!-- Order Type Selection -->
             <section class="space-y-4 animate-in" style="animation-delay: 0.1s">
+                <h2 class="text-lg font-bold flex items-center gap-2">
+                    <span class="material-symbols-outlined text-primary">local_shipping</span>
+                    <span data-i18n="order_type_label">Tipo de Pedido</span>
+                </h2>
+                <div class="flex flex-wrap gap-2">
+                    <button id="typeEatIn" onclick="selectOrderType('eat_in')"
+                        class="flex-1 min-w-[120px] py-3 px-4 rounded-xl border-2 border-primary bg-primary/10 text-primary font-bold flex items-center justify-center gap-2 transition-all">
+                        <span class="material-symbols-outlined text-sm">restaurant</span> <span data-i18n="type_eat_in">En el local</span>
+                    </button>
+                    <button id="typeTakeaway" onclick="selectOrderType('takeaway')"
+                        class="flex-1 min-w-[120px] py-3 px-4 rounded-xl border border-white/10 bg-surface-dark text-slate-400 font-bold flex items-center justify-center gap-2 transition-all">
+                        <span class="material-symbols-outlined text-sm">shopping_basket</span> <span data-i18n="type_takeaway">Para llevar</span>
+                    </button>
+                    <button id="typeGlovo" onclick="selectOrderType('glovo')"
+                        class="flex-1 min-w-[120px] py-3 px-4 rounded-xl border border-white/10 bg-surface-dark text-slate-400 font-bold flex items-center justify-center gap-2 transition-all">
+                        <span class="material-symbols-outlined text-sm">delivery_dining</span> <span data-i18n="type_glovo">Glovo</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Delivery Details -->
+            <section id="deliveryDetails" class="space-y-4 animate-in" style="animation-delay: 0.15s">
                 <h2 class="text-lg font-bold flex items-center gap-2">
                     <span class="material-symbols-outlined text-primary">location_on</span>
                     <span data-i18n="delivery_details">Detalles de Entrega</span>
                 </h2>
                 <div class="grid gap-4">
-                    <div class="space-y-1">
+                    <div id="addressField" class="space-y-1">
                         <label class="text-xs font-bold text-slate-500 uppercase px-1" data-i18n="delivery_addr">Dirección de entrega</label>
-                        <input
+                        <input id="inputDireccion"
                             class="w-full bg-surface-dark border-primary/20 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600"
                             placeholder="Calle, número, piso..." type="text" data-i18n="addr_placeholder" data-i18n-attr="placeholder" />
                     </div>
@@ -145,12 +167,30 @@
                         </div>
                         <div class="space-y-1">
                             <label class="text-xs font-bold text-slate-500 uppercase px-1" data-i18n="phone_label">Teléfono</label>
-                            <input
+                            <input id="inputTelefono"
                                 class="w-full bg-surface-dark border-primary/20 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600"
                                 placeholder="600 000 000" type="tel" />
                         </div>
                     </div>
                 </div>
+            </section>
+
+            <!-- Glovo Redirect Message -->
+            <section id="glovoNotice" class="hidden bg-[#ffc244]/10 border border-[#ffc244]/30 p-6 rounded-2xl animate-in">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="size-10 rounded-full bg-[#ffc244] flex items-center justify-center">
+                        <span class="material-symbols-outlined text-black">delivery_dining</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-[#ffc244]">Redirección a Glovo</h3>
+                        <p class="text-xs text-[#ffc244]/80" data-i18n="glovo_msg">Para pedidos a través de Glovo, serás redirigido a su plataforma oficial.</p>
+                    </div>
+                </div>
+                <a href="https://glovoapp.com" target="_blank" rel="noopener noreferrer"
+                    class="w-full py-4 rounded-xl bg-[#ffc244] text-black font-black flex items-center justify-center gap-2 hover:brightness-105 transition-all">
+                    <span data-i18n="go_to_glovo">Ir a Glovo</span>
+                    <span class="material-symbols-outlined">open_in_new</span>
+                </a>
             </section>
 
             <!-- Payment -->
@@ -245,7 +285,55 @@
         // ── Shared constants ──
         const USER_KEY = 'brasa_user';
         const CART_KEY = 'brasa_cart';
+        const TYPE_KEY = 'brasa_order_type';
         let selectedPaymentMethod = 'cash';
+        let selectedOrderType = localStorage.getItem(TYPE_KEY) || 'eat_in'; // Default to eat_in to match UI highlight
+
+        function selectOrderType(type) {
+            selectedOrderType = type;
+            const btnEatIn = document.getElementById('typeEatIn');
+            const btnTakeaway = document.getElementById('typeTakeaway');
+            const btnGlovo = document.getElementById('typeGlovo');
+            const deliverySection = document.getElementById('deliveryDetails');
+            const addressField = document.getElementById('addressField');
+            const glovoNotice = document.getElementById('glovoNotice');
+            const paymentSection = document.querySelector('section.bg-primary/5');
+            const ctaSection = document.querySelector('section.pt-4.pb-12');
+
+            // Reset styles
+            [btnEatIn, btnTakeaway, btnGlovo].forEach(btn => {
+                btn.className = "flex-1 min-w-[120px] py-3 px-4 rounded-xl border border-white/10 bg-surface-dark text-slate-400 font-bold flex items-center justify-center gap-2 transition-all";
+            });
+
+            // Set active style
+            let idPart = type.toLowerCase().split('_').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join('');
+            const activeBtn = document.getElementById('type' + idPart);
+            if (activeBtn) {
+                activeBtn.className = "flex-1 min-w-[120px] py-3 px-4 rounded-xl border-2 border-primary bg-primary/10 text-primary font-bold flex items-center justify-center gap-2 transition-all";
+            }
+            
+            // Persist choice
+            localStorage.setItem(TYPE_KEY, type);
+
+            // Logic for fields and sections
+            if (type === 'glovo') {
+                deliverySection.classList.add('hidden');
+                paymentSection.classList.add('hidden');
+                ctaSection.classList.add('hidden');
+                glovoNotice.classList.remove('hidden');
+            } else {
+                deliverySection.classList.remove('hidden');
+                paymentSection.classList.remove('hidden');
+                ctaSection.classList.remove('hidden');
+                glovoNotice.classList.add('hidden');
+                
+                if (type === 'eat_in') {
+                    addressField.classList.add('hidden');
+                } else {
+                    addressField.classList.remove('hidden');
+                }
+            }
+        }
 
         function getCurrentUser() {
             try { return JSON.parse(localStorage.getItem(USER_KEY)); } catch { return null; }
@@ -255,14 +343,14 @@
 
         // ── Quick-add drinks data ──
         const DRINKS = [
-            { id: 'coca-cola', name: 'Coca-Cola', price: 2.50 },
-            { id: 'coca-cola-zero', name: 'Coca-Cola Zero', price: 2.50 },
-            { id: 'fanta-naranja', name: 'Fanta Naranja', price: 2.50 },
-            { id: 'fanta-limon', name: 'Fanta Limón', price: 2.50 },
-            { id: 'agua', name: 'Agua Mineral', price: 1.50 },
-            { id: 'cerveza', name: 'Cerveza', price: 2.80 },
-            { id: 'cerveza-sin', name: 'Cerveza Sin', price: 2.80 },
-            { id: 'limonada', name: 'Limonada Casera', price: 3.50 }
+            { id: 'coca-cola', name: 'Coca-Cola', price: 2.50, emoji: '🥤' },
+            { id: 'coca-cola-zero', name: 'Coca-Cola Zero', price: 2.50, emoji: '🥤' },
+            { id: 'fanta-naranja', name: 'Fanta Naranja', price: 2.50, emoji: '🥤' },
+            { id: 'fanta-limon', name: 'Fanta Limón', price: 2.50, emoji: '🥤' },
+            { id: 'agua', name: 'Agua Mineral', price: 1.50, emoji: '💧' },
+            { id: 'cerveza', name: 'Cerveza', price: 2.80, emoji: '🍺' },
+            { id: 'cerveza-sin', name: 'Cerveza Sin', price: 2.80, emoji: '🍺' },
+            { id: 'limonada', name: 'Limonada Casera', price: 3.50, emoji: '🍋' }
         ];
 
         function addDrink(id) {
@@ -271,7 +359,7 @@
             const cart = getCart();
             const ex = cart.find(i => i.id === id);
             if (ex) { ex.qty = (ex.qty || 1) + 1; }
-            else { cart.push({ key: id, id, name: d.name, baseNum: d.price, extraCost: 0, totalStr: d.price.toFixed(2).replace('.', ',') + '€', removed: [], extras: [], img: '', qty: 1 }); }
+            else { cart.push({ key: id, id, name: d.name, baseNum: d.price, extraCost: 0, totalStr: d.price.toFixed(2).replace('.', ',') + '€', removed: [], extras: [], img: '', emoji: d.emoji || '🥤', qty: 1 }); }
             saveCart(cart);
         }
 
@@ -320,7 +408,7 @@
                 const lineTotal = perItem * (item.qty || 1);
                 grandTotal += lineTotal;
 
-                const emoji = item.img ? '' : '🍔';
+                const emoji = item.img ? '' : (item.emoji || '🍔');
                 const imgStyle = item.img
                     ? `background-image:url('${item.img}');background-size:cover;background-position:center`
                     : `display:flex;align-items:center;justify-content:center;font-size:1.4rem`;
@@ -335,6 +423,13 @@
                 if (item.extras && item.extras.length) {
                     const translatedExtras = item.extras.map(e => (typeof tIng === 'function') ? tIng(e) : e);
                     mods.push(translatedExtras.join(', '));
+                }
+                if (item.allergens && item.allergens.length) {
+                    const allergenLabels = item.allergens.map(a => {
+                        const transName = (typeof I18N !== 'undefined') ? I18N.t('allergen_' + a.id) : a.name;
+                        return `<b>${a.id}</b> ${transName}`;
+                    });
+                    mods.push(`<span style="color:var(--primary);font-weight:700">⚠️ ${allergenLabels.join(', ')}</span>`);
                 }
 
                 return `
@@ -425,6 +520,7 @@
                 const inputNombre = document.getElementById('inputNombre');
                 if (inputNombre && user.nombre) inputNombre.value = user.nombre;
             }
+            selectOrderType(selectedOrderType); // Sync UI with selection
             renderCart();
         }
 
@@ -435,8 +531,9 @@
                 return;
             }
             const user = getCurrentUser();
-            const dir = document.querySelector('input[type=text]')?.value.trim();
+            const dir = document.getElementById('inputDireccion')?.value.trim();
             const nombre = document.getElementById('inputNombre')?.value.trim() || (user && user.nombre) || 'Cliente';
+            const tlfn = document.getElementById('inputTelefono')?.value.trim();
 
             // Validate card if selected
             if (selectedPaymentMethod === 'card') {
@@ -458,13 +555,13 @@
                 btn.disabled = true;
                 btn.innerHTML = `<span class="material-symbols-outlined animate-spin">sync</span><span>${processingText}</span>`;
                 
-                setTimeout(() => finalizeOrder(nombre, dir, user, cart), 2500);
+                setTimeout(() => finalizeOrder(nombre, dir, user, cart, tlfn), 2500);
             } else {
-                finalizeOrder(nombre, dir, user, cart);
+                finalizeOrder(nombre, dir, user, cart, tlfn);
             }
         }
 
-        function finalizeOrder(nombre, dir, user, cart) {
+        function finalizeOrder(nombre, dir, user, cart, tlfn) {
             if (!user) {
                 sessionStorage.setItem('pendingOrder', JSON.stringify({ direccion: dir || '' }));
                 window.location.href = 'perfil.html';
@@ -472,10 +569,17 @@
             }
 
             const paymentLabel = selectedPaymentMethod === 'card' ? 'Tarjeta' : 'Efectivo';
+            const orderTypeLabel = {
+                'eat_in': 'En local',
+                'takeaway': 'Para llevar',
+                'glovo': 'Glovo'
+            }[selectedOrderType];
 
             const pedido = {
                 nombre: nombre,
-                direccion: dir || user.direccion || 'Mercado Virgen del Rosario, Cádiz',
+                telefono: tlfn || '',
+                tipo: orderTypeLabel,
+                direccion: selectedOrderType === 'eat_in' ? 'Local' : (dir || user.direccion || 'Mercado Virgen del Rosario, Cádiz'),
                 pago: paymentLabel,
                 items: cart,
                 fecha: new Date().toISOString(),

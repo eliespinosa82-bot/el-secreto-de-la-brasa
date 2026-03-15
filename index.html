@@ -180,12 +180,8 @@
         <div class="menu-cat-header"><span>🫙</span>
           <h3 data-i18n="cat_sauces">Salsas Caseras · 1 €</h3>
         </div>
-        <div class="sauces-grid">
-          <div class="sauce-chip">Salsa Secreta</div>
-          <div class="sauce-chip">BBQ Japonesa</div>
-          <div class="sauce-chip">Ali Oli de Lima</div>
-          <div class="sauce-chip">Mayotrufa</div>
-          <div class="sauce-chip sauce-chip--wide">Cheddar de Risketos</div>
+        <div class="sauces-grid" id="saucesGrid">
+          <!-- Rendered by JS -->
         </div>
       </div>
 
@@ -265,18 +261,17 @@
         <div id="modalIngredientsList"></div>
       </div>
       <div class="ingredient-group">
-        <h3 style="font-size:1rem;font-weight:700;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.04em"
-          data-i18n="modal_extras">
-          Añadir Extras</h3>
-        <label class="ingredient-label"><span class="ingredient-name"><span data-i18n="modal_extra_meat">Doble
-              Carne</span> <span class="ingredient-price">+3,50€</span></span><input type="checkbox"
-            class="custom-checkbox"></label>
-        <label class="ingredient-label"><span class="ingredient-name"><span data-i18n="modal_extra_bacon">Bacon
-              Extra</span> <span class="ingredient-price">+1,50€</span></span><input type="checkbox"
-            class="custom-checkbox"></label>
-        <label class="ingredient-label"><span class="ingredient-name"><span data-i18n="modal_extra_cheese">Queso
-              Extra</span> <span class="ingredient-price">+1,00€</span></span><input type="checkbox"
-            class="custom-checkbox"></label>
+        <label class="ingredient-label" style="margin-bottom: 0.5rem; cursor: pointer;">
+          <span class="ingredient-name" style="font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.04em;" data-i18n="modal_has_allergy">¿Tienes alguna alergia?</span>
+          <input type="checkbox" class="custom-checkbox" id="modalAllergyToggle" onchange="toggleAllergensSection()">
+        </label>
+        <div id="modalAllergensSection" style="display: none; transition: all 0.3s ease;">
+          <p style="font-size:.75rem;color:var(--text-muted);margin-bottom:1rem" data-i18n="modal_allergens_desc">Marca los alérgenos que te afectan:</p>
+          <div class="allergens-selection-grid"
+            style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding-bottom:10px" id="modalAllergensGrid">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
       </div>
     </div>
     <div class="modal-footer">
@@ -300,7 +295,8 @@
           img: 'images/burger-la-secreta.png',
           ingredients: ['Pan brioche', '180g Angus madurada', 'Cebolla crispy', 'Mermelada de bacon', 'Cheddar americano', 'Edam', 'Pepinillos', 'Salsa secreta'],
           featured: true,
-          premium: true
+          premium: true,
+          emoji: '🍔'
         },
         {
           id: 'la-explosiva', name: 'La Explosiva', price: '12,90€',
@@ -308,21 +304,24 @@
           allergens: '2',
           img: 'images/burger-la-explosiva.png',
           ingredients: ['Pan brioche', '180g Angus', 'Pulled pork', 'Salsa cheddar de risketos', 'Cebolla crispy', 'Crunchy de risketos'],
-          featured: true
+          featured: true,
+          emoji: '🍔'
         },
         {
           id: 'la-campera', name: 'La Campera', price: '12,90€',
           desc: 'Pan brioche, 180g ternera angus madurada, salsa jabugitos, panceta ibérica y huevo frito.',
           allergens: '2,4,7,5,6,1',
           img: 'images/burger-la-campera.png',
-          ingredients: ['Pan brioche', '180g Angus madurada', 'Salsa jabugitos', 'Panceta ibérica', 'Huevo frito']
+          ingredients: ['Pan brioche', '180g Angus madurada', 'Salsa jabugitos', 'Panceta ibérica', 'Huevo frito'],
+          emoji: '🍔'
         },
         {
           id: 'la-simple', name: 'La Simple con Queso', price: '9,00€',
-          desc: 'Pan brioche, 180g ternera angus madurada, cheddar americano y edam.',
+          desc: 'Pan brioche, 180g ternera angus madurada, cheddar americano e edam.',
           allergens: '2,4,7,5,6,1',
           img: 'images/burger-la-simple.png',
-          ingredients: ['Pan brioche', '180g Angus madurada', 'Cheddar americano', 'Edam']
+          ingredients: ['Pan brioche', '180g Angus madurada', 'Cheddar americano', 'Edam'],
+          emoji: '🍔'
         },
         {
           id: 'la-pistachera', name: 'La Pistachera', price: '15,90€',
@@ -330,7 +329,8 @@
           allergens: '1,2,4,5,8',
           img: 'images/burger-la-pistachera.png',
           ingredients: ['Pan brioche', '180g Angus madurada', 'Panceta ibérica', 'Huevo frito', 'Mermelada de bacon', 'Salsa de pistacho casera'],
-          featured: true
+          featured: true,
+          emoji: '🍔'
         }
       ],
       rolls: [
@@ -340,14 +340,16 @@
           allergens: '2,1,5,6,7,11,12',
           img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCaiHtixPMkpWPpSNNK5wmQR4TNup_xIxdxtUzCkrdP4xaPHodxl7_y2vcenmjph_gUOpobXVrmcCUlFb17Y2ys34-cPXPqprVpexm-lh06U19d3TMWERr54zP4FkJZsOVg6hErQOZkCNPwuS6FB20FTVjek6dRfvjQIV5t4hqc46J3HzZYHPOUR1NW2veK-NwuJJtRBZZ-NVbG7wked_jtbIruhedpov6hbbjrX-qdXpc4acz6wrmzkSr0k4SkeMd77WeKKAl4C7E',
           ingredients: ['Pan brioche', 'Pulled pork', 'Kimchi', 'Guacamole', 'Nachos', 'Cheddar', 'Jalapeños'],
-          featured: true
+          featured: true,
+          emoji: '🌭'
         },
         {
           id: 'el-simplon', name: 'El Simplón', price: '9,90€',
           desc: 'Pan brioche abierto, filetes de pollo crujiente especiado, mayo de trufa, bacon y cheddar.',
           allergens: '7,2,12,1,4,11,9,5,6',
           img: 'images/roll-el-simplon.png',
-          ingredients: ['Pan brioche', 'Pollo crujiente especiado', 'Mayo de trufa', 'Bacon', 'Cheddar']
+          ingredients: ['Pan brioche', 'Pollo crujiente especiado', 'Mayo de trufa', 'Bacon', 'Cheddar'],
+          emoji: '🌭'
         }
       ],
       sandwiches: [
@@ -356,7 +358,8 @@
           desc: 'Rebanadas de pan brioche marcadas con mantequilla, pollo trufado, huevo, cheddar americano, alioli de trufa y crujiente lechuga y tomate.',
           allergens: '2,7,4,5,6,1,10,11,12,9',
           img: 'images/sandwich-el-americano.png',
-          ingredients: ['Pan brioche', 'Pollo trufado', 'Huevo', 'Cheddar americano', 'Alioli de trufa', 'Lechuga', 'Tomate']
+          ingredients: ['Pan brioche', 'Pollo trufado', 'Huevo', 'Cheddar americano', 'Alioli de trufa', 'Lechuga', 'Tomate'],
+          emoji: '🥪'
         }
       ],
       entrantes: [
@@ -366,28 +369,32 @@
           allergens: '1,2',
           img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBkL7JtwTpTTrPb_1IyiZEcIzjNcHNKVbLUs4tltiWirhNrdyBbfVb6yadSGnF4aW8n3Xms3AUbJppz4bFQwDkQBtTwVoSCGCr2xtNnRl-wa9TjgTVqthk-0PEZ7mWY1n10xmsckJHTfdK9_JTX3KyCI7JdmSa6PDHqXJeQTKcA5qJTT1hVOmZRPIy5CNsxsYz6lRNet3EyLrclcLCvMZDqzKB4BiKo0N8qIFfVngni3TjApuozn3Ft0Yan06Aw2mp3fvTEni-zj5s',
           ingredients: ['Nachos crujientes', 'Guacamole casero', 'Carne salteada', 'Pico de gallo', 'Crema agria', 'Cheddar', 'Jalapeños', 'Frijoles'],
-          featured: true
+          featured: true,
+          emoji: '🥗'
         },
         {
           id: 'patatas', name: 'Patatas Gajo', price: '4,50€',
           desc: 'Patatas gajo con cualquiera de nuestras salsas. Ingrediente extra por +1,50€.',
           allergens: '',
           img: 'images/entrante-patatas-gajo.png',
-          ingredients: ['Patatas gajo', 'Salsa a elegir']
+          ingredients: ['Patatas gajo', 'Salsa a elegir'],
+          emoji: '🍟'
         },
         {
           id: 'ensalada', name: 'Ensalada de Pollo', price: '9,90€',
           desc: 'Ensalada mezclum, pollo asado al carbón, parmesano, salsa yogur, croutons al ajillo y aceitunas negras.',
           allergens: '1,2,3,4,5',
           img: 'images/entrante-ensalada-pollo.png',
-          ingredients: ['Mezclum', 'Pollo asado', 'Parmesano', 'Salsa yogur', 'Croutons', 'Aceitunas negras']
+          ingredients: ['Mezclum', 'Pollo asado', 'Parmesano', 'Salsa yogur', 'Croutons', 'Aceitunas negras'],
+          emoji: '🥗'
         },
         {
           id: 'alitas', name: 'Alitas BBQ Koreanas', price: '5,90€',
           desc: 'Alitas de pollo crujientes asadas con salsa barbacoa coreana, decoradas con cebollino.',
           allergens: '',
           img: 'images/entrante-alitas-bbq.png',
-          ingredients: ['Alitas de pollo', 'Salsa BBQ coreana', 'Cebollino']
+          ingredients: ['Alitas de pollo', 'Salsa BBQ coreana', 'Cebollino'],
+          emoji: '🍗'
         }
       ],
       bebidas: [
@@ -395,50 +402,65 @@
           id: 'coca-cola', name: 'Coca-Cola', price: '2,50€',
           desc: 'Lata 33cl.',
           allergens: '', img: '',
-          ingredients: [], noConfigure: true
+          ingredients: [], noConfigure: true,
+          emoji: '🥤'
         },
         {
           id: 'coca-cola-zero', name: 'Coca-Cola Zero', price: '2,50€',
           desc: 'Lata 33cl.',
           allergens: '', img: '',
-          ingredients: [], noConfigure: true
+          ingredients: [], noConfigure: true,
+          emoji: '🥤'
         },
         {
           id: 'fanta-naranja', name: 'Fanta Naranja', price: '2,50€',
           desc: 'Lata 33cl.',
           allergens: '', img: '',
-          ingredients: [], noConfigure: true
+          ingredients: [], noConfigure: true,
+          emoji: '🥤'
         },
         {
           id: 'fanta-limon', name: 'Fanta Limón', price: '2,50€',
           desc: 'Lata 33cl.',
           allergens: '', img: '',
-          ingredients: [], noConfigure: true
+          ingredients: [], noConfigure: true,
+          emoji: '🥤'
         },
         {
           id: 'agua', name: 'Agua Mineral', price: '1,50€',
           desc: 'Botella 50cl.',
           allergens: '', img: '',
-          ingredients: [], noConfigure: true
+          ingredients: [], noConfigure: true,
+          emoji: '💧'
         },
         {
           id: 'cerveza', name: 'Cerveza', price: '2,80€',
           desc: 'Caña de cerveza fría.',
           allergens: '8', img: '',
-          ingredients: [], noConfigure: true
+          ingredients: [], noConfigure: true,
+          emoji: '🍺'
         },
         {
           id: 'cerveza-sin', name: 'Cerveza Sin', price: '2,80€',
           desc: 'Caña sin alcohol.',
           allergens: '8', img: '',
-          ingredients: [], noConfigure: true
+          ingredients: [], noConfigure: true,
+          emoji: '🍺'
         },
         {
           id: 'limonada', name: 'Limonada Casera', price: '3,50€',
           desc: 'Limonada natural con hierbabuena.',
           allergens: '', img: '',
-          ingredients: [], noConfigure: true
+          ingredients: [], noConfigure: true,
+          emoji: '🍋'
         }
+      ],
+      sauces: [
+        { id: 'salsa-secreta', name: 'Salsa Secreta', price: '1,00€' },
+        { id: 'bbq-japonesa', name: 'BBQ Japonesa', price: '1,00€' },
+        { id: 'ali-oli-lima', name: 'Ali Oli de Lima', price: '1,00€' },
+        { id: 'mayotrufa', name: 'Mayotrufa', price: '1,00€' },
+        { id: 'cheddar-risketos', name: 'Cheddar de Risketos', price: '1,00€', wide: true }
       ]
     };
 
@@ -454,7 +476,7 @@
         <div class="featured-burger-img-wrap">
           ${item.img
           ? `<img src="${item.img}" alt="${name}" class="featured-burger-img" />`
-          : `<div class="featured-burger-emoji">🍔</div>`
+          : `<div class="featured-burger-emoji">${item.emoji || '🍔'}</div>`
         }
         </div>
         <div class="featured-burger-info">
@@ -508,6 +530,18 @@
       document.getElementById('list-sandwiches').innerHTML = MENU_DATA.sandwiches.map(buildMenuRow).join('');
       document.getElementById('list-entrantes').innerHTML = MENU_DATA.entrantes.map(buildMenuRow).join('');
       document.getElementById('list-bebidas').innerHTML = MENU_DATA.bebidas.map(buildDrinkRow).join('');
+      document.getElementById('saucesGrid').innerHTML = MENU_DATA.sauces.map(buildSauceChip).join('');
+    }
+
+    function buildSauceChip(item) {
+      const name = (typeof tIng === 'function') ? tIng(item.name) : item.name;
+      return `<div class="sauce-chip ${item.wide ? 'sauce-chip--wide' : ''}" 
+                   onclick="addSauceToCart('${item.id}')" 
+                   style="cursor:pointer; transition: transform 0.1s active; transition: background 0.2s;"
+                   onmousedown="this.style.transform='scale(0.95)'"
+                   onmouseup="this.style.transform='scale(1)'">
+          ${name}
+      </div>`;
     }
     renderMenu();
 
@@ -549,8 +583,38 @@
        </label>`;
       }).join('');
 
+      const allergens = [
+        { id: 1, name: 'Lácteos' }, { id: 2, name: 'Gluten' }, { id: 3, name: 'Mostaza' },
+        { id: 4, name: 'Huevo' }, { id: 5, name: 'F. cáscara' }, { id: 6, name: 'Cacahuete' },
+        { id: 7, name: 'Soja' }, { id: 8, name: 'Sulfitos' }, { id: 9, name: 'Apio' },
+        { id: 10, name: 'Crustáceos' }, { id: 11, name: 'Pescado' }, { id: 12, name: 'Sésamo' }
+      ];
+
+      document.getElementById('modalAllergensGrid').innerHTML = allergens.map(a => {
+        const transName = (typeof I18N !== 'undefined') ? I18N.t('allergen_' + a.id) : a.name;
+        return `<label class="ingredient-label" style="padding: 10px 0;">
+          <span class="ingredient-name" style="font-size:0.8rem"><b>${a.id}</b> ${transName}</span>
+          <input type="checkbox" class="custom-checkbox allergen-checkbox" data-allergen-id="${a.id}" data-allergen-name="${a.name}">
+        </label>`;
+      }).join('');
+
+      // Reset allergy toggle
+      const toggle = document.getElementById('modalAllergyToggle');
+      if (toggle) {
+        toggle.checked = false;
+        toggleAllergensSection();
+      }
+
       document.getElementById('modalOverlay').classList.add('active');
       document.getElementById('productModal').classList.add('active');
+    }
+
+    function toggleAllergensSection() {
+      const toggle = document.getElementById('modalAllergyToggle');
+      const section = document.getElementById('modalAllergensSection');
+      if (toggle && section) {
+        section.style.display = toggle.checked ? 'block' : 'none';
+      }
     }
 
     function closeModal() {
@@ -591,9 +655,23 @@
       const extraPrices = [3.50, 1.50, 1.00];
       const extras = [];
       let extraCost = 0;
-      document.querySelectorAll('.ingredient-group')[1]?.querySelectorAll('.custom-checkbox').forEach((cb, i) => {
+      document.querySelectorAll('.ingredient-group')[1]?.querySelectorAll('.custom-checkbox:not(.allergen-checkbox)').forEach((cb, i) => {
         if (cb.checked) { extras.push(extraLabels[i]); extraCost += extraPrices[i]; }
       });
+
+      // Allergens logic
+      const selectedAllergens = [];
+      const allergyToggle = document.getElementById('modalAllergyToggle');
+      if (allergyToggle && allergyToggle.checked) {
+        document.querySelectorAll('.allergen-checkbox').forEach(cb => {
+          if (cb.checked) {
+            selectedAllergens.push({
+              id: cb.dataset.allergenId,
+              name: cb.dataset.allergenName
+            });
+          }
+        });
+      }
 
       // Parse base price
       const baseNum = parseFloat(priceText.replace(',', '.').replace('€', '')) || 0;
@@ -605,16 +683,17 @@
       const found = allItems.find(i => i.name === title);
       const itemId = found ? found.id : 'custom-' + Date.now();
       const img = found ? (found.img || '') : '';
+      const emoji = found ? (found.emoji || '🍔') : '🍔';
 
       const cart = getCart();
       // Check if identical item exists already
-      const key = itemId + '|' + removed.join(',') + '|' + extras.join(',');
+      const key = itemId + '|' + removed.join(',') + '|' + extras.join(',') + '|' + selectedAllergens.map(a => a.id).join(',');
       const existing = cart.find(i => i.key === key);
       if (existing) {
         existing.qty = (existing.qty || 1) + 1;
         existing.totalStr = (parseFloat(existing.baseNum || baseNum) * existing.qty + extraCost * existing.qty).toFixed(2).replace('.', ',') + '€';
       } else {
-        cart.push({ key, id: itemId, name: title, baseNum, extraCost, totalStr, removed, extras, img, qty: 1 });
+        cart.push({ key, id: itemId, name: title, baseNum, extraCost, totalStr, removed, extras, allergens: selectedAllergens, img, emoji, qty: 1 });
       }
       saveCart(cart);
       closeModal();
@@ -632,10 +711,25 @@
         existing.qty = (existing.qty || 1) + 1;
       } else {
         const baseNum = parseFloat(drink.price.replace(',', '.').replace('€', '')) || 0;
-        cart.push({ key: id, id, name: drink.name, baseNum, extraCost: 0, totalStr: drink.price, removed: [], extras: [], img: '', qty: 1 });
+        cart.push({ key: id, id, name: drink.name, baseNum, extraCost: 0, totalStr: drink.price, removed: [], extras: [], img: '', emoji: drink.emoji || '🥤', qty: 1 });
       }
       saveCart(cart);
       showCartToast(drink.name);
+    }
+
+    function addSauceToCart(id) {
+      const sauce = MENU_DATA.sauces.find(s => s.id === id);
+      if (!sauce) return;
+      const cart = getCart();
+      const existing = cart.find(i => i.id === id);
+      if (existing) {
+        existing.qty = (existing.qty || 1) + 1;
+      } else {
+        const baseNum = parseFloat(sauce.price.replace(',', '.').replace('€', '')) || 0;
+        cart.push({ key: id, id, name: sauce.name, baseNum, extraCost: 0, totalStr: sauce.price, removed: [], extras: [], img: '', qty: 1 });
+      }
+      saveCart(cart);
+      showCartToast(sauce.name);
     }
 
     function showCartToast(name) {

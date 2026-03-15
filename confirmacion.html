@@ -209,7 +209,8 @@
 
     <script>
         function updateLoyaltyMessage() {
-            const stamps = 4; // Dynamic if needed
+            const orders = JSON.parse(localStorage.getItem('brasa_orders') || '[]');
+            const stamps = orders.length % 10; 
             const msgEl = document.getElementById('loyaltyMsg');
             if (!msgEl) return;
             

@@ -340,19 +340,10 @@
                         <span class="material-symbols-outlined text-primary"
                             style="font-variation-settings:'FILL' 1">military_tech</span>
                         <h3 class="font-bold" data-i18n="loyalty_card">Tarjeta Fidelidad</h3>
-                        <span class="ml-auto text-xs text-slate-500">4 / 9 sellos</span>
+                        <span id="loyaltyCount" class="ml-auto text-xs text-slate-500">0 / 9 sellos</span>
                     </div>
-                    <div class="flex gap-2 flex-wrap">
-                        <div class="loyalty-stamp filled">✓</div>
-                        <div class="loyalty-stamp filled">✓</div>
-                        <div class="loyalty-stamp filled">✓</div>
-                        <div class="loyalty-stamp filled">✓</div>
-                        <div class="loyalty-stamp empty">5</div>
-                        <div class="loyalty-stamp empty">6</div>
-                        <div class="loyalty-stamp empty">7</div>
-                        <div class="loyalty-stamp empty">8</div>
-                        <div class="loyalty-stamp empty">9</div>
-                        <div class="loyalty-stamp empty" style="border-style:dashed;font-size:.6rem">🎁</div>
+                    <div id="loyaltyGrid" class="flex gap-2 flex-wrap">
+                        <!-- Stamps rendered by JS -->
                     </div>
                     <p class="text-xs text-slate-500 mt-3" data-i18n="loyalty_msg">Tu próximo pedido está más cerca de
                         ser gratis.</p>
@@ -650,8 +641,34 @@
             document.getElementById('editTel').value = user.telefono || '';
             document.getElementById('editDir').value = user.direccion || '';
 
+            renderLoyaltyCard();
             renderOrderHistory();
         }
+
+        window.renderLoyaltyCard = function() {
+            const orders = JSON.parse(localStorage.getItem('brasa_orders') || '[]');
+            const count = orders.length % 10; // 0 to 9 stamps
+            
+            const countEl = document.getElementById('loyaltyCount');
+            if(countEl) countEl.textContent = `${count} / 9 sellos`;
+
+            const grid = document.getElementById('loyaltyGrid');
+            if(!grid) return;
+
+            let html = '';
+            for(let i = 1; i <= 9; i++) {
+                if(i <= count) {
+                    html += '<div class="loyalty-stamp filled">✓</div>';
+                } else {
+                    html += `<div class="loyalty-stamp empty">${i}</div>`;
+                }
+            }
+            // Gift slot
+            const isGift = count === 9;
+            html += `<div class="loyalty-stamp empty" style="border-style:dashed;font-size:.6rem;${isGift ? 'background:rgba(200,151,60,0.2);border-color:#c8973c' : ''}">🎁</div>`;
+            
+            grid.innerHTML = html;
+        };
 
         window.renderOrderHistory = function () {
             const container = document.getElementById('orderHistory');
