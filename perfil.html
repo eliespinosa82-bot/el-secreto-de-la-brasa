@@ -143,52 +143,96 @@
             box-shadow: 0 0 0 2px rgba(200, 151, 60, .4);
         }
 
-        /* Profile card */
-        .loyalty-stamp {
-            width: 2rem;
-            height: 2rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: .7rem;
-            font-weight: 800;
+        /* App Shell */
+        .app-shell {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
         }
 
-        .loyalty-stamp.filled {
-            background: linear-gradient(135deg, #c8973c, #8e6516);
-            color: #1a1a1a;
+        /* Responsive Dashboard Grid */
+        @media (min-width: 1024px) {
+            .profile-grid {
+                display: grid;
+                grid-template-columns: 320px 1fr;
+                gap: 40px;
+                padding: 40px 10%;
+                align-items: start;
+            }
+
+            .profile-sidebar {
+                position: sticky;
+                top: 100px;
+            }
+
+            .profile-main {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+
+            .main-full {
+                grid-column: span 2;
+            }
         }
 
-        .loyalty-stamp.empty {
-            border: 1.5px solid rgba(200, 151, 60, .3);
-            color: rgba(200, 151, 60, .4);
+        .lang-trigger {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          background: rgba(255, 255, 255, .05);
+          border: 1px solid rgba(255, 255, 255, .1);
+          border-radius: 999px;
+          padding: 6px 10px;
+          cursor: pointer;
+          transition: all .2s ease;
+        }
+
+        .lang-trigger:hover {
+          background: rgba(255, 255, 255, .1);
+          border-color: var(--primary);
+        }
+
+        .lang-trigger-flag {
+          font-size: 1.1rem;
         }
     </style>
 </head>
 
-<body class="bg-background-dark font-display text-slate-100 antialiased">
-    <div class="relative mx-auto min-h-screen max-w-md flex flex-col pb-24 shadow-2xl border-x border-slate-800">
+<body class="bg-background-dark font-display text-slate-100 antialiased overflow-x-hidden">
+    <!-- App Shell -->
+    <div class="app-shell min-h-screen flex flex-col">
 
-        <!-- Header -->
-        <header
-            class="sticky top-0 z-50 flex items-center justify-between bg-background-dark/90 backdrop-blur-md p-4 border-b border-white/5">
-            <a href="index.html"
-                class="flex items-center justify-center size-10 rounded-full hover:bg-slate-800 transition-colors">
-                <span class="material-symbols-outlined text-slate-100">arrow_back</span>
-            </a>
-            <h1 class="text-lg font-bold text-primary tracking-tight" data-i18n="profile_title">Mi Perfil</h1>
-            <!-- Language picker trigger -->
-            <button class="lang-trigger" onclick="openLangPanel()" aria-label="Select language" id="langTriggerBtn">
-                <span class="lang-trigger-flag" id="langTriggerFlag">🇪🇸</span>
-                <span class="material-symbols-outlined" style="font-size:.85rem;opacity:.7">expand_more</span>
-            </button>
+        <!-- ── HEADER (Mobile-friendly, responsive) ── -->
+        <header class="sticky top-0 z-[100] bg-background-dark/80 backdrop-blur-md border-b border-white/5 px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="flex items-center justify-center size-10 rounded-full hover:bg-white/5 transition-colors">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </a>
+                <h1 class="text-xl font-black text-primary tracking-tight" data-i18n="profile_title">Mi Perfil</h1>
+            </div>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 mr-12">
+                <a href="index.html" class="text-sm font-bold opacity-70 hover:opacity-100 hover:text-primary transition-all">Inicio</a>
+                <a href="index.html#carta" class="text-sm font-bold opacity-70 hover:opacity-100 hover:text-primary transition-all">La Carta</a>
+                <a href="resumen.html" class="text-sm font-bold opacity-70 hover:opacity-100 hover:text-primary transition-all">Mi Pedido</a>
+                <a href="perfil.html" class="text-sm font-bold text-primary">Mi Perfil</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <button class="lang-trigger" onclick="openLangPanel()" aria-label="Select language">
+                    <span class="lang-trigger-flag" id="langTriggerFlag">🇪🇸</span>
+                    <span class="material-symbols-outlined" style="font-size:.85rem;opacity:.7">expand_more</span>
+                </button>
+            </div>
         </header>
 
-        <main class="flex-1 px-4 py-6 space-y-5">
+        <main class="flex-1">
 
             <!-- ── VISTA: NO LOGUEADO ── -->
-            <div id="viewGuest" class="animate-fade-in">
+            <div id="viewGuest" class="animate-fade-in px-4 py-8 max-w-md mx-auto">
                 <!-- Brand splash -->
                 <div class="flex flex-col items-center text-center pt-2 pb-6 animate-slide-up">
                     <div
@@ -322,91 +366,96 @@
             </div><!-- /viewGuest -->
 
             <!-- ── VISTA: LOGUEADO ── -->
-            <div id="viewUser" class="hidden space-y-5 animate-slide-up">
-                <!-- Avatar + nombre -->
-                <div class="flex flex-col items-center text-center py-4">
-                    <div id="userAvatar"
-                        class="size-20 rounded-full bg-gradient-to-br from-primary to-burnt-amber flex items-center justify-center text-2xl font-black text-background-dark shadow-lg shadow-primary/20 mb-3">
-                        U
+            <div id="viewUser" class="hidden animate-slide-up">
+                <div class="profile-grid">
+                    
+                    <!-- Sidebar: Info Breve -->
+                    <aside class="profile-sidebar space-y-6">
+                        <div class="flex flex-col items-center text-center py-6 bg-surface-dark border border-white/5 rounded-2xl">
+                            <div id="userAvatar"
+                                class="size-24 rounded-full bg-gradient-to-br from-primary to-burnt-amber flex items-center justify-center text-3xl font-black text-background-dark shadow-lg shadow-primary/20 mb-4">
+                                U
+                            </div>
+                            <h2 id="userName" class="text-xl font-black text-white">Usuario</h2>
+                            <p id="userEmail" class="text-slate-400 text-sm mt-0.5">email@email.com</p>
+                            <p id="userProvider" class="text-[10px] text-primary/70 mt-2 font-bold uppercase tracking-widest"></p>
+                        </div>
+
+                        <!-- Tarjeta de fidelidad -->
+                        <div class="bg-surface-dark border border-white/5 rounded-2xl p-6">
+                            <div class="flex items-center gap-2 mb-4">
+                                <span class="material-symbols-outlined text-primary"
+                                    style="font-variation-settings:'FILL' 1">military_tech</span>
+                                <h3 class="font-bold text-sm tracking-tight" data-i18n="loyalty_card">Tarjeta Fidelidad</h3>
+                                <span id="loyaltyCount" class="ml-auto text-[10px] text-slate-500 font-bold uppercase">0 / 9 sellos</span>
+                            </div>
+                            <div id="loyaltyGrid" class="flex gap-2 flex-wrap">
+                                <!-- Stamps rendered by JS -->
+                            </div>
+                            <p class="text-[11px] text-slate-500 mt-4 leading-relaxed" data-i18n="loyalty_msg">Tu próximo pedido está más cerca de ser gratis.</p>
+                        </div>
+
+                        <!-- Cerrar sesión (Sticky bottom on mobile layout) -->
+                        <button onclick="logout()"
+                            class="w-full py-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 font-bold hover:bg-red-500/20 transition-colors flex items-center justify-center gap-2">
+                            <span class="material-symbols-outlined">logout</span>
+                            <span data-i18n="logout_btn">Cerrar sesión</span>
+                        </button>
+                    </aside>
+
+                    <!-- Main Content: Formularios e Historial -->
+                    <div class="profile-main">
+                        <!-- Mis datos -->
+                        <section class="bg-surface-dark border border-white/5 rounded-2xl p-6 space-y-4">
+                            <h3 class="font-bold flex items-center gap-2 text-lg">
+                                <span class="material-symbols-outlined text-primary">manage_accounts</span>
+                                <span data-i18n="my_data">Mis datos</span>
+                            </h3>
+                            <div class="space-y-1">
+                                <label class="text-xs font-bold text-slate-500 uppercase px-1"
+                                    data-i18n="your_name">Nombre</label>
+                                <input id="editNombre" type="text"
+                                    class="w-full bg-background-dark border border-primary/20 focus:border-primary rounded-xl p-4 text-slate-100 transition-all font-medium" />
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-xs font-bold text-slate-500 uppercase px-1"
+                                    data-i18n="phone_label">Teléfono</label>
+                                <input id="editTel" type="tel" placeholder="600 000 000"
+                                    class="w-full bg-background-dark border border-primary/20 focus:border-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600 transition-all font-medium" />
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-xs font-bold text-slate-500 uppercase px-1"
+                                    data-i18n="custom_dir_label">Dirección habitual</label>
+                                <input id="editDir" type="text" placeholder="Calle..." data-i18n="addr_placeholder"
+                                    data-i18n-attr="placeholder"
+                                    class="w-full bg-background-dark border border-primary/20 focus:border-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600 transition-all font-medium" />
+                            </div>
+                            <button onclick="saveProfile()"
+                                class="w-full py-4 rounded-xl bg-primary text-background-dark font-black shadow-lg shadow-primary/20 hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-2">
+                                <span class="material-symbols-outlined">save</span>
+                                <span data-i18n="save_changes">Guardar cambios</span>
+                            </button>
+                            <p id="saveMsg" class="text-green-400 text-xs text-center hidden">✓ Cambios guardados</p>
+                        </section>
+
+                        <!-- Historial -->
+                        <section class="bg-surface-dark border border-white/5 rounded-2xl p-6">
+                            <h3 class="font-bold flex items-center gap-2 mb-4 text-lg">
+                                <span class="material-symbols-outlined text-primary">receipt_long</span>
+                                <span data-i18n="last_orders">Últimos pedidos</span>
+                            </h3>
+                            <div id="orderHistory" class="space-y-4">
+                                <!-- Content from JS -->
+                            </div>
+                        </section>
                     </div>
-                    <h2 id="userName" class="text-xl font-black text-white">Usuario</h2>
-                    <p id="userEmail" class="text-slate-400 text-sm mt-0.5">email@email.com</p>
-                    <p id="userProvider" class="text-xs text-primary/70 mt-1 font-semibold"></p>
                 </div>
-
-                <!-- Tarjeta de fidelidad -->
-                <section class="bg-surface-dark border border-white/5 rounded-2xl p-5">
-                    <div class="flex items-center gap-2 mb-4">
-                        <span class="material-symbols-outlined text-primary"
-                            style="font-variation-settings:'FILL' 1">military_tech</span>
-                        <h3 class="font-bold" data-i18n="loyalty_card">Tarjeta Fidelidad</h3>
-                        <span id="loyaltyCount" class="ml-auto text-xs text-slate-500">0 / 9 sellos</span>
-                    </div>
-                    <div id="loyaltyGrid" class="flex gap-2 flex-wrap">
-                        <!-- Stamps rendered by JS -->
-                    </div>
-                    <p class="text-xs text-slate-500 mt-3" data-i18n="loyalty_msg">Tu próximo pedido está más cerca de
-                        ser gratis.</p>
-                </section>
-
-                <!-- Mis datos -->
-                <section class="bg-surface-dark border border-white/5 rounded-2xl p-5 space-y-4">
-                    <h3 class="font-bold flex items-center gap-2">
-                        <span class="material-symbols-outlined text-primary">manage_accounts</span>
-                        <span data-i18n="my_data">Mis datos</span>
-                    </h3>
-                    <div class="space-y-1">
-                        <label class="text-xs font-bold text-slate-500 uppercase px-1"
-                            data-i18n="your_name">Nombre</label>
-                        <input id="editNombre" type="text"
-                            class="w-full bg-background-dark border border-primary/20 focus:border-primary rounded-xl p-3.5 text-slate-100 transition-all" />
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-xs font-bold text-slate-500 uppercase px-1"
-                            data-i18n="phone_label">Teléfono</label>
-                        <input id="editTel" type="tel" placeholder="600 000 000"
-                            class="w-full bg-background-dark border border-primary/20 focus:border-primary rounded-xl p-3.5 text-slate-100 placeholder:text-slate-600 transition-all" />
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-xs font-bold text-slate-500 uppercase px-1"
-                            data-i18n="custom_dir_label">Dirección habitual</label>
-                        <input id="editDir" type="text" placeholder="Calle..." data-i18n="addr_placeholder"
-                            data-i18n-attr="placeholder"
-                            class="w-full bg-background-dark border border-primary/20 focus:border-primary rounded-xl p-3.5 text-slate-100 placeholder:text-slate-600 transition-all" />
-                    </div>
-                    <button onclick="saveProfile()"
-                        class="w-full py-3.5 rounded-xl bg-primary/10 border border-primary/30 text-primary font-bold hover:bg-primary/20 transition-colors flex items-center justify-center gap-2">
-                        <span class="material-symbols-outlined">save</span>
-                        <span data-i18n="save_changes">Guardar cambios</span>
-                    </button>
-                    <p id="saveMsg" class="text-green-400 text-xs text-center hidden">✓ Cambios guardados</p>
-                </section>
-
-                <!-- Historial (placeholder) -->
-                <section class="bg-surface-dark border border-white/5 rounded-2xl p-5">
-                    <h3 class="font-bold flex items-center gap-2 mb-3">
-                        <span class="material-symbols-outlined text-primary">receipt_long</span>
-                        <span data-i18n="last_orders">Últimos pedidos</span>
-                    </h3>
-                    <div id="orderHistory" class="space-y-2 text-sm text-slate-400 italic text-center py-4"
-                        data-i18n="no_orders">
-                        Todavía no tienes pedidos registrados.
-                    </div>
-                </section>
-
-                <!-- Cerrar sesión -->
-                <button onclick="logout()"
-                    class="w-full py-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-400 font-bold hover:bg-red-500/20 transition-colors flex items-center justify-center gap-2">
-                    <span class="material-symbols-outlined">logout</span>
-                    <span data-i18n="logout_btn">Cerrar sesión</span>
-                </button>
             </div><!-- /viewUser -->
 
         </main>
 
-        <!-- Bottom Nav -->
-        <nav
-            class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-surface-dark/95 backdrop-blur-md border-t border-white/5 flex justify-around items-center px-4 py-3 z-[60]">
+        <!-- Bottom Nav (Mobile only) -->
+        <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-dark/95 backdrop-blur-md border-t border-white/5 flex justify-around items-center px-4 py-3 z-[60]">
             <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html">
                 <span class="material-symbols-outlined">home</span>
                 <span class="text-[10px] font-medium">Inicio</span>

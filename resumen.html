@@ -30,14 +30,30 @@
         }
     </script>
     <style>
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+        /* App Shell */
+        .app-shell {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+
+        /* Responsive Checkout Grid */
+        @media (min-width: 1024px) {
+            .checkout-grid {
+                display: grid;
+                grid-template-columns: 1fr 400px;
+                gap: 40px;
+                padding: 40px 10%;
+                align-items: start;
+            }
+
+            .checkout-sidebar {
+                position: sticky;
+                top: 100px;
+            }
         }
+
         .animate-in {
             animation: slideUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
         }
@@ -47,21 +63,31 @@
     </style>
 </head>
 
-<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased">
-    <div class="app-wrapper">
-        <!-- Header -->
-        <header
-            class="sticky top-0 z-50 flex items-center justify-between bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md p-4 border-b border-primary/20">
-            <a href="index.html"
-                class="flex items-center justify-center size-10 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors">
-                <span class="material-symbols-outlined text-slate-900 dark:text-slate-100">arrow_back</span>
-            </a>
-            <h1 class="text-xl font-black text-primary tracking-tight" data-i18n="resumen_title">Mi Pedido 🛒</h1>
-            <!-- Language picker trigger -->
-            <button class="lang-trigger" onclick="openLangPanel()" aria-label="Select language" id="langTriggerBtn">
-                <span class="lang-trigger-flag" id="langTriggerFlag">🇪🇸</span>
-                <span class="material-symbols-outlined" style="font-size:.85rem;opacity:.7">expand_more</span>
-            </button>
+<body class="bg-background-dark font-display text-slate-100 antialiased overflow-x-hidden">
+    <div class="app-shell min-h-screen flex flex-col">
+        <!-- ── HEADER (Responsive) ── -->
+        <header class="sticky top-0 z-[100] bg-background-dark/80 backdrop-blur-md border-b border-white/5 px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="flex items-center justify-center size-10 rounded-full hover:bg-white/5 transition-colors">
+                    <span class="material-symbols-outlined">arrow_back</span>
+                </a>
+                <h1 class="text-xl font-black text-primary tracking-tight" data-i18n="resumen_title">Mi Pedido</h1>
+            </div>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center gap-8 mr-12">
+                <a href="index.html" class="text-sm font-bold opacity-70 hover:opacity-100 hover:text-primary transition-all">Inicio</a>
+                <a href="index.html#carta" class="text-sm font-bold opacity-70 hover:opacity-100 hover:text-primary transition-all">La Carta</a>
+                <a href="resumen.html" class="text-sm font-bold text-primary">Mi Pedido</a>
+                <a href="perfil.html" class="text-sm font-bold opacity-70 hover:opacity-100 hover:text-primary transition-all">Mi Perfil</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <button class="lang-trigger" onclick="openLangPanel()" aria-label="Select language">
+                    <span class="lang-trigger-flag" id="langTriggerFlag">🇪🇸</span>
+                    <span class="material-symbols-outlined" style="font-size:.85rem;opacity:.7">expand_more</span>
+                </button>
+            </div>
         </header>
 
         <!-- User greeting banner -->
@@ -90,194 +116,242 @@
             </a>
         </div>
 
-        <main class="container py-4 px-4 space-y-8 max-w-2xl">
-
-            <!-- Order Summary -->
-            <section class="bg-surface-dark rounded-2xl p-6 border border-primary/20 shadow-2xl animate-in">
-                <h2 class="text-lg font-bold mb-4 flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary">shopping_bag</span>
-                    <span data-i18n="summary_title">Resumen del Pedido</span>
-                </h2>
-                <!-- Cart items rendered by JS -->
-                <div id="orderItems" class="space-y-3"></div>
-                <!-- Empty state -->
-                <div id="emptyCart" class="hidden py-8 text-center">
-                    <span class="material-symbols-outlined text-slate-600 text-5xl block mb-2">shopping_basket</span>
-                    <p class="text-slate-500 text-sm" data-i18n="empty_cart">Tu pedido está vacío</p>
-                    <a href="index.html#carta"
-                        class="mt-4 inline-block text-xs font-bold text-primary hover:underline">← Ver la carta</a>
-                </div>
-                <div id="orderTotal" class="flex justify-between items-center pt-6 border-t border-white/10 mt-4"
-                    style="display:none!important">
-                    <span class="text-lg font-medium" data-i18n="total_label">Total</span>
-                    <span id="totalAmount" class="text-2xl font-black text-primary">0,00€</span>
-                </div>
-            </section>
-
-            <!-- Quick Drinks Add-On -->
-            <section id="drinksSection" class="animate-in hidden" style="animation-delay: 0.05s">
-                <h2 class="text-base font-bold mb-3 flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary" style="font-size:1.2rem">local_bar</span>
-                    <span data-i18n="add_drink">¿Añadir una bebida?</span>
-                </h2>
-                <div id="drinkQuickList" class="grid grid-cols-2 gap-2"></div>
-            </section>
-
-            <!-- Order Type Selection -->
-            <section class="space-y-4 animate-in" style="animation-delay: 0.1s">
-                <h2 class="text-lg font-bold flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary">local_shipping</span>
-                    <span data-i18n="order_type_label">Tipo de Pedido</span>
-                </h2>
-                <div class="flex flex-wrap gap-2">
-                    <button id="typeEatIn" onclick="selectOrderType('eat_in')"
-                        class="flex-1 min-w-[120px] py-3 px-4 rounded-xl border-2 border-primary bg-primary/10 text-primary font-bold flex items-center justify-center gap-2 transition-all">
-                        <span class="material-symbols-outlined text-sm">restaurant</span> <span data-i18n="type_eat_in">En el local</span>
-                    </button>
-                    <button id="typeTakeaway" onclick="selectOrderType('takeaway')"
-                        class="flex-1 min-w-[120px] py-3 px-4 rounded-xl border border-white/10 bg-surface-dark text-slate-400 font-bold flex items-center justify-center gap-2 transition-all">
-                        <span class="material-symbols-outlined text-sm">shopping_basket</span> <span data-i18n="type_takeaway">Para llevar</span>
-                    </button>
-                    <button id="typeGlovo" onclick="selectOrderType('glovo')"
-                        class="flex-1 min-w-[120px] py-3 px-4 rounded-xl border border-white/10 bg-surface-dark text-slate-400 font-bold flex items-center justify-center gap-2 transition-all">
-                        <span class="material-symbols-outlined text-sm">delivery_dining</span> <span data-i18n="type_glovo">Glovo</span>
-                    </button>
-                </div>
-            </section>
-
-            <!-- Delivery Details -->
-            <section id="deliveryDetails" class="space-y-4 animate-in" style="animation-delay: 0.15s">
-                <h2 class="text-lg font-bold flex items-center gap-2">
-                    <span class="material-symbols-outlined text-primary">location_on</span>
-                    <span data-i18n="delivery_details">Detalles de Entrega</span>
-                </h2>
-                <div class="grid gap-4">
-                    <div id="addressField" class="space-y-1">
-                        <label class="text-xs font-bold text-slate-500 uppercase px-1" data-i18n="delivery_addr">Dirección de entrega</label>
-                        <input id="inputDireccion"
-                            class="w-full bg-surface-dark border-primary/20 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600"
-                            placeholder="Calle, número, piso..." type="text" data-i18n="addr_placeholder" data-i18n-attr="placeholder" />
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="space-y-1">
-                            <label class="text-xs font-bold text-slate-500 uppercase px-1" data-i18n="your_name">Tu nombre</label>
-                            <input id="inputNombre"
-                                class="w-full bg-surface-dark border-primary/20 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600"
-                                placeholder="Nombre completo" type="text" data-i18n="name_placeholder" data-i18n-attr="placeholder" />
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-xs font-bold text-slate-500 uppercase px-1" data-i18n="phone_label">Teléfono</label>
-                            <input id="inputTelefono"
-                                class="w-full bg-surface-dark border-primary/20 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600"
-                                placeholder="600 000 000" type="tel" />
+        <main class="flex-1">
+            <div class="checkout-grid">
+                
+                <!-- Main Form Area -->
+                <div class="checkout-main space-y-8">
+                    
+                    <!-- Banners (Guest/User) -->
+                    <div id="userBanner" class="hidden">
+                        <div class="flex items-center gap-3 bg-primary/10 border border-primary/20 rounded-2xl p-4">
+                            <div id="bannerAvatar"
+                                class="size-10 rounded-full bg-gradient-to-br from-primary to-[#8e6516] flex items-center justify-center text-sm font-black text-background-dark flex-shrink-0">
+                                U</div>
+                            <div class="flex-1 min-w-0">
+                                <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Modo identificado</p>
+                                <p id="bannerName" class="font-bold text-base text-white truncate">Usuario</p>
+                            </div>
+                            <a href="perfil.html" class="text-xs text-primary font-bold hover:underline">Cambiar usuario</a>
                         </div>
                     </div>
-                </div>
-            </section>
 
-            <!-- Glovo Redirect Message -->
-            <section id="glovoNotice" class="hidden bg-[#ffc244]/10 border border-[#ffc244]/30 p-6 rounded-2xl animate-in">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="size-10 rounded-full bg-[#ffc244] flex items-center justify-center">
-                        <span class="material-symbols-outlined text-black">delivery_dining</span>
+                    <div id="guestBanner">
+                        <a href="perfil.html"
+                            class="flex items-center gap-4 bg-surface-dark border border-white/5 rounded-2xl p-4 hover:border-primary/30 transition-colors">
+                            <span class="material-symbols-outlined text-primary text-3xl">account_circle</span>
+                            <div class="flex-1">
+                                <p class="font-black text-sm uppercase tracking-tight" data-i18n="tab_login">Accede o regístrate</p>
+                                <p class="text-xs text-slate-500">Hazlo más rápido y acumula sellos de fidelidad 🏅</p>
+                            </div>
+                            <span class="material-symbols-outlined text-slate-600">chevron_right</span>
+                        </a>
                     </div>
-                    <div>
-                        <h3 class="font-bold text-[#ffc244]">Redirección a Glovo</h3>
-                        <p class="text-xs text-[#ffc244]/80" data-i18n="glovo_msg">Para pedidos a través de Glovo, serás redirigido a su plataforma oficial.</p>
-                    </div>
-                </div>
-                <a href="https://glovoapp.com" target="_blank" rel="noopener noreferrer"
-                    class="w-full py-4 rounded-xl bg-[#ffc244] text-black font-black flex items-center justify-center gap-2 hover:brightness-105 transition-all">
-                    <span data-i18n="go_to_glovo">Ir a Glovo</span>
-                    <span class="material-symbols-outlined">open_in_new</span>
-                </a>
-            </section>
 
-            <!-- Payment -->
-            <section class="bg-primary/5 border border-primary/20 p-6 rounded-2xl animate-in"
-                style="animation-delay: 0.2s">
-                <div class="flex items-center gap-2 mb-4">
-                    <span class="material-symbols-outlined text-primary">payments</span>
-                    <h3 class="font-bold" data-i18n="payment_method">Método de Pago</h3>
-                </div>
-                <div class="flex gap-4">
-                    <button id="btnCash" onclick="selectPayment('cash')"
-                        class="flex-1 py-3 px-4 rounded-xl border-2 border-primary bg-primary/10 text-primary font-bold flex items-center justify-center gap-2 transition-all">
-                        <span class="material-symbols-outlined">payments</span> <span data-i18n="cash">Efectivo</span>
-                    </button>
-                    <button id="btnCard" onclick="selectPayment('card')"
-                        class="flex-1 py-3 px-4 rounded-xl border border-white/10 bg-surface-dark text-slate-400 font-bold flex items-center justify-center gap-2 transition-all">
-                        <span class="material-symbols-outlined">credit_card</span> <span data-i18n="card">Tarjeta</span>
-                    </button>
+                    <!-- Order Type Selection -->
+                    <section class="space-y-4 animate-in">
+                        <h2 class="text-lg font-black flex items-center gap-2 text-white">
+                            <span class="material-symbols-outlined text-primary">local_shipping</span>
+                            <span data-i18n="order_type_label">¿Cómo lo quieres?</span>
+                        </h2>
+                        <div class="flex flex-wrap gap-3">
+                            <button id="typeEatIn" onclick="selectOrderType('eat_in')"
+                                class="flex-1 min-w-[120px] py-4 px-4 rounded-xl border border-white/5 bg-surface-dark text-slate-400 font-bold flex flex-col items-center gap-2 transition-all hover:bg-white/5 active:scale-[0.98]">
+                                <span class="material-symbols-outlined">restaurant</span> <span data-i18n="type_eat_in" class="text-[11px] uppercase tracking-wider">En el local</span>
+                            </button>
+                            <button id="typeTakeaway" onclick="selectOrderType('takeaway')"
+                                class="flex-1 min-w-[120px] py-4 px-4 rounded-xl border border-white/5 bg-surface-dark text-slate-400 font-bold flex flex-col items-center gap-2 transition-all hover:bg-white/5 active:scale-[0.98]">
+                                <span class="material-symbols-outlined">shopping_basket</span> <span data-i18n="type_takeaway" class="text-[11px] uppercase tracking-wider">Para llevar</span>
+                            </button>
+                            <button id="typeGlovo" onclick="selectOrderType('glovo')"
+                                class="flex-1 min-w-[120px] py-4 px-4 rounded-xl border border-white/5 bg-surface-dark text-slate-400 font-bold flex flex-col items-center gap-2 transition-all hover:bg-white/5 active:scale-[0.98]">
+                                <span class="material-symbols-outlined">moped</span> <span data-i18n="type_glovo" class="text-[11px] uppercase tracking-wider">Glovo</span>
+                            </button>
+                        </div>
+                    </section>
+
+                    <!-- Delivery Details -->
+                    <section id="deliveryDetails" class="space-y-4 animate-in" style="animation-delay: 0.1s">
+                        <h2 class="text-lg font-black flex items-center gap-2 text-white">
+                            <span class="material-symbols-outlined text-primary">location_on</span>
+                            <span data-i18n="delivery_details">Datos de Entrega</span>
+                        </h2>
+                        <div class="bg-surface-dark border border-white/5 rounded-2xl p-6 space-y-4">
+                            <div id="addressField" class="space-y-1">
+                                <label class="text-xs font-bold text-slate-500 uppercase px-1" data-i18n="delivery_addr">Dirección Exacta</label>
+                                <input id="inputDireccion"
+                                    class="w-full bg-background-dark border border-primary/20 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600 font-medium transition-all"
+                                    placeholder="Calle, número, piso..." type="text" data-i18n="addr_placeholder" data-i18n-attr="placeholder" />
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div class="space-y-1">
+                                    <label class="text-xs font-bold text-slate-500 uppercase px-1" data-i18n="your_name">Nombre de contacto</label>
+                                    <input id="inputNombre"
+                                        class="w-full bg-background-dark border border-primary/20 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600 font-medium transition-all"
+                                        placeholder="Tu nombre" type="text" data-i18n="name_placeholder" data-i18n-attr="placeholder" />
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-xs font-bold text-slate-500 uppercase px-1" data-i18n="phone_label">Tu Teléfono</label>
+                                    <input id="inputTelefono"
+                                        class="w-full bg-background-dark border border-primary/20 focus:border-primary focus:ring-1 focus:ring-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600 font-medium transition-all"
+                                        placeholder="600 000 000" type="tel" />
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Glovo Redirect -->
+                    <section id="glovoNotice" class="hidden bg-[#ffc244]/10 border border-[#ffc244]/30 p-8 rounded-2xl animate-in text-center">
+                        <div class="size-16 rounded-full bg-[#ffc244] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[#ffc244]/20">
+                            <span class="material-symbols-outlined text-black text-3xl">moped</span>
+                        </div>
+                        <h3 class="font-black text-xl text-[#ffc244] uppercase tracking-tight mb-2">Pedidos vía Glovo</h3>
+                        <p class="text-sm text-[#ffc244]/80 mb-6" data-i18n="glovo_msg">Para garantizar la entrega, los pedidos directos a domicilio se gestionan a través de Glovo.</p>
+                        <a href="https://glovoapp.com" target="_blank" rel="noopener noreferrer"
+                            class="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-[#ffc244] text-black font-black uppercase tracking-wider hover:brightness-105 active:scale-[0.98] transition-all">
+                            <span data-i18n="go_to_glovo">Ir a Glovo</span>
+                            <span class="material-symbols-outlined">open_in_new</span>
+                        </a>
+                    </section>
+
+                    <!-- Payment -->
+                    <section id="paymentSection" class="space-y-4 animate-in" style="animation-delay: 0.15s">
+                        <h2 class="text-lg font-black flex items-center gap-2 text-white">
+                            <span class="material-symbols-outlined text-primary">payments</span>
+                            <span data-i18n="payment_method">Método de Pago</span>
+                        </h2>
+                        <div class="bg-surface-dark border border-white/5 rounded-2xl p-6">
+                            <div class="flex gap-4 mb-6">
+                                <button id="btnCash" onclick="selectPayment('cash')"
+                                    class="flex-1 py-4 px-4 rounded-xl border border-white/5 bg-background-dark text-slate-400 font-bold flex flex-col items-center gap-2 transition-all hover:bg-white/5">
+                                    <span class="material-symbols-outlined">payments</span> <span data-i18n="cash" class="text-[10px] uppercase tracking-widest">Efectivo</span>
+                                </button>
+                                <button id="btnCard" onclick="selectPayment('card')"
+                                    class="flex-1 py-4 px-4 rounded-xl border border-white/5 bg-background-dark text-slate-400 font-bold flex flex-col items-center gap-2 transition-all hover:bg-white/5">
+                                    <span class="material-symbols-outlined">credit_card</span> <span data-i18n="card" class="text-[10px] uppercase tracking-widest">Tarjeta</span>
+                                </button>
+                            </div>
+
+                            <!-- Card Form -->
+                            <div id="cardForm" class="hidden pt-6 border-t border-white/5 space-y-4">
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-black text-slate-500 uppercase px-1">Titular de la tarjeta</label>
+                                    <input id="cardHolder" type="text" placeholder="Nombre completo"
+                                        class="w-full bg-background-dark border border-primary/20 focus:border-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600 transition-all font-medium" />
+                                </div>
+                                <div class="space-y-1">
+                                    <label class="text-[10px] font-black text-slate-500 uppercase px-1">Número de Tarjeta</label>
+                                    <input id="cardNumber" type="text" placeholder="0000 0000 0000 0000" maxlength="19"
+                                        class="w-full bg-background-dark border border-primary/20 focus:border-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600 transition-all font-mono" />
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div class="space-y-1">
+                                        <label class="text-[10px] font-black text-slate-500 uppercase px-1">Expira</label>
+                                        <input id="cardExpiry" type="text" placeholder="MM/YY" maxlength="5"
+                                            class="w-full bg-background-dark border border-primary/20 focus:border-primary rounded-xl p-4 text-slate-100 text-center transition-all font-medium" />
+                                    </div>
+                                    <div class="space-y-1">
+                                        <label class="text-[10px] font-black text-slate-500 uppercase px-1">CVV</label>
+                                        <input id="cardCVC" type="password" placeholder="***" maxlength="3"
+                                            class="w-full bg-background-dark border border-primary/20 focus:border-primary rounded-xl p-4 text-slate-100 text-center transition-all font-medium" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
 
-                <!-- Card details form (initially hidden) -->
-                <div id="cardForm" class="hidden mt-6 pt-6 border-t border-primary/10 space-y-4 animate-in">
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-bold text-slate-500 uppercase px-1" data-i18n="card_holder_label">Nombre del Titular</label>
-                        <input id="cardHolder" type="text" placeholder="John Doe"
-                            class="w-full bg-surface-dark border border-primary/20 focus:border-primary rounded-xl p-3.5 text-sm text-slate-100 placeholder:text-slate-600 transition-all" />
-                    </div>
-                    <div class="space-y-1">
-                        <label class="text-[10px] font-bold text-slate-500 uppercase px-1" data-i18n="card_number_label">Número de Tarjeta</label>
-                        <div class="relative">
-                            <input id="cardNumber" type="text" placeholder="0000 0000 0000 0000" maxlength="19"
-                                class="w-full bg-surface-dark border border-primary/20 focus:border-primary rounded-xl p-3.5 pl-11 text-sm text-slate-100 placeholder:text-slate-600 transition-all font-mono" />
-                            <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-lg">credit_card</span>
+                <!-- Sidebar: Order Summary -->
+                <aside class="checkout-sidebar space-y-6">
+                    
+                    <!-- Quick Summary Card -->
+                    <div class="bg-surface-dark border border-primary/30 rounded-2xl overflow-hidden shadow-2xl">
+                        <div class="bg-primary/10 border-b border-primary/20 p-6">
+                            <h2 class="text-xl font-black text-white flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary">receipt_long</span>
+                                <span data-i18n="summary_title">Tu Pedido</span>
+                            </h2>
+                        </div>
+                        
+                        <div class="p-6">
+                            <!-- Items List -->
+                            <div id="orderItems" class="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                                <!-- Cart items via JS -->
+                            </div>
+
+                            <!-- Empty State -->
+                            <div id="emptyCart" class="hidden py-10 text-center">
+                                <span class="material-symbols-outlined text-slate-700 text-6xl block mb-3">shopping_basket</span>
+                                <p class="text-slate-500 font-bold mb-6" data-i18n="empty_cart">Tu cesta está vacía</p>
+                                <a href="index.html#carta" class="inline-block py-3 px-6 rounded-xl bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all">
+                                    ← Volver a la Carta
+                                </a>
+                            </div>
+
+                            <!-- Totals -->
+                            <div id="orderTotal" class="mt-8 pt-6 border-t border-white/10 space-y-3">
+                                <div class="flex justify-between text-slate-400 text-sm">
+                                    <span>Subtotal</span>
+                                    <span id="subtotalAmount">0,00€</span>
+                                </div>
+                                <div class="flex justify-between text-slate-400 text-sm">
+                                    <span>Gastos de gestión</span>
+                                    <span class="text-green-400 font-bold">Gratis</span>
+                                </div>
+                                <div class="flex justify-between items-center pt-2">
+                                    <span class="text-lg font-bold text-white uppercase tracking-wider" data-i18n="total_label">Total</span>
+                                    <span id="totalAmount" class="text-3xl font-black text-primary">0,00€</span>
+                                </div>
+                            </div>
+
+                            <!-- CTA Button inside sidebar for desktop -->
+                            <div id="ctaSection">
+                                <button onclick="realizarPedido()"
+                                    class="w-full mt-8 py-5 rounded-xl bg-primary text-background-dark font-black text-xl shadow-xl shadow-primary/20 hover:brightness-110 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+                                    <span data-i18n="place_order_btn">Realizar Pedido</span>
+                                </button>
+
+                                <div class="mt-6 flex items-center justify-center gap-2 text-[11px] text-slate-500 font-medium">
+                                    <span class="material-symbols-outlined text-sm">bolt</span>
+                                    <span data-i18n="estimated_time">Entrega estimada: 30-40 min</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="space-y-1">
-                            <label class="text-[10px] font-bold text-slate-500 uppercase px-1" data-i18n="card_expiry_label">Caducidad</label>
-                            <input id="cardExpiry" type="text" placeholder="MM/YY" maxlength="5"
-                                class="w-full bg-surface-dark border border-primary/20 focus:border-primary rounded-xl p-3.5 text-sm text-slate-100 placeholder:text-slate-600 transition-all text-center" />
-                        </div>
-                        <div class="space-y-1">
-                            <label class="text-[10px] font-bold text-slate-500 uppercase px-1" data-i18n="card_cvc_label">CVC</label>
-                            <input id="cardCVC" type="text" placeholder="123" maxlength="3"
-                                class="w-full bg-surface-dark border border-primary/20 focus:border-primary rounded-xl p-3.5 text-sm text-slate-100 placeholder:text-slate-600 transition-all text-center" />
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-2 text-[10px] text-slate-500 bg-black/20 p-2 rounded-lg">
-                        <span class="material-symbols-outlined text-xs">lock</span>
-                        <span>Pago seguro encriptado (SSL)</span>
-                    </div>
-                </div>
-            </section>
 
-            <!-- CTA -->
-            <section class="pt-4 pb-12 animate-in" style="animation-delay: 0.3s">
-                <button onclick="realizarPedido()"
-                    class="w-full py-5 rounded-2xl bg-gradient-to-r from-primary to-[#8e6516] text-background-dark font-black text-xl shadow-2xl shadow-primary/30 flex items-center justify-center gap-3 active:scale-[0.98] transition-all hover:brightness-110">
-                    <span data-i18n="place_order_btn">🛵 Realizar Pedido</span>
-                </button>
-                <p class="text-center text-xs text-slate-500 mt-4 italic flex items-center justify-center gap-2">
-                    <span class="material-symbols-outlined text-sm">bolt</span>
-                    <span data-i18n="estimated_time">Llegará en aproximadamente 25-35 min</span>
-                </p>
-            </section>
-
+                    <!-- Quick Drinks Add-On -->
+                    <section id="drinksSection" class="bg-surface-dark border border-white/5 rounded-2xl p-6 hidden">
+                        <h3 class="font-black text-sm uppercase tracking-widest text-primary mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-lg">local_bar</span>
+                            <span>Completa tu pedido</span>
+                        </h3>
+                        <div id="drinkQuickList" class="grid grid-cols-1 gap-2">
+                            <!-- JS Rendered -->
+                        </div>
+                    </section>
+                </aside>
+            </div>
         </main>
 
         <!-- Bottom Nav -->
         <nav
             class="fixed bottom-0 left-0 right-0 lg:left-auto lg:right-auto lg:w-[1200px] lg:mx-auto bg-surface-dark/95 backdrop-blur-md border-t border-primary/20 flex justify-around items-center px-4 py-3 z-[60]">
-            <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html">
-                <span class="material-symbols-outlined">home</span>
-                <span class="text-[10px] font-bold">INICIO</span>
-            </a>
-            <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html#carta">
-                <span class="material-symbols-outlined">menu_book</span>
-                <span class="text-[10px] font-bold">CARTA</span>
-            </a>
-            <a class="flex flex-col items-center gap-1 text-primary" href="resumen.html">
-                <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">moped</span>
-                <span class="text-[10px] font-bold">PEDIDO</span>
-            </a>
-            <a class="flex flex-col items-center gap-1 text-slate-500" href="perfil.html">
-                <span class="material-symbols-outlined">person</span>
-                <span class="text-[10px] font-bold">PERFIL</span>
-            </a>
+        <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html">
+            <span class="material-symbols-outlined">home</span>
+            <span class="text-[10px] font-bold">INICIO</span>
+        </a>
+        <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html#carta">
+            <span class="material-symbols-outlined">menu_book</span>
+            <span class="text-[10px] font-bold">CARTA</span>
+        </a>
+        <a class="flex flex-col items-center gap-1 text-primary" href="resumen.html">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">moped</span>
+            <span class="text-[10px] font-bold">PEDIDO</span>
+        </a>
+        <a class="flex flex-col items-center gap-1 text-slate-500" href="perfil.html">
+            <span class="material-symbols-outlined">person</span>
+            <span class="text-[10px] font-bold">PERFIL</span>
+        </a>
         </nav>
     </div>
 
@@ -297,12 +371,14 @@
             const deliverySection = document.getElementById('deliveryDetails');
             const addressField = document.getElementById('addressField');
             const glovoNotice = document.getElementById('glovoNotice');
-            const paymentSection = document.querySelector('section.bg-primary/5');
-            const ctaSection = document.querySelector('section.pt-4.pb-12');
+            const paymentSection = document.getElementById('paymentSection');
+            const ctaSection = document.getElementById('ctaSection');
+
+            if (!btnEatIn || !btnTakeaway || !btnGlovo) return;
 
             // Reset styles
             [btnEatIn, btnTakeaway, btnGlovo].forEach(btn => {
-                btn.className = "flex-1 min-w-[120px] py-3 px-4 rounded-xl border border-white/10 bg-surface-dark text-slate-400 font-bold flex items-center justify-center gap-2 transition-all";
+                if (btn) btn.className = "flex-1 min-w-[120px] py-3 px-4 rounded-xl border border-white/10 bg-surface-dark text-slate-400 font-bold flex items-center justify-center gap-2 transition-all";
             });
 
             // Set active style
@@ -317,20 +393,20 @@
 
             // Logic for fields and sections
             if (type === 'glovo') {
-                deliverySection.classList.add('hidden');
-                paymentSection.classList.add('hidden');
-                ctaSection.classList.add('hidden');
-                glovoNotice.classList.remove('hidden');
+                if (deliverySection) deliverySection.classList.add('hidden');
+                if (paymentSection) paymentSection.classList.add('hidden');
+                if (ctaSection) ctaSection.classList.add('hidden');
+                if (glovoNotice) glovoNotice.classList.remove('hidden');
             } else {
-                deliverySection.classList.remove('hidden');
-                paymentSection.classList.remove('hidden');
-                ctaSection.classList.remove('hidden');
-                glovoNotice.classList.add('hidden');
+                if (deliverySection) deliverySection.classList.remove('hidden');
+                if (paymentSection) paymentSection.classList.remove('hidden');
+                if (ctaSection) ctaSection.classList.remove('hidden');
+                if (glovoNotice) glovoNotice.classList.add('hidden');
                 
                 if (type === 'eat_in') {
-                    addressField.classList.add('hidden');
+                    if (addressField) addressField.classList.add('hidden');
                 } else {
-                    addressField.classList.remove('hidden');
+                    if (addressField) addressField.classList.remove('hidden');
                 }
             }
         }
@@ -452,6 +528,8 @@
             }).join('');
 
             totalAmtEl.textContent = grandTotal.toFixed(2).replace('.', ',') + '€';
+            const subtotalEl = document.getElementById('subtotalAmount');
+            if (subtotalEl) subtotalEl.textContent = grandTotal.toFixed(2).replace('.', ',') + '€';
             drinksSection.classList.remove('hidden');
             renderDrinks();
         }

@@ -5,15 +5,42 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>El Secreto de la Brasa · Cádiz</title>
-  <meta name="description"
-    content="El arte del fuego, el alma de la carne. Mercado Virgen del Rosario, Cádiz. Pide tu hamburguesa artesana online." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;600;700;800&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,0..1&display=swap"
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
   <script src="js/i18n.js" defer></script>
   <script src="js/menu-i18n.js" defer></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#c8973c",
+            "background-light": "#f8f7f6",
+            "background-dark": "#1a1a1a",
+            "surface-dark": "#242424",
+          },
+          fontFamily: { "display": ["Epilogue", "sans-serif"] },
+        },
+      },
+    }
+  </script>
+  <style>
+    /* Desktop Force Layout */
+    @media (min-width: 1024px) {
+      .app-shell {
+        max-width: 1400px !important;
+        margin: 0 auto !important;
+        box-shadow: 0 0 100px rgba(0,0,0,0.5);
+      }
+      .container {
+        max-width: 1200px !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -31,6 +58,15 @@
         <h1 class="app-header-title">El Secreto de la Brasa</h1>
         <p class="app-header-sub">Mercado Virgen del Rosario · Cádiz</p>
       </div>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="desktop-nav">
+        <a href="index.html" class="desktop-nav-link active" data-i18n="nav_home">Inicio</a>
+        <a href="#carta" class="desktop-nav-link" data-i18n="nav_menu">Carta</a>
+        <a href="perfil.html" class="desktop-nav-link" data-i18n="nav_profile">Mi Perfil</a>
+        <a href="resumen.html" class="btn btn-primary btn-sm" data-i18n="nav_order">Pedir Ahora</a>
+      </nav>
+
       <div class="app-open-badge">
         <span class="app-open-dot"></span>
         <span data-i18n="badge_open">Abierto</span>
@@ -42,86 +78,139 @@
       </button>
     </header>
 
-    <!-- ═══ HERO PARALLAX ═══ -->
+    <!-- ═══ HERO SECTION ═══ -->
     <section id="heroWrapper" class="hero-parallax-wrapper">
-      <!-- Gradient BG -->
       <div class="hero-parallax-bg" id="heroBg"></div>
 
-      <!-- Accent particle -->
-      <img src="images/layer-accents.png" alt="" class="hero-accent hero-accent-1" aria-hidden="true" />
-
-      <!-- Parallax food layers -->
-      <div class="hero-layers-group" id="heroLayers">
-        <!-- Antigravity Burger (slide 0) -->
-        <div id="antigravityBurger" class="burger-antigravity-container">
-          <img src="images/bun-top.png" alt="" class="ag-layer ag-bun-top" />
-          <img src="images/sauce-drops.png" alt="" class="ag-layer ag-sauce-drops" />
-          <img src="images/onion-rings.png" alt="" class="ag-layer ag-onions" />
-          <img src="images/lettuce-chili.png" alt="" class="ag-layer ag-lettuce" />
-          <img src="images/cheese-melt.png" alt="" class="ag-layer ag-cheese" />
-          <img src="images/meat-1.png" alt="" class="ag-layer ag-meat-1" />
-          <img src="images/veg-slices.png" alt="" class="ag-layer ag-vegs" />
-          <img src="images/bun-bot.png" alt="" class="ag-layer ag-bun-bot" />
+      <div class="container relative flex flex-col md:flex-row items-center justify-between h-full z-10 py-12 md:py-0">
+        <!-- Hero text (Latest Stitch Design) -->
+        <div class="hero-parallax-text max-w-xl">
+          <p class="hero-eyebrow" data-i18n="hero_eyebrow">Especialistas en Brasa 🔥</p>
+          <h2 class="hero-headline">
+            <span data-i18n="hero_headline_1" class="text-white">El Arte del Fuego,</span><br>
+            <span data-i18n="hero_headline_2" class="text-primary">el Alma de la Carne</span>
+          </h2>
+          <p class="hero-subheadline mt-4 text-lg text-slate-300 md:pr-12" data-i18n="hero_sub" style="text-wrap: balance;">
+            Disfruta de la mejor brasa de Cádiz en el Mercado Virgen del Rosario.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-8 justify-center md:justify-start">
+            <a href="#carta" class="btn btn-primary">
+              <span class="material-symbols-outlined">restaurant_menu</span>
+              <span data-i18n="hero_cta">Explorar Carta</span>
+            </a>
+          </div>
         </div>
-        <!-- Standard layers for slides 1-2 -->
-        <img src="images/layer-top.png" alt="" class="hero-layer layer-top" style="display:none" />
-        <img src="images/layer-mid.png" alt="" class="hero-layer layer-mid" style="display:none" />
-        <img src="images/layer-bot.png" alt="" class="hero-layer layer-bot" style="display:none" />
-      </div>
 
-      <!-- Hero text -->
-      <div class="hero-parallax-text">
-        <p class="hero-eyebrow" data-i18n="hero_eyebrow">Especialistas en Brasa 🔥</p>
-        <h2 class="hero-headline"><span data-i18n="hero_headline_1">El Arte</span><br><span
-            data-i18n="hero_headline_2">del Fuego</span></h2>
-        <a href="#carta" class="hero-cta-btn">
-          <span class="material-symbols-outlined" style="font-size:1rem">restaurant_menu</span>
-          <span data-i18n="hero_cta">Ver la Carta</span>
+        <div class="hero-layers-group mt-12 md:mt-0 relative w-full md:w-1/2 h-[400px] md:h-[600px] flex items-center justify-center">
+          <div class="relative w-full h-full flex items-center justify-center">
+            <div class="hero-fire-glow"></div>
+            <!-- Advanced CSS Fire -->
+            <div class="css-fire-container">
+              <div class="flame flame-1"></div>
+              <div class="flame flame-2"></div>
+              <div class="flame flame-3"></div>
+              <div class="flame flame-4"></div>
+              <div class="flame flame-sparkles"></div>
+            </div>
+            <img src="images/hero-3d-burger.png" alt="Hamburguesa 3D con fuego" class="w-full max-w-[500px] object-contain drop-shadow-2xl hero-burger-float relative z-10" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── ESPECIALIDADES (Featured Burgers) ── -->
+    <section class="max-w-7xl mx-auto px-6 py-12 fade-up-enter" id="sect-featured">
+      <div class="flex items-end justify-between mb-8">
+        <div>
+          <p class="text-primary font-bold uppercase tracking-widest text-xs mb-2" data-i18n="featured_label">Especialidades</p>
+          <h2 class="text-3xl md:text-4xl font-black text-white" data-i18n="featured_title">Lo más pedido</h2>
+        </div>
+        <a href="#carta" class="hidden md:flex items-center gap-2 text-primary font-bold hover:underline">
+          <span data-i18n="view_all_menu">Ver toda la carta</span>
+          <span class="material-symbols-outlined">arrow_forward</span>
         </a>
       </div>
-
-      <!-- Slide dots -->
-      <div class="hero-dots">
-        <button class="slider-dot active-dot" id="dot-0" onclick="goToSlide(0)"></button>
-        <button class="slider-dot" id="dot-1" onclick="goToSlide(1)"></button>
-        <button class="slider-dot" id="dot-2" onclick="goToSlide(2)"></button>
+      
+      <div class="featured-burgers-grid grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8" id="featuredDishes">
+        <!-- Rendered by JS -->
       </div>
     </section>
 
-    <!-- ── QUICK ACTIONS ── -->
-    <section class="quick-actions">
-      <a href="https://glovoapp.com" target="_blank" rel="noopener noreferrer" class="btn btn-glovo btn-full">
-        <span class="material-symbols-outlined">moped</span>
-        <span data-i18n="btn_glovo">Pedir por Glovo</span>
-      </a>
-      <a href="#carta" class="btn btn-outline btn-full">
-        <span class="material-symbols-outlined">menu_book</span>
-        <span data-i18n="btn_view_menu">Ver Carta</span>
-      </a>
-    </section>
-
-    <!-- ── STATUS ── -->
-    <div class="status-card card">
-      <span class="status-dot"></span>
-      <div>
-        <p class="status-text" data-i18n="status_open">Abierto Ahora</p>
-        <p class="status-meta" data-i18n="status_hours">Lun – Dom: 12:00 – 22:00 h</p>
+    <!-- ── QUICK INFO (Desktop friendly) ── -->
+    <div class="container py-8 hidden md:block fade-up-enter" id="sect-info">
+      <div class="grid grid-cols-3 gap-8">
+        <div class="flex items-center gap-4 bg-surface-dark/50 border border-white/5 p-6 rounded-2xl">
+          <span class="material-symbols-outlined text-primary text-3xl">location_on</span>
+          <div>
+            <p class="text-xs text-slate-500 font-bold uppercase" data-i18n="info_location_label">Ubicación</p>
+            <p class="text-sm font-bold" data-i18n="info_location_value">Mercado Virgen del Rosario, Cádiz</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-surface-dark/50 border border-white/5 p-6 rounded-2xl">
+          <span class="material-symbols-outlined text-primary text-3xl">schedule</span>
+          <div>
+            <p class="text-xs text-slate-500 font-bold uppercase" data-i18n="info_hours_label">Horario</p>
+            <p class="text-sm font-bold" data-i18n="info_hours_value">Lun – Dom: 12:00 – 22:00</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-4 bg-surface-dark/50 border border-white/5 p-6 rounded-2xl">
+          <span class="material-symbols-outlined text-primary text-3xl">restaurant</span>
+          <div>
+            <p class="text-xs text-slate-500 font-bold uppercase" data-i18n="info_exp_label">Experiencia</p>
+            <p class="text-sm font-bold" data-i18n="info_exp_value">Especialistas en Brasa 🔥</p>
+          </div>
+        </div>
       </div>
-      <span class="material-symbols-outlined" style="color:var(--accent);opacity:.5;margin-left:auto">schedule</span>
-    </div>
-
-    <!-- ── FEATURED CARDS ── -->
-    <p class="section-label" data-i18n="featured_label">Especialidades de la Brasa</p>
-    <div class="featured-burgers-showcase" id="featuredDishes">
-      <!-- Rendered by JS from MENU_DATA -->
     </div>
 
     <!-- ── FULL MENU ── -->
-    <section id="carta" class="menu-section">
+    <section id="carta" class="menu-section fade-up-enter">
       <div class="menu-section-title">
         <div class="menu-divider"></div>
         <h2 data-i18n="menu_title">La Carta</h2>
         <div class="menu-divider"></div>
+      </div>
+
+      <!-- Desktop Sidebar -->
+      <aside class="menu-sidebar desktop-only">
+        <div class="card" style="margin-bottom: 20px;">
+          <p class="section-label" style="padding: 0 0 10px 0;">Categorías</p>
+          <div class="menu-list">
+            <a href="#cat-entrantes" class="desktop-nav-link" style="font-size: 0.8rem; padding: 5px 0; display: block;">🥗 Entrantes</a>
+            <a href="#cat-burgers" class="desktop-nav-link" style="font-size: 0.8rem; padding: 5px 0; display: block;">🍔 Hamburguesas</a>
+            <a href="#cat-rolls" class="desktop-nav-link" style="font-size: 0.8rem; padding: 5px 0; display: block;">🌭 Rolls Dog</a>
+            <a href="#cat-sandwiches" class="desktop-nav-link" style="font-size: 0.8rem; padding: 5px 0; display: block;">🥪 Sandwiches</a>
+            <a href="#cat-bebidas" class="desktop-nav-link" style="font-size: 0.8rem; padding: 5px 0; display: block;">🥤 Bebidas</a>
+          </div>
+        </div>
+        
+        <div class="card">
+          <p class="section-label" style="padding: 0 0 10px 0;" data-i18n="cat_allergens">Alérgenos</p>
+          <div class="allergens-grid" style="grid-template-columns: 1fr; gap: 8px;">
+            <span><b>1</b> <span data-i18n="allergen_1">Lácteos</span></span>
+            <span><b>2</b> <span data-i18n="allergen_2">Gluten</span></span>
+            <span><b>3</b> <span data-i18n="allergen_3">Mostaza</span></span>
+            <span><b>4</b> <span data-i18n="allergen_4">Huevo</span></span>
+            <span><b>5</b> <span data-i18n="allergen_5">F. cáscara</span></span>
+            <span><b>6</b> <span data-i18n="allergen_6">Cacahuete</span></span>
+            <span><b>7</b> <span data-i18n="allergen_7">Soja</span></span>
+            <span><b>8</b> <span data-i18n="allergen_8">Sulfitos</span></span>
+            <span><b>9</b> <span data-i18n="allergen_9">Apio</span></span>
+            <span><b>10</b> <span data-i18n="allergen_10">Crustáceos</span></span>
+            <span><b>11</b> <span data-i18n="allergen_11">Pescado</span></span>
+            <span><b>12</b> <span data-i18n="allergen_12">Sésamo</span></span>
+          </div>
+        </div>
+      </aside>
+
+      <div class="menu-content-area">
+
+      <!-- ENTRANTES -->
+      <div class="menu-category" id="cat-entrantes">
+        <div class="menu-cat-header"><span>🥗</span>
+          <h3 data-i18n="cat_starters">Entrantes y Ensaladas</h3>
+        </div>
+        <div class="menu-list" id="list-entrantes"></div>
       </div>
 
       <!-- HAMBURGUESAS -->
@@ -157,14 +246,6 @@
           style="text-align:center;color:var(--text-muted);font-style:italic;font-size:.85rem;padding:1.2rem">
           <span data-i18n="cat_meats_msg">Pregunta a nuestro personal — varían según la semana 🔥</span>
         </div>
-      </div>
-
-      <!-- ENTRANTES -->
-      <div class="menu-category" id="cat-entrantes">
-        <div class="menu-cat-header"><span>🥗</span>
-          <h3 data-i18n="cat_starters">Entrantes y Ensaladas</h3>
-        </div>
-        <div class="menu-list" id="list-entrantes"></div>
       </div>
 
       <!-- BEBIDAS -->
@@ -208,7 +289,7 @@
     </section>
 
     <!-- ── LOYALTY ── -->
-    <section class="loyalty-teaser">
+    <section class="loyalty-teaser fade-up-enter">
       <div class="loyalty-title" data-i18n="loyalty_title">🏅 Tarjeta Fidelidad — 9 pedidos, el 10º gratis</div>
       <div class="loyalty-dots">
         <div class="stamp filled">✓</div>
@@ -224,7 +305,7 @@
       </div>
     </section>
 
-    <!-- ── BOTTOM NAV ── -->
+    <!-- ── BOTTOM NAV (Mobile Only) ── -->
     <nav class="bottom-nav">
       <a href="index.html" class="nav-item active"><span class="nav-icon material-symbols-outlined"
           style="font-variation-settings:'FILL' 1">home</span><span data-i18n="nav_home">Inicio</span></a>
@@ -241,6 +322,11 @@
     </nav>
 
   </div><!-- end .app-shell -->
+
+  <!-- ── SCROLL TO TOP ── -->
+  <button id="scrollToTop" class="btn-scroll-top" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Ir arriba">
+    <span class="material-symbols-outlined">expand_less</span>
+  </button>
 
   <!-- ══ OVERLAY & MODAL ══ -->
   <div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
@@ -287,6 +373,41 @@
     // MENU DATA — Fuente única de verdad
     // ═══════════════════════════════════════
     const MENU_DATA = {
+      entrantes: [
+        {
+          id: 'nachos', name: 'Nachos Santa Brasa', price: '11,90€',
+          desc: 'Nachos crujientes, guacamole casero, carne salteada con pique, pico de gallo, crema agria, cheddar, jalapeños y frijoles.',
+          allergens: '1,2',
+          img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBkL7JtwTpTTrPb_1IyiZEcIzjNcHNKVbLUs4tltiWirhNrdyBbfVb6yadSGnF4aW8n3Xms3AUbJppz4bFQwDkQBtTwVoSCGCr2xtNnRl-wa9TjgTVqthk-0PEZ7mWY1n10xmsckJHTfdK9_JTX3KyCI7JdmSa6PDHqXJeQTKcA5qJTT1hVOmZRPIy5CNsxsYz6lRNet3EyLrclcLCvMZDqzKB4BiKo0N8qIFfVngni3TjApuozn3Ft0Yan06Aw2mp3fvTEni-zj5s',
+          ingredients: ['Nachos crujientes', 'Guacamole casero', 'Carne salteada', 'Pico de gallo', 'Crema agria', 'Cheddar', 'Jalapeños', 'Frijoles'],
+          featured: true,
+          emoji: '🥗'
+        },
+        {
+          id: 'patatas', name: 'Patatas Gajo', price: '4,50€',
+          desc: 'Patatas gajo con cualquiera de nuestras salsas. Ingrediente extra por +1,50€.',
+          allergens: '',
+          img: 'images/entrante-patatas-gajo.png',
+          ingredients: ['Patatas gajo', 'Salsa a elegir'],
+          emoji: '🍟'
+        },
+        {
+          id: 'ensalada', name: 'Ensalada de Pollo', price: '9,90€',
+          desc: 'Ensalada mezclum, pollo asado al carbón, parmesano, salsa yogur, croutons al ajillo y aceitunas negras.',
+          allergens: '1,2,3,4,5',
+          img: 'images/entrante-ensalada-pollo.png',
+          ingredients: ['Mezclum', 'Pollo asado', 'Parmesano', 'Salsa yogur', 'Croutons', 'Aceitunas negras'],
+          emoji: '🥗'
+        },
+        {
+          id: 'alitas', name: 'Alitas BBQ Koreanas', price: '5,90€',
+          desc: 'Alitas de pollo crujientes asadas con salsa barbacoa coreana, decoradas con cebollino.',
+          allergens: '',
+          img: 'images/entrante-alitas-bbq.png',
+          ingredients: ['Alitas de pollo', 'Salsa BBQ coreana', 'Cebollino'],
+          emoji: '🍗'
+        }
+      ],
       burgers: [
         {
           id: 'la-secreta', name: 'La Secreta', price: '13,90€',
@@ -360,41 +481,6 @@
           img: 'images/sandwich-el-americano.png',
           ingredients: ['Pan brioche', 'Pollo trufado', 'Huevo', 'Cheddar americano', 'Alioli de trufa', 'Lechuga', 'Tomate'],
           emoji: '🥪'
-        }
-      ],
-      entrantes: [
-        {
-          id: 'nachos', name: 'Nachos Santa Brasa', price: '11,90€',
-          desc: 'Nachos crujientes, guacamole casero, carne salteada con pique, pico de gallo, crema agria, cheddar, jalapeños y frijoles.',
-          allergens: '1,2',
-          img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBkL7JtwTpTTrPb_1IyiZEcIzjNcHNKVbLUs4tltiWirhNrdyBbfVb6yadSGnF4aW8n3Xms3AUbJppz4bFQwDkQBtTwVoSCGCr2xtNnRl-wa9TjgTVqthk-0PEZ7mWY1n10xmsckJHTfdK9_JTX3KyCI7JdmSa6PDHqXJeQTKcA5qJTT1hVOmZRPIy5CNsxsYz6lRNet3EyLrclcLCvMZDqzKB4BiKo0N8qIFfVngni3TjApuozn3Ft0Yan06Aw2mp3fvTEni-zj5s',
-          ingredients: ['Nachos crujientes', 'Guacamole casero', 'Carne salteada', 'Pico de gallo', 'Crema agria', 'Cheddar', 'Jalapeños', 'Frijoles'],
-          featured: true,
-          emoji: '🥗'
-        },
-        {
-          id: 'patatas', name: 'Patatas Gajo', price: '4,50€',
-          desc: 'Patatas gajo con cualquiera de nuestras salsas. Ingrediente extra por +1,50€.',
-          allergens: '',
-          img: 'images/entrante-patatas-gajo.png',
-          ingredients: ['Patatas gajo', 'Salsa a elegir'],
-          emoji: '🍟'
-        },
-        {
-          id: 'ensalada', name: 'Ensalada de Pollo', price: '9,90€',
-          desc: 'Ensalada mezclum, pollo asado al carbón, parmesano, salsa yogur, croutons al ajillo y aceitunas negras.',
-          allergens: '1,2,3,4,5',
-          img: 'images/entrante-ensalada-pollo.png',
-          ingredients: ['Mezclum', 'Pollo asado', 'Parmesano', 'Salsa yogur', 'Croutons', 'Aceitunas negras'],
-          emoji: '🥗'
-        },
-        {
-          id: 'alitas', name: 'Alitas BBQ Koreanas', price: '5,90€',
-          desc: 'Alitas de pollo crujientes asadas con salsa barbacoa coreana, decoradas con cebollino.',
-          allergens: '',
-          img: 'images/entrante-alitas-bbq.png',
-          ingredients: ['Alitas de pollo', 'Salsa BBQ coreana', 'Cebollino'],
-          emoji: '🍗'
         }
       ],
       bebidas: [
@@ -522,13 +608,14 @@
       const featuredBurgers = [
         MENU_DATA.burgers.find(i => i.id === 'la-explosiva'),
         MENU_DATA.burgers.find(i => i.id === 'la-secreta'),
-        MENU_DATA.burgers.find(i => i.id === 'la-pistachera')
+        MENU_DATA.burgers.find(i => i.id === 'la-pistachera'),
+        MENU_DATA.burgers.find(i => i.id === 'el-furioso')
       ].filter(Boolean);
       document.getElementById('featuredDishes').innerHTML = featuredBurgers.map(buildFeaturedCard).join('');
+      document.getElementById('list-entrantes').innerHTML = MENU_DATA.entrantes.map(buildMenuRow).join('');
       document.getElementById('list-burgers').innerHTML = MENU_DATA.burgers.map(buildMenuRow).join('');
       document.getElementById('list-rolls').innerHTML = MENU_DATA.rolls.map(buildMenuRow).join('');
       document.getElementById('list-sandwiches').innerHTML = MENU_DATA.sandwiches.map(buildMenuRow).join('');
-      document.getElementById('list-entrantes').innerHTML = MENU_DATA.entrantes.map(buildMenuRow).join('');
       document.getElementById('list-bebidas').innerHTML = MENU_DATA.bebidas.map(buildDrinkRow).join('');
       document.getElementById('saucesGrid').innerHTML = MENU_DATA.sauces.map(buildSauceChip).join('');
     }
@@ -794,10 +881,23 @@
     // ═══ Intersection Observer for entrance animations ═══
     const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
+        if (entry.isIntersecting) { 
+          entry.target.classList.add('visible'); 
+          obs.unobserve(entry.target); 
+        }
       });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.menu-card, .menu-item-card').forEach(el => observer.observe(el));
+    document.querySelectorAll('.menu-card, .menu-item-card, .fade-up-enter').forEach(el => observer.observe(el));
+
+    // Scroll to Top Logic
+    const scrollBtn = document.getElementById('scrollToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 300) {
+        scrollBtn.classList.add('show');
+      } else {
+        scrollBtn.classList.remove('show');
+      }
+    });
   </script>
 
 </body>
