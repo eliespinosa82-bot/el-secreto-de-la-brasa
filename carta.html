@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>El Secreto de la Brasa · Cádiz</title>
+  <title>La Carta · El Secreto de la Brasa</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
@@ -61,8 +61,8 @@
 
       <!-- Desktop Navigation Links -->
       <nav class="desktop-nav">
-        <a href="index.html" class="desktop-nav-link active" data-i18n="nav_home">Inicio</a>
-        <a href="carta.html" class="desktop-nav-link" data-i18n="nav_menu">Carta</a>
+        <a href="index.html" class="desktop-nav-link" data-i18n="nav_home">Inicio</a>
+        <a href="carta.html" class="desktop-nav-link active" data-i18n="nav_menu">Carta</a>
         <a href="perfil.html" class="desktop-nav-link" data-i18n="nav_profile">Mi Perfil</a>
         <a href="resumen.html" class="btn btn-primary btn-sm" data-i18n="nav_order">Pedir Ahora</a>
       </nav>
@@ -78,83 +78,98 @@
       </button>
     </header>
 
-    <!-- ═══ HERO SECTION ═══ -->
-    <section id="heroWrapper" class="hero-parallax-wrapper">
-      <div class="hero-parallax-bg" id="heroBg"></div>
+    <!-- ── FULL MENU ── -->
+    <section id="carta" class="menu-section fade-up-enter">
+      <div class="menu-section-title">
+        <div class="menu-divider"></div>
+        <h2 data-i18n="menu_title">La Carta</h2>
+        <div class="menu-divider"></div>
+      </div>
 
-      <div class="container relative flex flex-col md:flex-row items-center justify-between h-full z-10 py-12 md:py-0">
-        <!-- Hero text (Latest Stitch Design) -->
-        <div class="hero-parallax-text max-w-xl">
-          <p class="hero-eyebrow" data-i18n="hero_eyebrow">Especialistas en Brasa 🔥</p>
-          <h2 class="hero-headline">
-            <span data-i18n="hero_headline_1" class="text-white">El Arte del Fuego,</span><br>
-            <span data-i18n="hero_headline_2" class="text-primary">el Alma de la Carne</span>
-          </h2>
-          <p class="hero-subheadline mt-4 text-lg text-slate-300 md:pr-12" data-i18n="hero_sub" style="text-wrap: balance;">
-            Disfruta de la mejor brasa de Cádiz en el Mercado Virgen del Rosario.
-          </p>
-          <div class="flex flex-wrap gap-4 mt-8 justify-center md:justify-start">
-            <a href="carta.html" class="btn btn-primary">
-              <span class="material-symbols-outlined">restaurant_menu</span>
-              <span data-i18n="hero_cta">Explorar Carta</span>
-            </a>
+      <!-- Desktop Sidebar -->
+      <aside class="menu-sidebar desktop-only">
+        <div class="card" style="margin-bottom: 20px;">
+          <p class="section-label" style="padding: 0 0 10px 0;">Categorías</p>
+          <div class="menu-list">
+            <a href="#cat-entrantes" class="desktop-nav-link" style="font-size: 0.8rem; padding: 5px 0; display: block;">🥗 Entrantes</a>
+            <a href="#cat-burgers" class="desktop-nav-link" style="font-size: 0.8rem; padding: 5px 0; display: block;">🍔 Hamburguesas</a>
+            <a href="#cat-rolls" class="desktop-nav-link" style="font-size: 0.8rem; padding: 5px 0; display: block;">🌭 Rolls Dog</a>
+            <a href="#cat-sandwiches" class="desktop-nav-link" style="font-size: 0.8rem; padding: 5px 0; display: block;">🥪 Sandwiches</a>
+            <a href="#cat-bebidas" class="desktop-nav-link" style="font-size: 0.8rem; padding: 5px 0; display: block;">🥤 Bebidas</a>
           </div>
         </div>
+        
+        </div>
+      </aside>
 
-        <div class="hero-layers-group mt-12 md:mt-0 relative w-full md:w-1/2 h-[400px] md:h-[600px] flex items-center justify-center">
-          <div class="relative w-full h-full flex items-center justify-center">
-            <div class="hero-fire-glow"></div>
-            <img src="images/hero-3d-burger.png" alt="Hamburguesa 3D con fuego" class="w-full max-w-[500px] object-contain drop-shadow-2xl hero-burger-float relative z-10" />
-          </div>
+      <div class="menu-content-area">
+
+      <!-- ENTRANTES -->
+      <div class="menu-category" id="cat-entrantes">
+        <div class="menu-cat-header"><span>🥗</span>
+          <h3 data-i18n="cat_starters">Entrantes y Ensaladas</h3>
+        </div>
+        <div class="menu-list" id="list-entrantes"></div>
+      </div>
+
+      <!-- HAMBURGUESAS -->
+      <div class="menu-category" id="cat-burgers">
+        <div class="menu-cat-header"><span>🍔</span>
+          <h3 data-i18n="cat_burgers">Hamburguesas</h3>
+        </div>
+        <div class="card"
+          style="text-align:center;color:var(--text-muted);font-style:italic;font-size:.85rem;padding:1.2rem;margin-bottom:1rem;">
+          <span data-i18n="cat_burgers_msg">Todas nuestras hamburguesas incluyen patatas fritas o boniato frito 🍟</span>
+        </div>
+        <div class="menu-list" id="list-burgers"></div>
+      </div>
+
+      <!-- ROLLS DOG -->
+      <div class="menu-category" id="cat-rolls">
+        <div class="menu-cat-header"><span>🌭</span>
+          <h3 data-i18n="cat_rolls">Rolls Dog</h3>
+        </div>
+        <div class="menu-list" id="list-rolls"></div>
+      </div>
+
+      <!-- SANDWICHES -->
+      <div class="menu-category" id="cat-sandwiches">
+        <div class="menu-cat-header"><span>🥪</span>
+          <h3 data-i18n="cat_sandwiches">Sandwiches</h3>
+        </div>
+        <div class="menu-list" id="list-sandwiches"></div>
+      </div>
+
+      <!-- CARNES -->
+      <div class="menu-category">
+        <div class="menu-cat-header"><span>🥩</span>
+          <h3 data-i18n="cat_meats">Carnes</h3>
+        </div>
+        <div class="card"
+          style="text-align:center;color:var(--text-muted);font-style:italic;font-size:.85rem;padding:1.2rem">
+          <span data-i18n="cat_meats_msg">Pregunta a nuestro personal — varían según la semana 🔥</span>
         </div>
       </div>
+
+      <!-- BEBIDAS -->
+      <div class="menu-category" id="cat-bebidas">
+        <div class="menu-cat-header"><span>🥤</span>
+          <h3>Bebidas</h3>
+        </div>
+        <div class="menu-list" id="list-bebidas"></div>
+      </div>
+
+      <!-- SALSAS -->
+      <div class="menu-category">
+        <div class="menu-cat-header"><span>🫙</span>
+          <h3 data-i18n="cat_sauces">Salsas Caseras · 1 €</h3>
+        </div>
+        <div class="sauces-grid" id="saucesGrid">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
     </section>
-
-    <!-- ── ESPECIALIDADES (Featured Burgers) ── -->
-    <section class="max-w-7xl mx-auto px-6 py-12 fade-up-enter" id="sect-featured">
-      <div class="flex items-end justify-between mb-8">
-        <div>
-          <p class="text-primary font-bold uppercase tracking-widest text-xs mb-2" data-i18n="featured_label">Especialidades</p>
-          <h2 class="text-3xl md:text-4xl font-black text-white" data-i18n="featured_title">Lo más pedido</h2>
-        </div>
-        <a href="carta.html" class="hidden md:flex items-center gap-2 text-primary font-bold hover:underline">
-          <span data-i18n="view_all_menu">Ver toda la carta</span>
-          <span class="material-symbols-outlined">arrow_forward</span>
-        </a>
-      </div>
-      
-      <div class="featured-burgers-grid grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8" id="featuredDishes">
-        <!-- Rendered by JS -->
-      </div>
-    </section>
-
-    <!-- ── QUICK INFO (Desktop friendly) ── -->
-    <div class="container py-8 hidden md:block fade-up-enter" id="sect-info">
-      <div class="grid grid-cols-3 gap-8">
-        <a href="https://www.google.com/maps/search/?api=1&query=Mercado+Virgen+del+Rosario,+Cadiz" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 bg-surface-dark/50 border border-white/5 p-6 rounded-2xl hover:bg-surface-dark/80 transition-colors cursor-pointer" style="text-decoration: none;">
-          <span class="material-symbols-outlined text-primary text-3xl">location_on</span>
-          <div>
-            <p class="text-xs text-slate-500 font-bold uppercase" data-i18n="info_location_label">Ubicación</p>
-            <p class="text-sm font-bold" data-i18n="info_location_value">Mercado Virgen del Rosario, Cádiz</p>
-          </div>
-        </a>
-        <div class="flex items-center gap-4 bg-surface-dark/50 border border-white/5 p-6 rounded-2xl">
-          <span class="material-symbols-outlined text-primary text-3xl">schedule</span>
-          <div>
-            <p class="text-xs text-slate-500 font-bold uppercase" data-i18n="info_hours_label">Horario</p>
-            <p class="text-sm font-bold" data-i18n="info_hours_value">Lun – Dom: 12:00 – 22:00</p>
-          </div>
-        </div>
-        <div class="flex items-center gap-4 bg-surface-dark/50 border border-white/5 p-6 rounded-2xl">
-          <span class="material-symbols-outlined text-primary text-3xl">restaurant</span>
-          <div>
-            <p class="text-xs text-slate-500 font-bold uppercase" data-i18n="info_exp_label">Experiencia</p>
-            <p class="text-sm font-bold" data-i18n="info_exp_value">Especialistas en Brasa 🔥</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
 
     <!-- ── LOYALTY ── -->
     <section class="loyalty-teaser fade-up-enter">
@@ -175,10 +190,9 @@
 
     <!-- ── BOTTOM NAV (Mobile Only) ── -->
     <nav class="bottom-nav">
-      <a href="index.html" class="nav-item active"><span class="nav-icon material-symbols-outlined"
-          style="font-variation-settings:'FILL' 1">home</span><span data-i18n="nav_home">Inicio</span></a>
-      <a href="carta.html" class="nav-item"><span
-          class="nav-icon material-symbols-outlined">menu_book</span><span data-i18n="nav_menu">Carta</span></a>
+      <a href="index.html" class="nav-item"><span class="nav-icon material-symbols-outlined">home</span><span data-i18n="nav_home">Inicio</span></a>
+      <a href="carta.html" class="nav-item active"><span
+          class="nav-icon material-symbols-outlined" style="font-variation-settings:'FILL' 1">menu_book</span><span data-i18n="nav_menu">Carta</span></a>
       <a href="resumen.html" class="nav-item" style="position:relative">
         <span class="nav-icon material-symbols-outlined">shopping_basket</span>
         <span id="cartBadge"
@@ -478,6 +492,16 @@
       const featuredDishesEl = document.getElementById('featuredDishes');
       if (featuredDishesEl) {
         featuredDishesEl.innerHTML = featuredBurgers.map(buildFeaturedCard).join('');
+      }
+
+      const listEntrantesEl = document.getElementById('list-entrantes');
+      if (listEntrantesEl) {
+        listEntrantesEl.innerHTML = MENU_DATA.entrantes.map(buildMenuRow).join('');
+        document.getElementById('list-burgers').innerHTML = MENU_DATA.burgers.map(buildMenuRow).join('');
+        document.getElementById('list-rolls').innerHTML = MENU_DATA.rolls.map(buildMenuRow).join('');
+        document.getElementById('list-sandwiches').innerHTML = MENU_DATA.sandwiches.map(buildMenuRow).join('');
+        document.getElementById('list-bebidas').innerHTML = MENU_DATA.bebidas.map(buildDrinkRow).join('');
+        document.getElementById('saucesGrid').innerHTML = MENU_DATA.sauces.map(buildSauceChip).join('');
       }
     }
 
