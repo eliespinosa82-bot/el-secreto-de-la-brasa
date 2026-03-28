@@ -233,11 +233,20 @@
                             </div>
 
                             <!-- Card Form -->
-                            <div id="cardForm" class="hidden pt-6 border-t border-white/5 space-y-4">
+                            <div id="cardForm" class="mt-6 space-y-4 hidden bg-surface-dark border border-white/5 rounded-2xl p-6 relative overflow-hidden">
+                                <!-- Safe Mock Warning -->
+                                <div class="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-xl flex gap-3">
+                                    <span class="material-symbols-outlined text-red-400">warning</span>
+                                    <div class="text-[10px] text-red-200 leading-tight">
+                                        <b class="block mb-1">MODO DE PRUEBA / TEST MODE</b>
+                                        Por favor, <b>NO</b> introduzcas datos reales de tu tarjeta. Esta es una demostración visual.
+                                    </div>
+                                </div>
+
                                 <div class="space-y-1">
-                                    <label class="text-[10px] font-black text-slate-500 uppercase px-1">Titular de la tarjeta</label>
-                                    <input id="cardHolder" type="text" placeholder="Nombre completo"
-                                        class="w-full bg-background-dark border border-primary/20 focus:border-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600 transition-all font-medium" />
+                                    <label class="text-[10px] font-bold text-slate-500 uppercase px-1" data-i18n="card_holder">Titular de la tarjeta</label>
+                                    <input id="cardHolder" type="text" placeholder="NOMBRE APELLIDO"
+                                        class="w-full bg-background-dark border border-white/5 focus:border-primary rounded-xl p-3 text-slate-100 placeholder:text-slate-600 transition-all uppercase" />
                                 </div>
                                 <div class="space-y-1">
                                     <label class="text-[10px] font-black text-slate-500 uppercase px-1">Número de Tarjeta</label>
@@ -358,7 +367,15 @@
     <script>
         // ── Shared constants ──
         const USER_KEY = 'brasa_user';
-        const CART_KEY = 'brasa_cart';
+        // --- UTILS ---
+    function sanitizeHTML(str) {
+        if (!str) return '';
+        const p = document.createElement('p');
+        p.textContent = str;
+        return p.innerHTML;
+    }
+
+    const CART_KEY = 'brasa_cart';
         const TYPE_KEY = 'brasa_order_type';
         let selectedPaymentMethod = 'cash';
         let selectedOrderType = localStorage.getItem(TYPE_KEY) || 'eat_in'; // Default to eat_in to match UI highlight
@@ -512,7 +529,7 @@
                 <div style="display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.07)">
                     <div style="flex-shrink:0;width:3rem;height:3rem;border-radius:.6rem;background:#2a2a2a;${imgStyle}">${emoji}</div>
                     <div style="flex:1;min-width:0">
-                        <p style="font-weight:700;font-size:.9rem;margin:0 0 2px">${displayName}</p>
+                        <p style="font-weight:700;font-size:.9rem;margin:0 0 2px">${sanitizeHTML(displayName)}</p>
                         ${mods.length ? `<p style="font-size:.72rem;color:#8a8a8a;margin:0">${mods.join(' · ')}</p>` : ''}
                     </div>
                     <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
@@ -640,8 +657,12 @@
         }
 
         function finalizeOrder(nombre, dir, user, cart, tlfn) {
+            const safeNombre = sanitizeHTML(nombre);
+            const safeDir = sanitizeHTML(dir);
+            const safeTlfn = sanitizeHTML(tlfn);
+
             if (!user) {
-                sessionStorage.setItem('pendingOrder', JSON.stringify({ direccion: dir || '' }));
+                sessionStorage.setItem('pendingOrder', JSON.stringify({ direccion: safeDir || '' }));
                 window.location.href = 'perfil.html';
                 return;
             }
@@ -654,10 +675,10 @@
             }[selectedOrderType];
 
             const pedido = {
-                nombre: nombre,
-                telefono: tlfn || '',
+                nombre: safeNombre,
+                telefono: safeTlfn || '',
                 tipo: orderTypeLabel,
-                direccion: selectedOrderType === 'eat_in' ? 'Local' : (dir || user.direccion || 'Mercado Virgen del Rosario, Cádiz'),
+                direccion: selectedOrderType === 'eat_in' ? 'Local' : (safeDir || user.direccion || 'Mercado Virgen del Rosario, Cádiz'),
                 pago: paymentLabel,
                 items: cart,
                 fecha: new Date().toISOString(),
@@ -676,6 +697,9 @@
 
         initResumen();
     </script>
+  <script type="module">
+    import { analytics } from "./js/firebase-init.js";
+  </script>
 </body>
 
 </html>

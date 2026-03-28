@@ -1,5 +1,5 @@
 export const firebaseConfig = {
-    apiKey: "AIzaSyCzgDoGyagqcw7483x1jR-A-z34dNxpRig",
+    apiKey: "AIzaSyDl4pmgKemBhG1HCzOFf3U7Cj23hkRI6JA",
     authDomain: "el-secrreto-de-la-brasa.firebaseapp.com",
     projectId: "el-secrreto-de-la-brasa",
     storageBucket: "el-secrreto-de-la-brasa.firebasestorage.app",
