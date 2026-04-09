@@ -4,31 +4,19 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta name="description" content="Revisa tu pedido y finaliza tu compra. El Secreto de la Brasa, Cadiz." />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
     <title>Finalizar Pedido · El Secreto de la Brasa</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
+    <link rel="stylesheet" href="css/output.css" />
     <link rel="stylesheet" href="css/styles.css">
     <script src="js/i18n.js" defer></script>
     <script src="js/menu-i18n.js" defer></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#c8973c",
-                        "background-light": "#f8f7f6",
-                        "background-dark": "#1a1a1a",
-                        "surface-dark": "#242424",
-                    },
-                    fontFamily: { "display": ["Epilogue", "sans-serif"] },
-                },
-            },
-        }
-    </script>
     <style>
         /* App Shell */
         .app-shell {
@@ -90,32 +78,6 @@
                 </button>
             </div>
         </header>
-
-        <!-- User greeting banner -->
-        <div id="userBanner" class="px-4 pt-4 hidden">
-            <div class="flex items-center gap-3 bg-primary/10 border border-primary/20 rounded-2xl p-3.5">
-                <div id="bannerAvatar"
-                    class="size-9 rounded-full bg-gradient-to-br from-primary to-[#8e6516] flex items-center justify-center text-sm font-black text-background-dark flex-shrink-0">
-                    U</div>
-                <div class="flex-1 min-w-0">
-                    <p class="text-xs text-slate-400">Pedido como</p>
-                    <p id="bannerName" class="font-bold text-sm text-white truncate">Usuario</p>
-                </div>
-                <a href="perfil.html" class="text-xs text-primary font-bold hover:underline">Cambiar</a>
-            </div>
-        </div>
-        <!-- No-session banner -->
-        <div id="guestBanner" class="px-4 pt-4">
-            <a href="perfil.html"
-                class="flex items-center gap-3 bg-surface-dark border border-white/10 rounded-2xl p-3.5 hover:border-primary/30 transition-colors">
-                <span class="material-symbols-outlined text-slate-400">person_add</span>
-                <div class="flex-1">
-                    <p class="font-bold text-sm" data-i18n="tab_login">Accede o regístrate</p>
-                    <p class="text-xs text-slate-500">Más rápido y acumulas sellos 🏅</p>
-                </div>
-                <span class="material-symbols-outlined text-slate-500">chevron_right</span>
-            </a>
-        </div>
 
         <main class="flex-1">
             <div class="checkout-grid">
@@ -246,23 +208,23 @@
 
                                 <div class="space-y-1">
                                     <label class="text-[10px] font-bold text-slate-500 uppercase px-1" data-i18n="card_holder">Titular de la tarjeta</label>
-                                    <input id="cardHolder" type="text" placeholder="NOMBRE APELLIDO"
+                                    <input id="cardHolder" type="text" placeholder="NOMBRE APELLIDO" autocomplete="cc-name" inputmode="text"
                                         class="w-full bg-background-dark border border-white/5 focus:border-primary rounded-xl p-3 text-slate-100 placeholder:text-slate-600 transition-all uppercase" />
                                 </div>
                                 <div class="space-y-1">
-                                    <label class="text-[10px] font-black text-slate-500 uppercase px-1">Número de Tarjeta</label>
-                                    <input id="cardNumber" type="text" placeholder="0000 0000 0000 0000" maxlength="19"
+                                    <label class="text-[10px] font-black text-slate-500 uppercase px-1">Numero de Tarjeta</label>
+                                    <input id="cardNumber" type="text" placeholder="0000 0000 0000 0000" maxlength="19" autocomplete="cc-number" inputmode="numeric" pattern="[0-9 ]*"
                                         class="w-full bg-background-dark border border-primary/20 focus:border-primary rounded-xl p-4 text-slate-100 placeholder:text-slate-600 transition-all font-mono" />
                                 </div>
                                 <div class="grid grid-cols-2 gap-4">
                                     <div class="space-y-1">
                                         <label class="text-[10px] font-black text-slate-500 uppercase px-1">Expira</label>
-                                        <input id="cardExpiry" type="text" placeholder="MM/YY" maxlength="5"
+                                        <input id="cardExpiry" type="text" placeholder="MM/YY" maxlength="5" autocomplete="cc-exp" inputmode="numeric" pattern="[0-9/]*"
                                             class="w-full bg-background-dark border border-primary/20 focus:border-primary rounded-xl p-4 text-slate-100 text-center transition-all font-medium" />
                                     </div>
                                     <div class="space-y-1">
                                         <label class="text-[10px] font-black text-slate-500 uppercase px-1">CVV</label>
-                                        <input id="cardCVC" type="password" placeholder="***" maxlength="3"
+                                        <input id="cardCVC" type="password" placeholder="***" maxlength="4" autocomplete="cc-csc" inputmode="numeric" pattern="[0-9]*"
                                             class="w-full bg-background-dark border border-primary/20 focus:border-primary rounded-xl p-4 text-slate-100 text-center transition-all font-medium" />
                                     </div>
                                 </div>
@@ -345,7 +307,7 @@
 
         <!-- Bottom Nav -->
         <nav
-            class="fixed bottom-0 left-0 right-0 lg:left-auto lg:right-auto lg:w-[1200px] lg:mx-auto bg-surface-dark/95 backdrop-blur-md border-t border-primary/20 flex justify-around items-center px-4 py-3 z-[60]">
+            class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-dark/95 backdrop-blur-md border-t border-primary/20 flex justify-around items-center px-4 py-3 z-[60]">
         <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html">
             <span class="material-symbols-outlined">home</span>
             <span class="text-[10px] font-bold">INICIO</span>
@@ -502,9 +464,11 @@
                 const lineTotal = perItem * (item.qty || 1);
                 grandTotal += lineTotal;
 
-                const emoji = item.img ? '' : (item.emoji || '🍔');
-                const imgStyle = item.img
-                    ? `background-image:url('${item.img}');background-size:cover;background-position:center`
+                const emoji = item.img ? '' : sanitizeHTML(item.emoji || '🍔');
+                // Sanitize img URL: only allow http(s) and relative paths
+                const safeImg = (item.img && /^(https?:\/\/|images\/)/.test(item.img)) ? item.img.replace(/['"]/g, '') : '';
+                const imgStyle = safeImg
+                    ? `background-image:url('${safeImg}');background-size:cover;background-position:center`
                     : `display:flex;align-items:center;justify-content:center;font-size:1.4rem`;
 
                 const displayName = (typeof tIng === 'function') ? tIng(item.name) : item.name;
@@ -526,20 +490,24 @@
                     mods.push(`<span style="color:var(--primary);font-weight:700">⚠️ ${allergenLabels.join(', ')}</span>`);
                 }
 
+                // Sanitize key for safe use in onclick attributes
+                const safeKey = sanitizeHTML(item.key).replace(/'/g, "\\'");
+                const safeQty = parseInt(item.qty, 10) || 1;
+
                 return `
                 <div style="display:flex;align-items:center;gap:12px;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.07)">
                     <div style="flex-shrink:0;width:3rem;height:3rem;border-radius:.6rem;background:#2a2a2a;${imgStyle}">${emoji}</div>
                     <div style="flex:1;min-width:0">
                         <p style="font-weight:700;font-size:.9rem;margin:0 0 2px">${sanitizeHTML(displayName)}</p>
-                        ${mods.length ? `<p style="font-size:.72rem;color:#8a8a8a;margin:0">${mods.join(' · ')}</p>` : ''}
+                        ${mods.length ? `<p style="font-size:.72rem;color:#8a8a8a;margin:0">${mods.map(m => sanitizeHTML(m)).join(' · ')}</p>` : ''}
                     </div>
                     <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-                        <button onclick="changeQty('${item.key}',-1)" style="background:#2a2a2a;border:none;border-radius:50%;width:1.7rem;height:1.7rem;cursor:pointer;color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .15s" onmouseenter="this.style.background='#c8973c33'" onmouseleave="this.style.background='#2a2a2a'">−</button>
-                        <span style="font-weight:800;font-size:.9rem;min-width:1.2rem;text-align:center">${item.qty || 1}</span>
-                        <button onclick="changeQty('${item.key}',1)" style="background:#2a2a2a;border:none;border-radius:50%;width:1.7rem;height:1.7rem;cursor:pointer;color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .15s" onmouseenter="this.style.background='#c8973c33'" onmouseleave="this.style.background='#2a2a2a'">+</button>
+                        <button onclick="changeQty('${safeKey}',-1)" style="background:#2a2a2a;border:none;border-radius:50%;width:1.7rem;height:1.7rem;cursor:pointer;color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .15s" onmouseenter="this.style.background='#c8973c33'" onmouseleave="this.style.background='#2a2a2a'">−</button>
+                        <span style="font-weight:800;font-size:.9rem;min-width:1.2rem;text-align:center">${safeQty}</span>
+                        <button onclick="changeQty('${safeKey}',1)" style="background:#2a2a2a;border:none;border-radius:50%;width:1.7rem;height:1.7rem;cursor:pointer;color:#fff;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:background .15s" onmouseenter="this.style.background='#c8973c33'" onmouseleave="this.style.background='#2a2a2a'">+</button>
                     </div>
                     <p style="font-weight:800;color:#c8973c;white-space:nowrap;font-size:.9rem;min-width:3.5rem;text-align:right">${lineTotal.toFixed(2).replace('.', ',') + '€'}</p>
-                    <button onclick="removeItem('${item.key}')" title="Eliminar" style="background:none;border:none;cursor:pointer;padding:4px;border-radius:50%;transition:background .15s;flex-shrink:0" onmouseenter="this.style.background='rgba(255,80,80,.15)'" onmouseleave="this.style.background='none'">
+                    <button onclick="removeItem('${safeKey}')" title="Eliminar" style="background:none;border:none;cursor:pointer;padding:4px;border-radius:50%;transition:background .15s;flex-shrink:0" onmouseenter="this.style.background='rgba(255,80,80,.15)'" onmouseleave="this.style.background='none'">
                         <span class="material-symbols-outlined" style="font-size:1.1rem;color:#666">delete</span>
                     </button>
                 </div>`;
@@ -631,27 +599,42 @@
             const nombre = document.getElementById('inputNombre')?.value.trim() || (user && user.nombre) || 'Cliente';
             const tlfn = document.getElementById('inputTelefono')?.value.trim();
 
-            // Validate card if selected
-            if (selectedPaymentMethod === 'card') {
-                const holder = document.getElementById('cardHolder').value.trim();
-                const num = document.getElementById('cardNumber').value.trim();
-                const exp = document.getElementById('cardExpiry').value.trim();
-                const cvc = document.getElementById('cardCVC').value.trim();
-
-                if (!holder || num.length < 19 || exp.length < 5 || cvc.length < 3) {
-                    alert('Por favor, completa correctamente los datos de la tarjeta.');
+            // Validate required fields for takeaway
+            if (selectedOrderType === 'takeaway') {
+                if (!nombre || nombre === 'Cliente') {
+                    alert('Por favor, introduce tu nombre para el pedido.');
+                    document.getElementById('inputNombre')?.focus();
                     return;
                 }
+                if (!dir) {
+                    alert('Por favor, introduce tu dirección de entrega.');
+                    document.getElementById('inputDireccion')?.focus();
+                    return;
+                }
+            }
 
-                // Processing simulation
+            // Validate phone format if provided
+            if (tlfn && !/^[+\d\s()-]{6,20}$/.test(tlfn)) {
+                alert('El formato del teléfono no es válido.');
+                document.getElementById('inputTelefono')?.focus();
+                return;
+            }
+
+            // Card payment: show simulation feedback (no real data is processed or stored)
+            if (selectedPaymentMethod === 'card') {
                 const btn = document.querySelector('button[onclick="realizarPedido()"]');
-                const originalContent = btn.innerHTML;
-                const processingText = (typeof I18N !== 'undefined') ? I18N.t('processing_payment') : 'Procesando pago seguro...';
-                
+                const processingText = (typeof I18N !== 'undefined') ? I18N.t('processing_payment') : 'Procesando pago...';
+
                 btn.disabled = true;
                 btn.innerHTML = `<span class="material-symbols-outlined animate-spin">sync</span><span>${processingText}</span>`;
-                
-                setTimeout(() => finalizeOrder(nombre, dir, user, cart, tlfn), 2500);
+
+                // Clear card input values immediately and securely (never store them)
+                ['cardHolder', 'cardNumber', 'cardExpiry', 'cardCVC'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) { el.value = ''; el.setAttribute('value', ''); }
+                });
+
+                setTimeout(() => { btn.disabled = false; finalizeOrder(nombre, dir, user, cart, tlfn); }, 1500);
             } else {
                 finalizeOrder(nombre, dir, user, cart, tlfn);
             }

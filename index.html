@@ -4,6 +4,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
   <title>El Secreto de la Brasa · Cádiz</title>
   <meta name="description" content="El Secreto de la Brasa - Las mejores hamburguesas artesanas con ingredientes premium en Cádiz. Pide online y disfruta del sabor auténtico." />
   <meta name="keywords" content="hamburguesería, Cádiz, hamburguesas artesanas, comida a domicilio, brasa, smash burger" />
@@ -14,24 +17,24 @@
   <meta property="og:url" content="https://elsecretodelabrasa.com/" />
   <meta property="og:title" content="El Secreto de la Brasa · Hamburguesas Artesanas en Cádiz" />
   <meta property="og:description" content="Siente el poder de la brasa. Ingredientes de primera, sabor inigualable. ¡Pide ya!" />
-  <meta property="og:image" content="https://elsecretodelabrasa.com/images/og-image.jpg" />
+  <meta property="og:image" content="https://elsecretodelabrasa.com/images/og-image.svg" />
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary_large_image" />
   <meta property="twitter:url" content="https://elsecretodelabrasa.com/" />
   <meta property="twitter:title" content="El Secreto de la Brasa · Hamburguesas Artesanas" />
   <meta property="twitter:description" content="Las mejores burgers de Cádiz a un solo click." />
-  <meta property="twitter:image" content="https://elsecretodelabrasa.com/images/og-image.jpg" />
+  <meta property="twitter:image" content="https://elsecretodelabrasa.com/images/og-image.svg" />
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Restaurant",
     "name": "El Secreto de la Brasa",
-    "image": "https://elsecretodelabrasa.com/images/hero-burger.png",
+    "image": "https://elsecretodelabrasa.com/images/og-image.svg",
     "@id": "https://elsecretodelabrasa.com",
     "url": "https://elsecretodelabrasa.com",
-    "telephone": "+34600000000",
+    "telephone": "+34661755379",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Calle de la Brasa, 1",
@@ -55,37 +58,21 @@
         "Saturday",
         "Sunday"
       ],
-      "opens": "13:00",
-      "closes": "23:30"
+      "opens": "12:00",
+      "closes": "22:00"
     },
     "menu": "https://elsecretodelabrasa.com/carta.html",
     "servesCuisine": "Burgers, American",
     "priceRange": "$$"
   }
   </script>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
     rel="stylesheet" />
+  <link rel="stylesheet" href="css/output.css" />
   <link rel="stylesheet" href="css/styles.css" />
   <script src="js/i18n.js" defer></script>
   <script src="js/menu-i18n.js" defer></script>
-  <script id="tailwind-config">
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            "primary": "#c8973c",
-            "background-light": "#f8f7f6",
-            "background-dark": "#1a1a1a",
-            "surface-dark": "#242424",
-          },
-          fontFamily: { "display": ["Epilogue", "sans-serif"] },
-        },
-      },
-    }
-  </script>
   <style>
     /* Desktop Force Layout */
     @media (min-width: 1024px) {
@@ -218,19 +205,26 @@
     <!-- ── LOYALTY ── -->
     <section class="loyalty-teaser fade-up-enter">
       <div class="loyalty-title" data-i18n="loyalty_title">🏅 Tarjeta Fidelidad — 9 pedidos, el 10º gratis</div>
-      <div class="loyalty-dots">
-        <div class="stamp filled">✓</div>
-        <div class="stamp filled">✓</div>
-        <div class="stamp filled">✓</div>
-        <div class="stamp empty">4</div>
-        <div class="stamp empty">5</div>
-        <div class="stamp empty">6</div>
-        <div class="stamp empty">7</div>
-        <div class="stamp empty">8</div>
-        <div class="stamp empty">9</div>
-        <div class="stamp empty" style="border-style:dashed;font-size:.65rem">🎁</div>
-      </div>
+      <div class="loyalty-dots" id="loyaltyDotsHome"></div>
     </section>
+    <script>
+      (function() {
+        let orders;
+        try { orders = JSON.parse(localStorage.getItem('brasa_orders') || '[]'); } catch { orders = []; }
+        if (!Array.isArray(orders)) orders = [];
+        const stamps = orders.length % 10;
+        const grid = document.getElementById('loyaltyDotsHome');
+        if (!grid) return;
+        let html = '';
+        for (let i = 1; i <= 9; i++) {
+          html += i <= stamps
+            ? '<div class="stamp filled">✓</div>'
+            : `<div class="stamp empty">${i}</div>`;
+        }
+        html += '<div class="stamp empty" style="border-style:dashed;font-size:.65rem">🎁</div>';
+        grid.innerHTML = html;
+      })();
+    </script>
 
     <!-- ── BOTTOM NAV (Mobile Only) ── -->
     <nav class="bottom-nav">
@@ -340,460 +334,43 @@
         <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:32px">
           Recibe ofertas exclusivas, novedades y el secreto de nuestras recetas antes que nadie.
         </p>
-        <div style="display:flex; flex-direction:column; gap:12px; max-width:400px; margin:0 auto">
-          <input type="email" placeholder="tu@email.com" 
+        <form id="newsletterForm" style="display:flex; flex-direction:column; gap:12px; max-width:400px; margin:0 auto" onsubmit="return handleNewsletter(event)">
+          <input type="email" id="newsletterEmail" placeholder="tu@email.com" required
             style="width:100%; background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:16px 20px; color:white; font-size:0.9rem; outline:none">
-          <button class="btn btn-primary" style="width:100%; padding:16px">Unirme al Club</button>
-        </div>
-        <p style="font-size:0.75rem; color:var(--text-muted); margin-top:20px; opacity:0.6">
-          No enviamos spam. Solo sabor auténtico.
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:16px" id="newsletterBtn">Unirme al Club</button>
+        </form>
+        <p id="newsletterMsg" style="font-size:0.75rem; color:var(--text-muted); margin-top:20px; opacity:0.6">
+          No enviamos spam. Solo sabor autentico.
         </p>
+        <script>
+          function handleNewsletter(e) {
+            e.preventDefault();
+            const email = document.getElementById('newsletterEmail').value.trim();
+            if (!email) return false;
+            const subs = JSON.parse(localStorage.getItem('brasa_newsletter') || '[]');
+            if (subs.includes(email)) {
+              document.getElementById('newsletterMsg').textContent = 'Ya estas suscrito. ¡Gracias!';
+              document.getElementById('newsletterMsg').style.color = 'var(--accent)';
+              return false;
+            }
+            subs.push(email);
+            localStorage.setItem('brasa_newsletter', JSON.stringify(subs));
+            document.getElementById('newsletterBtn').textContent = '¡Apuntado!';
+            document.getElementById('newsletterBtn').disabled = true;
+            document.getElementById('newsletterMsg').textContent = '¡Bienvenido al Club de la Brasa!';
+            document.getElementById('newsletterMsg').style.color = 'var(--accent)';
+            return false;
+          }
+        </script>
       </div>
     </section>
 
 
+  <script src="js/menu-data.js"></script>
+  <script src="js/cart.js"></script>
   <script>
-    // ═══════════════════════════════════════
-    // MENU DATA — Fuente única de verdad
-    // ═══════════════════════════════════════
-    const MENU_DATA = {
-      entrantes: [
-        {
-          id: 'nachos', name: 'Nachos Santa Brasa', price: '11,90€',
-          desc: 'Nachos crujientes, guacamole casero, carne salteada con pique, pico de gallo, crema agria, cheddar, jalapeños y frijoles.',
-          allergens: '1,2',
-          img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBkL7JtwTpTTrPb_1IyiZEcIzjNcHNKVbLUs4tltiWirhNrdyBbfVb6yadSGnF4aW8n3Xms3AUbJppz4bFQwDkQBtTwVoSCGCr2xtNnRl-wa9TjgTVqthk-0PEZ7mWY1n10xmsckJHTfdK9_JTX3KyCI7JdmSa6PDHqXJeQTKcA5qJTT1hVOmZRPIy5CNsxsYz6lRNet3EyLrclcLCvMZDqzKB4BiKo0N8qIFfVngni3TjApuozn3Ft0Yan06Aw2mp3fvTEni-zj5s',
-          ingredients: ['Nachos crujientes', 'Guacamole casero', 'Carne salteada', 'Pico de gallo', 'Crema agria', 'Cheddar', 'Jalapeños', 'Frijoles'],
-          featured: true,
-          emoji: '🥗'
-        },
-        {
-          id: 'patatas', name: 'Patatas Gajo', price: '4,50€',
-          desc: 'Patatas gajo con cualquiera de nuestras salsas. Ingrediente extra por +1,50€.',
-          allergens: '',
-          img: 'images/entrante-patatas-gajo.png',
-          ingredients: ['Patatas gajo', 'Salsa a elegir'],
-          emoji: '🍟'
-        },
-        {
-          id: 'ensalada', name: 'Ensalada de Pollo', price: '9,90€',
-          desc: 'Ensalada mezclum, pollo asado al carbón, parmesano, salsa yogur, croutons al ajillo y aceitunas negras.',
-          allergens: '1,2,3,4,5',
-          img: 'images/entrante-ensalada-pollo.png',
-          ingredients: ['Mezclum', 'Pollo asado', 'Parmesano', 'Salsa yogur', 'Croutons', 'Aceitunas negras'],
-          emoji: '🥗'
-        },
-        {
-          id: 'alitas', name: 'Alitas BBQ Koreanas', price: '5,90€',
-          desc: 'Alitas de pollo crujientes asadas con salsa barbacoa coreana, decoradas con cebollino.',
-          allergens: '',
-          img: 'images/entrante-alitas-bbq.png',
-          ingredients: ['Alitas de pollo', 'Salsa BBQ coreana', 'Cebollino'],
-          emoji: '🍗'
-        }
-      ],
-      burgers: [
-        {
-          id: 'la-secreta', name: 'La Secreta', price: '13,90€',
-          desc: 'Pan brioche, 180g ternera angus irlandesa madurada, cebolla crispy, mermelada de bacon, cheddar americano, edam, pepinillos y salsa secreta.',
-          allergens: '1,2,5,7,8,6,4,9',
-          img: 'images/burger-la-secreta.png',
-          ingredients: ['Pan brioche', '180g Angus madurada', 'Cebolla crispy', 'Mermelada de bacon', 'Cheddar americano', 'Edam', 'Pepinillos', 'Salsa secreta'],
-          featured: true,
-          premium: true,
-          emoji: '🍔'
-        },
-        {
-          id: 'la-explosiva', name: 'La Explosiva', price: '12,90€',
-          desc: 'Pan brioche, 180g ternera angus, pulled pork, salsa queso cheddar de risketos, cebolla crispy y crunchy de risketos.',
-          allergens: '2',
-          img: 'images/burger-la-explosiva.png',
-          ingredients: ['Pan brioche', '180g Angus', 'Pulled pork', 'Salsa cheddar de risketos', 'Cebolla crispy', 'Crunchy de risketos'],
-          featured: true,
-          emoji: '🍔'
-        },
-        {
-          id: 'la-campera', name: 'La Campera', price: '12,90€',
-          desc: 'Pan brioche, 180g ternera angus madurada, salsa jabugitos, panceta ibérica y huevo frito.',
-          allergens: '2,4,7,5,6,1',
-          img: 'images/burger-la-campera.png',
-          ingredients: ['Pan brioche', '180g Angus madurada', 'Salsa jabugitos', 'Panceta ibérica', 'Huevo frito'],
-          emoji: '🍔'
-        },
-        {
-          id: 'la-simple', name: 'La Simple con Queso', price: '9,00€',
-          desc: 'Pan brioche, 180g ternera angus madurada, cheddar americano e edam.',
-          allergens: '2,4,7,5,6,1',
-          img: 'images/burger-la-simple.png',
-          ingredients: ['Pan brioche', '180g Angus madurada', 'Cheddar americano', 'Edam'],
-          emoji: '🍔'
-        },
-        {
-          id: 'la-pistachera', name: 'La Pistachera', price: '15,90€',
-          desc: 'Pan brioche, 180g ternera angus madurada, panceta ibérica, huevo frito, mermelada de bacon y salsa especial de pistacho casera.',
-          allergens: '1,2,4,5,8',
-          img: 'images/burger-la-pistachera.png',
-          ingredients: ['Pan brioche', '180g Angus madurada', 'Panceta ibérica', 'Huevo frito', 'Mermelada de bacon', 'Salsa de pistacho casera'],
-          featured: true,
-          emoji: '🍔'
-        }
-      ],
-      rolls: [
-        {
-          id: 'el-furioso', name: 'El Furioso', price: '11,90€',
-          desc: 'Pan brioche abierto con pulled pork y kimchi, guacamole, nachos, cheddar y jalapeños.',
-          allergens: '2,1,5,6,7,11,12',
-          img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCaiHtixPMkpWPpSNNK5wmQR4TNup_xIxdxtUzCkrdP4xaPHodxl7_y2vcenmjph_gUOpobXVrmcCUlFb17Y2ys34-cPXPqprVpexm-lh06U19d3TMWERr54zP4FkJZsOVg6hErQOZkCNPwuS6FB20FTVjek6dRfvjQIV5t4hqc46J3HzZYHPOUR1NW2veK-NwuJJtRBZZ-NVbG7wked_jtbIruhedpov6hbbjrX-qdXpc4acz6wrmzkSr0k4SkeMd77WeKKAl4C7E',
-          ingredients: ['Pan brioche', 'Pulled pork', 'Kimchi', 'Guacamole', 'Nachos', 'Cheddar', 'Jalapeños'],
-          featured: true,
-          emoji: '🌭'
-        },
-        {
-          id: 'el-simplon', name: 'El Simplón', price: '9,90€',
-          desc: 'Pan brioche abierto, filetes de pollo crujiente especiado, mayo de trufa, bacon y cheddar.',
-          allergens: '7,2,12,1,4,11,9,5,6',
-          img: 'images/roll-el-simplon.png',
-          ingredients: ['Pan brioche', 'Pollo crujiente especiado', 'Mayo de trufa', 'Bacon', 'Cheddar'],
-          emoji: '🌭'
-        }
-      ],
-      sandwiches: [
-        {
-          id: 'el-americano', name: 'El Americano', price: '8,90€',
-          desc: 'Rebanadas de pan brioche marcadas con mantequilla, pollo trufado, huevo, cheddar americano, alioli de trufa y crujiente lechuga y tomate.',
-          allergens: '2,7,4,5,6,1,10,11,12,9',
-          img: 'images/sandwich-el-americano.png',
-          ingredients: ['Pan brioche', 'Pollo trufado', 'Huevo', 'Cheddar americano', 'Alioli de trufa', 'Lechuga', 'Tomate'],
-          emoji: '🥪'
-        }
-      ],
-      bebidas: [
-        {
-          id: 'coca-cola', name: 'Coca-Cola', price: '2,50€',
-          desc: 'Lata 33cl.',
-          allergens: '', img: '',
-          ingredients: [], noConfigure: true,
-          emoji: '🥤'
-        },
-        {
-          id: 'coca-cola-zero', name: 'Coca-Cola Zero', price: '2,50€',
-          desc: 'Lata 33cl.',
-          allergens: '', img: '',
-          ingredients: [], noConfigure: true,
-          emoji: '🥤'
-        },
-        {
-          id: 'fanta-naranja', name: 'Fanta Naranja', price: '2,50€',
-          desc: 'Lata 33cl.',
-          allergens: '', img: '',
-          ingredients: [], noConfigure: true,
-          emoji: '🥤'
-        },
-        {
-          id: 'fanta-limon', name: 'Fanta Limón', price: '2,50€',
-          desc: 'Lata 33cl.',
-          allergens: '', img: '',
-          ingredients: [], noConfigure: true,
-          emoji: '🥤'
-        },
-        {
-          id: 'agua', name: 'Agua Mineral', price: '1,50€',
-          desc: 'Botella 50cl.',
-          allergens: '', img: '',
-          ingredients: [], noConfigure: true,
-          emoji: '💧'
-        },
-        {
-          id: 'cerveza', name: 'Cerveza', price: '2,80€',
-          desc: 'Caña de cerveza fría.',
-          allergens: '8', img: '',
-          ingredients: [], noConfigure: true,
-          emoji: '🍺'
-        },
-        {
-          id: 'cerveza-sin', name: 'Cerveza Sin', price: '2,80€',
-          desc: 'Caña sin alcohol.',
-          allergens: '8', img: '',
-          ingredients: [], noConfigure: true,
-          emoji: '🍺'
-        },
-        {
-          id: 'limonada', name: 'Limonada Casera', price: '3,50€',
-          desc: 'Limonada natural con hierbabuena.',
-          allergens: '', img: '',
-          ingredients: [], noConfigure: true,
-          emoji: '🍋'
-        }
-      ],
-      sauces: [
-        { id: 'salsa-secreta', name: 'Salsa Secreta', price: '1,00€' },
-        { id: 'bbq-japonesa', name: 'BBQ Japonesa', price: '1,00€' },
-        { id: 'ali-oli-lima', name: 'Ali Oli de Lima', price: '1,00€' },
-        { id: 'mayotrufa', name: 'Mayotrufa', price: '1,00€' },
-        { id: 'cheddar-risketos', name: 'Cheddar de Risketos', price: '1,00€', wide: true }
-      ]
-    };
-
-    // ═══════════════════════════════════════
-    // RENDER FUNCTIONS
-    // ═══════════════════════════════════════
-    function buildFeaturedCard(item) {
-      const isPremium = item.id === 'la-secreta';
-      const name = (typeof tIng === 'function') ? tIng(item.name) : item.name;
-      return `
-      <div class="featured-burger-card ${isPremium ? 'featured-burger-card--premium' : ''} menu-card fade-up-enter delay-1" onclick="openModal('${item.id}')" style="cursor:pointer">
-        ${isPremium ? '<div class="featured-burger-crown">⭐ La Premium</div>' : ''}
-        <div class="featured-burger-img-wrap">
-          ${item.img
-          ? `<img src="${item.img}" alt="${name}" class="featured-burger-img" />`
-          : `<div class="featured-burger-emoji">${item.emoji || '🍔'}</div>`
-        }
-        </div>
-        <div class="featured-burger-info">
-          <span class="dish-name">${item.name}</span>
-          <span class="dish-price">${item.price}</span>
-        </div>
-      </div>`;
-    }
-
-    function buildMenuRow(item) {
-      const name = (typeof tIng === 'function') ? tIng(item.name) : item.name;
-      const desc = (typeof tDesc === 'function') ? (tDesc(item.id) || item.desc) : item.desc;
-      return `
-      <div class="menu-item-card card fade-up-enter delay-4" onclick="openModal('${item.id}')" style="cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
-        <div style="flex:1">
-          <h4 style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:4px">${name}</h4>
-          <p style="font-size:.75rem;color:var(--text-muted);line-height:1.5">${desc}</p>
-        </div>
-        <span style="font-size:.85rem;font-weight:800;color:var(--accent);white-space:nowrap">${item.price}</span>
-      </div>`;
-    }
-
-    function buildDrinkRow(item) {
-      const name = (typeof tIng === 'function') ? tIng(item.name) : item.name;
-      return `
-      <div class="menu-item-card card fade-up-enter delay-4" style="display:flex;justify-content:space-between;align-items:center;gap:12px">
-        <div style="flex:1">
-          <h4 style="font-size:.85rem;font-weight:700;color:var(--accent);margin-bottom:2px">${name}</h4>
-          <p style="font-size:.75rem;color:var(--text-muted)">${item.desc}</p>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px">
-          <span style="font-size:.85rem;font-weight:800;color:var(--accent);white-space:nowrap">${item.price}</span>
-          <button onclick="addDrinkToCart('${item.id}')" style="background:var(--accent);border:none;border-radius:50%;width:2rem;height:2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .15s" onmouseenter="this.style.transform='scale(1.15)'" onmouseleave="this.style.transform='scale(1)'">
-            <span class="material-symbols-outlined" style="font-size:1.1rem;color:#111">add</span>
-          </button>
-        </div>
-      </div>`;
-    }
-
-    function renderMenu() {
-      // Featured burgers: always show La Explosiva | La Secreta (premium, center) | La Pistachera
-      const featuredBurgers = [
-        MENU_DATA.burgers.find(i => i.id === 'la-explosiva'),
-        MENU_DATA.burgers.find(i => i.id === 'la-secreta'),
-        MENU_DATA.burgers.find(i => i.id === 'la-pistachera'),
-        MENU_DATA.burgers.find(i => i.id === 'el-furioso')
-      ].filter(Boolean);
-      
-      const featuredDishesEl = document.getElementById('featuredDishes');
-      if (featuredDishesEl) {
-        featuredDishesEl.innerHTML = featuredBurgers.map(buildFeaturedCard).join('');
-      }
-    }
-
-    function buildSauceChip(item) {
-      const name = (typeof tIng === 'function') ? tIng(item.name) : item.name;
-      return `<div class="sauce-chip ${item.wide ? 'sauce-chip--wide' : ''}" 
-                   onclick="addSauceToCart('${item.id}')" 
-                   style="cursor:pointer; transition: transform 0.1s active; transition: background 0.2s;"
-                   onmousedown="this.style.transform='scale(0.95)'"
-                   onmouseup="this.style.transform='scale(1)'">
-          ${name}
-      </div>`;
-    }
-    renderMenu();
-
-    window.addEventListener('languageChanged', () => {
-      renderMenu();
-    });
-
-    // ═══════════════════════════════════════
-    // MODAL
-    // ═══════════════════════════════════════
-    function openModal(id) {
-      const item = Object.values(MENU_DATA).flat().find(i => i.id === id);
-      if (!item) return;
-
-      const name = (typeof tIng === 'function') ? tIng(item.name) : item.name;
-      const desc = (typeof tDesc === 'function') ? (tDesc(item.id) || item.desc) : item.desc;
-
-      document.body.style.overflow = 'hidden';
-      document.getElementById('modalTitle').textContent = name;
-      document.getElementById('modalDesc').textContent = desc;
-      document.getElementById('modalPrice').textContent = item.price;
-
-      const imgEl = document.getElementById('modalImg');
-      if (item.img) {
-        imgEl.style.backgroundImage = `url('${item.img}')`;
-        imgEl.style.display = 'block';
-        imgEl.innerHTML = '';
-      } else {
-        imgEl.style.backgroundImage = '';
-        imgEl.style.display = 'flex';
-        imgEl.innerHTML = '<span style="font-size:4rem">🍽️</span>';
-      }
-
-      document.getElementById('modalIngredientsList').innerHTML = item.ingredients.map(ing => {
-        const ingName = (typeof tIng === 'function') ? tIng(ing) : ing;
-        return `<label class="ingredient-label">
-         <span class="ingredient-name">${ingName}</span>
-         <input type="checkbox" class="custom-checkbox" checked>
-       </label>`;
-      }).join('');
-
-      const allGrid = document.getElementById('modalAllergensGrid');
-      const allDetails = document.getElementById('modalAllergensDetails');
-      
-      if (item.allergens) {
-        allDetails.style.display = 'block';
-        const nums = item.allergens.split(',').map(n => n.trim()).filter(Boolean);
-        allGrid.innerHTML = nums.map(n => {
-           // We use the same translation key that the menu objects use
-           const tName = (typeof I18N !== 'undefined') ? I18N.translations['allergen_' + n]?.es || 'Alérgeno ' + n : 'Alérgeno ' + n;
-           // Fallback to I18N.t correctly if needed, but since it's inline in modal we fetch it
-           const actualName = (typeof I18N !== 'undefined' && I18N.t) ? I18N.t('allergen_' + n) : tName;
-           return `<span style="background:var(--surface-dark);padding:4px 8px;border-radius:4px;border:1px solid rgba(255,255,255,0.1)">⚠️ ${actualName}</span>`;
-        }).join('');
-      } else {
-        allDetails.style.display = 'none';
-        allGrid.innerHTML = '';
-      }
-      allDetails.removeAttribute('open'); // Reset accordion
-
-      document.getElementById('modalOverlay').classList.add('active');
-      document.getElementById('productModal').classList.add('active');
-    }
-
-    function closeModal() {
-      document.body.style.overflow = '';
-      document.getElementById('modalOverlay').classList.remove('active');
-      document.getElementById('productModal').classList.remove('active');
-    }
-
-    // ═══════════════════════════════════════
-    // CART — localStorage
-    // ═══════════════════════════════════════
-    const CART_KEY = 'brasa_cart';
-    function getCart() { try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; } catch { return []; } }
-    function saveCart(cart) { localStorage.setItem(CART_KEY, JSON.stringify(cart)); updateCartBadge(); }
-    function updateCartBadge() {
-      const cart = getCart();
-      const badge = document.getElementById('cartBadge');
-      if (!badge) return;
-      const total = cart.reduce((s, i) => s + (i.qty || 1), 0);
-      badge.textContent = total;
-      badge.style.display = total > 0 ? 'block' : 'none';
-    }
-
-    function addToCartAndClose() {
-      // Get current modal item
-      const title = document.getElementById('modalTitle').textContent;
-      const priceText = document.getElementById('modalPrice').textContent;
-
-      // Removed ingredients
-      const removed = [];
-      document.querySelectorAll('#modalIngredientsList .custom-checkbox').forEach((cb, i) => {
-        const label = document.querySelectorAll('#modalIngredientsList .ingredient-name')[i];
-        if (!cb.checked && label) removed.push(label.textContent.trim());
-      });
-
-      // Extras
-      const extraLabels = ['Doble Carne (+3,50€)', 'Bacon Extra (+1,50€)', 'Queso Extra (+1,00€)'];
-      const extraPrices = [3.50, 1.50, 1.00];
-      const extras = [];
-      let extraCost = 0;
-      document.querySelectorAll('.ingredient-group')[1]?.querySelectorAll('.custom-checkbox:not(.allergen-checkbox)').forEach((cb, i) => {
-        if (cb.checked) { extras.push(extraLabels[i]); extraCost += extraPrices[i]; }
-      });
-
-      // Allergens removed from order items, cart no longer stores selected allergens
-      const selectedAllergens = [];
-
-      // Parse base price
-      const baseNum = parseFloat(priceText.replace(',', '.').replace('€', '')) || 0;
-      const totalNum = baseNum + extraCost;
-      const totalStr = totalNum.toFixed(2).replace('.', ',') + '€';
-
-      // Find item id from MENU_DATA by name
-      const allItems = Object.values(MENU_DATA).flat();
-      const found = allItems.find(i => i.name === title);
-      const itemId = found ? found.id : 'custom-' + Date.now();
-      const img = found ? (found.img || '') : '';
-      const emoji = found ? (found.emoji || '🍔') : '🍔';
-
-      const cart = getCart();
-      // Check if identical item exists already
-      const key = itemId + '|' + removed.join(',') + '|' + extras.join(',') + '|' + selectedAllergens.map(a => a.id).join(',');
-      const existing = cart.find(i => i.key === key);
-      if (existing) {
-        existing.qty = (existing.qty || 1) + 1;
-        existing.totalStr = (parseFloat(existing.baseNum || baseNum) * existing.qty + extraCost * existing.qty).toFixed(2).replace('.', ',') + '€';
-      } else {
-        cart.push({ key, id: itemId, name: title, baseNum, extraCost, totalStr, removed, extras, allergens: selectedAllergens, img, emoji, qty: 1 });
-      }
-      saveCart(cart);
-      closeModal();
-
-      // Toast
-      showCartToast(title);
-    }
-
-    function addDrinkToCart(id) {
-      const drink = MENU_DATA.bebidas.find(d => d.id === id);
-      if (!drink) return;
-      const cart = getCart();
-      const existing = cart.find(i => i.id === id);
-      if (existing) {
-        existing.qty = (existing.qty || 1) + 1;
-      } else {
-        const baseNum = parseFloat(drink.price.replace(',', '.').replace('€', '')) || 0;
-        cart.push({ key: id, id, name: drink.name, baseNum, extraCost: 0, totalStr: drink.price, removed: [], extras: [], img: '', emoji: drink.emoji || '🥤', qty: 1 });
-      }
-      saveCart(cart);
-      showCartToast(drink.name);
-    }
-
-    function addSauceToCart(id) {
-      const sauce = MENU_DATA.sauces.find(s => s.id === id);
-      if (!sauce) return;
-      const cart = getCart();
-      const existing = cart.find(i => i.id === id);
-      if (existing) {
-        existing.qty = (existing.qty || 1) + 1;
-      } else {
-        const baseNum = parseFloat(sauce.price.replace(',', '.').replace('€', '')) || 0;
-        cart.push({ key: id, id, name: sauce.name, baseNum, extraCost: 0, totalStr: sauce.price, removed: [], extras: [], img: '', qty: 1 });
-      }
-      saveCart(cart);
-      showCartToast(sauce.name);
-    }
-
-    function showCartToast(name) {
-      let toast = document.getElementById('cartToast');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'cartToast';
-        toast.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--accent);color:#111;font-weight:800;font-size:.85rem;padding:.6rem 1.2rem;border-radius:999px;z-index:9999;opacity:0;transition:all .3s;white-space:nowrap;pointer-events:none';
-        document.body.appendChild(toast);
-      }
-      toast.textContent = '✓ ' + name + ' añadido';
-      toast.style.opacity = '1'; toast.style.transform = 'translateX(-50%) translateY(0)';
-      clearTimeout(toast._t);
-      toast._t = setTimeout(() => { toast.style.opacity = '0'; toast.style.transform = 'translateX(-50%) translateY(20px)'; }, 2200);
-    }
-
-    updateCartBadge();
-
+    // Page-specific: index.html only
+    // (MENU_DATA, cart, modal, render loaded from shared JS)
     // ═══════════════════════════════════════
     // HERO SLIDER
     // ═══════════════════════════════════════
@@ -847,17 +424,6 @@
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.menu-card, .menu-item-card, .fade-up-enter').forEach(el => observer.observe(el));
-
-    // ═══════════════════════════════════════
-    // UI PREMIUM & UTILS
-    // ═══════════════════════════════════════
-    
-    // Sanitize HTML helper
-    function sanitizeHTML(str) {
-      const p = document.createElement('p');
-      p.textContent = str;
-      return p.innerHTML;
-    }
 
     // Floating Cart & Mobile Info Visibility
     window.addEventListener('scroll', () => {

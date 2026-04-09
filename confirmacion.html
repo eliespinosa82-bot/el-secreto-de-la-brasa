@@ -4,29 +4,16 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
     <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#c8973c",
-                        "background-light": "#f8f7f6",
-                        "background-dark": "#1a1a1a",
-                        "iron": "#242424",
-                        "burnt-amber": "#8e6516",
-                    },
-                    fontFamily: { "display": ["Epilogue", "sans-serif"] },
-                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
-                },
-            },
-        }
-    </script>
+    <link rel="stylesheet" href="css/output.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <meta name="description" content="Tu pedido ha sido confirmado. Gracias por elegir El Secreto de la Brasa, Cadiz." />
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
     <title>Pedido Confirmado · El Secreto de la Brasa</title>
     <style>
         body {
@@ -163,13 +150,13 @@
             </section>
 
             <!-- Feedback -->
-            <section class="bg-zinc-900 border border-white/5 rounded-2xl p-4 flex items-center gap-3">
+            <a href="https://wa.me/34661755379?text=Hola%2C%20tengo%20una%20consulta%20sobre%20mi%20pedido" target="_blank" rel="noopener noreferrer" class="block bg-zinc-900 border border-white/5 rounded-2xl p-4 flex items-center gap-3 hover:border-primary/30 transition-colors" style="text-decoration:none;color:inherit">
                 <span class="material-symbols-outlined text-primary">chat_bubble</span>
                 <div>
-                    <div class="text-sm font-bold" data-i18n="order_problem">¿Algún problema con el pedido?</div>
+                    <div class="text-sm font-bold" data-i18n="order_problem">¿Algun problema con el pedido?</div>
                     <div class="text-xs text-slate-500 mt-0.5 underline" data-i18n="contact_support">Contactar con soporte por WhatsApp</div>
                 </div>
-            </section>
+            </a>
 
             <!-- Action Buttons -->
             <section class="space-y-3 pt-2">
@@ -183,12 +170,12 @@
 
         <!-- Bottom Nav -->
         <nav
-            class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-iron/95 backdrop-blur-md border-t border-white/5 flex justify-around items-center px-4 py-3 z-[60]">
+            class="md:hidden fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-iron/95 backdrop-blur-md border-t border-white/5 flex justify-around items-center px-4 py-3 z-[60]">
             <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html">
                 <span class="material-symbols-outlined">home</span>
                 <span class="text-[10px] font-medium" data-i18n="nav_home">Inicio</span>
             </a>
-            <a class="flex flex-col items-center gap-1 text-slate-500" href="index.html#carta">
+            <a class="flex flex-col items-center gap-1 text-slate-500" href="carta.html">
                 <span class="material-symbols-outlined">menu_book</span>
                 <span class="text-[10px] font-medium" data-i18n="nav_menu">Carta</span>
             </a>
@@ -209,26 +196,33 @@
 
     <script>
         function updateLoyaltyMessage() {
-            const orders = JSON.parse(localStorage.getItem('brasa_orders') || '[]');
-            const stamps = orders.length % 10; 
+            let orders;
+            try { orders = JSON.parse(localStorage.getItem('brasa_orders') || '[]'); } catch { orders = []; }
+            if (!Array.isArray(orders)) orders = [];
+            const stamps = orders.length % 10;
             const msgEl = document.getElementById('loyaltyMsg');
             if (!msgEl) return;
-            
+
             const lang = (typeof I18N !== 'undefined') ? I18N.current : 'es';
             const dict = (typeof I18N !== 'undefined') ? I18N.translations : null;
-            
+
             let rawText = "¡Ya tienes {0}/9 sellos! Tu próximo pedido está más cerca de ser gratis.";
             if (dict && dict.loyalty_progress && dict.loyalty_progress[lang]) {
                 rawText = dict.loyalty_progress[lang];
             }
-            
-            msgEl.innerHTML = rawText.replace('{0}', `<span class="text-primary font-bold">${stamps}</span>`);
+
+            const safeStamps = Number.isInteger(stamps) ? stamps : 0;
+            // Sanitize: build the number span safely, then set via DOM
+            const _s = (s) => { const p = document.createElement('p'); p.textContent = s; return p.innerHTML; };
+            const parts = rawText.split('{0}');
+            msgEl.innerHTML = _s(parts[0] || '') + `<span class="text-primary font-bold">${safeStamps}</span>` + _s(parts[1] || '');
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             // Carga de datos desde sessionStorage y localStorage (brasa_user)
-            const pedido = JSON.parse(sessionStorage.getItem('pedido') || '{}');
-            const usuario = JSON.parse(localStorage.getItem('brasa_user') || '{}');
+            let pedido, usuario;
+            try { pedido = JSON.parse(sessionStorage.getItem('pedido') || '{}'); } catch { pedido = {}; }
+            try { usuario = JSON.parse(localStorage.getItem('brasa_user') || '{}'); } catch { usuario = {}; }
 
             const nombre = pedido.nombre || usuario.nombre || 'Cliente';
             const direccion = pedido.direccion || usuario.direccion || 'Mercado Virgen del Rosario, Cádiz';

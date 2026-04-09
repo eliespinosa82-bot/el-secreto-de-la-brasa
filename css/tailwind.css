@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+/* Extend Tailwind theme to match app design system */
+@theme {
+  --color-primary: #c8973c;
+  --color-background-light: #f8f7f6;
+  --color-background-dark: #1a1a1a;
+  --color-surface-dark: #242424;
+  --color-iron: #242424;
+  --color-burnt-amber: #8e6516;
+  --font-family-display: "Epilogue", sans-serif;
+  --radius-DEFAULT: 1rem;
+  --radius-lg: 2rem;
+  --radius-xl: 3rem;
+}

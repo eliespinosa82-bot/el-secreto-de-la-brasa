@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#1a1a1a"/>
+
+  <!-- Warm glow -->
+  <radialGradient id="glow" cx="50%" cy="50%" r="55%">
+    <stop offset="0%" stop-color="#c8973c" stop-opacity="0.18"/>
+    <stop offset="100%" stop-color="#1a1a1a" stop-opacity="0"/>
+  </radialGradient>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+
+  <!-- Top border accent -->
+  <rect x="0" y="0" width="1200" height="5" fill="#c8973c"/>
+
+  <!-- Fire emoji large -->
+  <text x="600" y="270" font-size="160" text-anchor="middle" dominant-baseline="middle">🔥</text>
+
+  <!-- Brand name -->
+  <text x="600" y="370" font-family="Georgia, serif" font-size="64" font-weight="bold" fill="#c8973c" text-anchor="middle" letter-spacing="2">El Secreto de la Brasa</text>
+
+  <!-- Tagline -->
+  <text x="600" y="430" font-family="Georgia, serif" font-size="28" fill="#a89880" text-anchor="middle" letter-spacing="1">Hamburguesas Artesanas · Cádiz</text>
+
+  <!-- Separator line -->
+  <rect x="480" y="460" width="240" height="2" rx="1" fill="#c8973c" opacity="0.5"/>
+
+  <!-- Location -->
+  <text x="600" y="500" font-family="Georgia, serif" font-size="22" fill="#6b6b6b" text-anchor="middle">Mercado Virgen del Rosario</text>
+</svg>
